@@ -23,8 +23,10 @@
                 <div class="card">添加监测日历</div>
             </div>
             <div class="card-row">
-                <div class="card">查看诊疗建议</div>
-                <div class="card">查看病例</div>
+                <div class="card" @click="viewDiagnosisAdvice">
+                    查看诊疗建议
+                </div>
+                <div class="card" @click="viewCases">查看病例</div>
             </div>
         </div>
         <div class="home-page-notice">
@@ -61,6 +63,7 @@
 </template>
 
 <script>
+// 首页
 import {
     Button,
     Uploader,
@@ -124,14 +127,13 @@ export default {
             return img;
         },
         choseDocter() {
-            this.$api
-                .get('/sss/xxxxxx')
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+            this.$router.push('/patients/my-doctor');
+        },
+        viewCases() {
+            this.$router.push('/patients/personal-cases');
+        },
+        viewDiagnosisAdvice() {
+            this.$router.push('/patients/diagnosis-advice');
         },
     },
 };

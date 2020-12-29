@@ -16,22 +16,22 @@ const routes = [
                 /* webpackChunkName: "home-page" */ '../module/Patients/Home/index.vue'
             ),
     },
-    // {
-    //     path: '/patients/home',
-    //     name: 'home-page',
-    //     component: () =>
-    //         import(
-    //             /* webpackChunkName: "home-page" */ '../module/Patients/Home/index.vue'
-    //         ),
-    // },
-    // {
-    //     path: '/patients/home',
-    //     name: 'home-page',
-    //     component: () =>
-    //         import(
-    //             /* webpackChunkName: "home-page" */ '../module/Patients/Home/index.vue'
-    //         ),
-    // },
+    {
+        path: '/patients/monitor-calendar',
+        name: 'monitor-calendar-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "monitor-calendar-page" */ '../module/Patients/MonitorCalendar/index.vue'
+            ),
+    },
+    {
+        path: '/patients/my-doctor',
+        name: 'my-doctor-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "my-doctor-page" */ '../module/Patients/MyDoctor/index.vue'
+            ),
+    },
     {
         path: '/patients/mine',
         name: 'mine-page',
@@ -54,6 +54,14 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "personal-cases-page" */ '../module/Patients/PersonalCases/index.vue'
+            ),
+    },
+    {
+        path: '/patients/diagnosis-advice',
+        name: 'diagnosis-advice-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "diagnosis-advice-page" */ '../module/Patients/DiagnosisAdvice/index.vue'
             ),
     },
 ];

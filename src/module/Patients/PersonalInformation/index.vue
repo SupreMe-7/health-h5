@@ -1,7 +1,6 @@
 <template>
     <div class="personal-information">
         <NavBar title="个人信息" />
-        <div class="personal-cases">个人病例</div>
         <van-cell-group>
             <van-cell title="姓名" label="张三" size="large" />
             <van-cell title="性别" label="男" size="large" />

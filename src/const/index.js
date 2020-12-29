@@ -7,12 +7,12 @@ export const patientsNavBar = [
     {
         label: '监测日历',
         icon: 'user-circle-o',
-        url: '/patients',
+        url: '/patients/monitor-calendar',
     },
     {
         label: '我的医生',
         icon: 'user-circle-o',
-        url: '/patients',
+        url: '/patients/my-doctor',
     },
     {
         label: '我的',
