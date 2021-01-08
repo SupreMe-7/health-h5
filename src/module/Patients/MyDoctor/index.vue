@@ -50,7 +50,7 @@
                     @confirm="confirmDoctor"
                 />
             </van-popup>
-            <div>
+            <div class="extra" v-if="address && !hospitalDoctor.length">
                 您选择的地区, 暂无符合条件的医院, 请选择附近的地址
             </div>
             <div class="btn-group">
@@ -63,7 +63,16 @@
 
 <script>
 import areaList from '@/const/area.js';
-import { Button, Cell, CellGroup, Picker, Field, Popup, Area } from 'vant';
+import {
+    Button,
+    Cell,
+    CellGroup,
+    Picker,
+    Field,
+    Popup,
+    Area,
+    Toast,
+} from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
     data() {
@@ -72,19 +81,11 @@ export default {
             areaList: areaList,
             address: '',
             doctor: '',
+            docId: '',
             showDoctorPicker: false,
             showAddressPicker: false,
             // 医生列表
-            hospitalDoctor: [
-                '杭州',
-                '宁波',
-                '温州',
-                '绍兴',
-                '湖州',
-                '嘉兴',
-                '金华',
-                '衢州',
-            ],
+            hospitalDoctor: [],
         };
     },
     computed: {},
@@ -105,17 +106,37 @@ export default {
             // TODO: 申请选择全科医生
         },
         confirmAddress(value) {
+            const province = value[0]?.name;
+            const city = value[1]?.name;
+            const district = value[2]?.name;
             let temp = '';
             value.forEach(ele => {
-                console.log(ele);
-                ele && (temp = temp + ele.name);
+                if (ele) {
+                    temp = temp + ele.name;
+                }
             });
             this.address = temp;
             this.showAddressPicker = false;
-            // TODO: 地址选择后调接口 获取医生列表
+            // 地址选择后 获取医生列表
+            this.$api
+                .post(`/qkys/api/getDocByArea`, {
+                    province: province || null,
+                    city: city || null,
+                    district: district || null,
+                })
+                .then(res => {
+                    this.hospitalDoctor = res.data.data;
+                    this.hospitalDoctor.forEach(item => {
+                        item.text = item?.hospital + item?.docName + '医生';
+                    });
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
         confirmDoctor(value) {
-            this.doctor = value;
+            this.doctor = value?.text;
+            this.docId = value?.dId;
             this.showDoctorPicker = false;
         },
     },
@@ -126,6 +147,11 @@ export default {
 .my-doctor {
     padding: 10px;
     .have-doctor {
+    }
+    .extra {
+        text-align: center;
+        font-size: 14px;
+        color: rgb(9, 54, 84);
     }
     .btn-group {
         margin-top: 20px;

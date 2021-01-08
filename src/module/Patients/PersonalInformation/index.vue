@@ -2,35 +2,81 @@
     <div class="personal-information">
         <NavBar title="个人信息" />
         <van-cell-group>
-            <van-cell title="姓名" label="张三" size="large" />
-            <van-cell title="性别" label="男" size="large" />
-            <van-cell title="出生日期" label="1998-22-22" size="large" />
-            <van-cell title="所在地" label="北京市-海淀区" size="large" />
-            <van-cell title="身份证号" label="2435345345345345" size="large" />
-            <van-cell title="手机" label="13445454543333" size="large" />
-            <van-cell title="职业" label="码农" size="large" />
+            <van-cell title="姓名" :label="name" size="large" />
+            <van-cell title="性别" :label="sex" size="large" />
+            <van-cell title="出生日期" :label="birth" size="large" />
+            <van-cell
+                title="所在地"
+                :label="`${province}${city}${district}`"
+                size="large"
+            />
+            <van-cell title="身份证号" :label="cardNum" size="large" />
+            <van-cell title="手机" :label="phone" size="large" />
+            <van-cell title="职业" :label="profession" size="large" />
         </van-cell-group>
-        <van-button type="info">修改</van-button>
+        <div class="btn-group">
+            <van-button type="info">修改</van-button>
+        </div>
     </div>
 </template>
 
 <script>
-import { Button, Cell, CellGroup } from 'vant';
+import { Button, Cell, CellGroup, Toast } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 export default {
     data() {
-        return {};
+        return {
+            phone: '',
+            name: '',
+            cardNum: '',
+            province: '',
+            city: '',
+            district: '',
+            birth: '',
+            sex: '',
+            profession: '',
+        };
     },
     computed: {},
-    mounted() {},
+    mounted() {
+        this.getPaByPhone();
+    },
     components: {
         [Button.name]: Button,
         [Cell.name]: Cell,
         [CellGroup.name]: CellGroup,
         NavBar,
-        // [Icon.name]: Icon,
     },
-    methods: {},
+    methods: {
+        getPaByPhone() {
+            const phone = sessionStorage.getItem('USER_PHONE');
+            this.$api
+                .get(`/qkys/api/getPaByPhone/${phone}`)
+                .then(res => {
+                    const {
+                        phone,
+                        name,
+                        cardNum,
+                        province,
+                        city,
+                        district,
+                        birth,
+                        sex,
+                    } = res.data;
+                    this.phone = phone;
+                    this.name = name;
+                    this.cardNum = cardNum;
+                    this.province = province;
+                    this.city = city;
+                    this.district = district;
+                    this.sex = sex;
+                    this.birth = new Date(+birth).toLocaleDateString();
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
+    },
 };
 </script>
 
@@ -38,6 +84,11 @@ export default {
 .personal-information {
     .personal-cases {
         padding: 10px 10px;
+        text-align: right;
+    }
+    .btn-group {
+        padding: 0 10px;
+        margin: 10px 0 0 0;
         text-align: right;
     }
 }

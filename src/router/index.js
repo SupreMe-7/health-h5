@@ -9,6 +9,22 @@ const routes = [
         redirect: '/patients/home',
     },
     {
+        path: '/patients/login',
+        name: 'login-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "login-page" */ '../module/Patients/Login/Login.vue'
+            ),
+    },
+    {
+        path: '/patients/registered',
+        name: 'registered-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "registered-page" */ '../module/Patients/Login/Registered.vue'
+            ),
+    },
+    {
         path: '/patients/home',
         name: 'home-page',
         component: () =>
@@ -62,6 +78,14 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "diagnosis-advice-page" */ '../module/Patients/DiagnosisAdvice/index.vue'
+            ),
+    },
+    {
+        path: '/patients/notice',
+        name: 'notice-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "notice-page" */ '../module/Patients/Notice/index.vue'
             ),
     },
 ];

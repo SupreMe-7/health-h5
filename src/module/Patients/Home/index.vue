@@ -3,7 +3,9 @@
         <div class="home-page-header">
             <div class="header-address">{{ address }}</div>
             <van-badge :content="unreadNotice" max="9">
-                <div class="header-news">消息</div>
+                <div class="header-news" @click="toUrl('/patients/notice')">
+                    消息
+                </div>
             </van-badge>
         </div>
         <div class="home-page-swiper">
@@ -19,25 +21,17 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="choseDocter">选择全科医生</div>
+                <div class="card" @click="toUrl('/patients/my-doctor')">
+                    {{ docName ? `我的全科医生` : '选择全科医生' }}
+                </div>
                 <div class="card">添加监测日历</div>
             </div>
             <div class="card-row">
-                <div class="card" @click="viewDiagnosisAdvice">
+                <div class="card" @click="toUrl('/patients/diagnosis-advice')">
                     查看诊疗建议
                 </div>
-                <div class="card" @click="viewCases">查看病例</div>
-            </div>
-        </div>
-        <div class="home-page-notice">
-            <div>通知</div>
-            <div class="notice-content">
-                <div
-                    class="notice-item"
-                    v-for="(notice, index) in notices"
-                    :key="index"
-                >
-                    {{ notice }}
+                <div class="card" @click="toUrl('/patients/personal-cases')">
+                    查看病例
                 </div>
             </div>
         </div>
@@ -72,6 +66,7 @@ import {
     Badge,
     Image as VanImage,
     NoticeBar,
+    Toast,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
@@ -86,11 +81,6 @@ export default {
                 'https://img.yzcdn.cn/vant/cat.jpeg',
                 'https://img.yzcdn.cn/vant/apple-2.jpg',
             ],
-            notices: [
-                '来来来, 来来来法第三方士大夫反对违法维A酸多按收费方式发生的发送到水电费谁都防守打法水电费',
-                '来来来, 来来来法第三方士大夫反对违法维A酸多按收费方式发生的发送到水电费谁都防守打法水电费',
-                '来来来, 来来来法第三方士大夫反对违法维A酸多按收费方式发生的发送到水电费谁都防守打法水电费',
-            ],
             recommend: [
                 'fbtb个人股热狗收发文Greg而给第三方士大夫违法微服务是的冯绍峰发为',
                 'fbtb个人股热狗收发文Greg而给第三方士大夫违法微服务是的冯绍峰发为',
@@ -98,9 +88,12 @@ export default {
                 'fbtb个人股热狗收发文Greg而给第三方士大夫违法微服务是的冯绍峰发为',
                 'fbtb个人股热狗收发文Greg而给第三方士大夫违法微服务是的冯绍峰发为',
             ],
+            docName: '',
         };
     },
-    mounted() {},
+    mounted() {
+        this.getPaByPhone();
+    },
     components: {
         [Button.name]: Button,
         [Uploader.name]: Uploader,
@@ -113,8 +106,22 @@ export default {
         // [Icon.name]: Icon,
     },
     methods: {
-        jumpUrl(name) {
-            this.$router.push(`/${name}`);
+        getPaByPhone() {
+            const phone = sessionStorage.getItem('USER_PHONE');
+            this.$api
+                .get(`/qkys/api/getPaByPhone/${phone}`)
+                .then(res => {
+                    const { id, docName } = res.data;
+                    this.docName = docName;
+                    sessionStorage.setItem('PATIENT_ID', id);
+                    console.log(res);
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
+        toUrl(url) {
+            this.$router.push(url);
         },
         afterRead(file) {
             console.log('----', file);
@@ -125,15 +132,6 @@ export default {
                 type: 'image/jpeg',
             });
             return img;
-        },
-        choseDocter() {
-            this.$router.push('/patients/my-doctor');
-        },
-        viewCases() {
-            this.$router.push('/patients/personal-cases');
-        },
-        viewDiagnosisAdvice() {
-            this.$router.push('/patients/diagnosis-advice');
         },
     },
 };
@@ -174,22 +172,6 @@ export default {
                 font-size: 20px;
                 background-color: #39a9ed;
                 text-align: center;
-            }
-        }
-    }
-    .home-page-notice {
-        margin-bottom: 14px;
-        font-size: 24px;
-        .notice-content {
-            font-size: 14px;
-            border: 1px solid #000;
-            max-height: 100px;
-            overflow: auto;
-            .notice-item {
-                padding: 2px 0 2px 2px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
             }
         }
     }

@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import less from 'less';
 import request from './common/request';
-// TODO:
+// TODO: 删除vconsole
 import Vconsole from 'vconsole';
 let vConsole = new Vconsole();
 Vue.use(vConsole);
