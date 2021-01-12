@@ -24,7 +24,9 @@
                 <div class="card" @click="toUrl('/patients/my-doctor')">
                     {{ docName ? `我的全科医生` : '选择全科医生' }}
                 </div>
-                <div class="card">添加监测日历</div>
+                <div class="card" @click="toUrl('/patients/add-calendar')">
+                    添加监测日历
+                </div>
             </div>
             <div class="card-row">
                 <div class="card" @click="toUrl('/patients/diagnosis-advice')">
@@ -47,27 +49,13 @@
                 </div>
             </div>
         </div>
-        <van-uploader
-            v-model="fileList"
-            :after-read="afterRead"
-            :before-read="beforeRead"
-        />
         <TabBar :nowKey="0"></TabBar>
     </div>
 </template>
 
 <script>
 // 首页
-import {
-    Button,
-    Uploader,
-    Swipe,
-    SwipeItem,
-    Badge,
-    Image as VanImage,
-    NoticeBar,
-    Toast,
-} from 'vant';
+import { Swipe, SwipeItem, Badge, Toast, Image as VanImage } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
     data() {
@@ -95,15 +83,11 @@ export default {
         this.getPaByPhone();
     },
     components: {
-        [Button.name]: Button,
-        [Uploader.name]: Uploader,
         TabBar,
         [Swipe.name]: Swipe,
         [SwipeItem.name]: SwipeItem,
         [Badge.name]: Badge,
         [VanImage.name]: VanImage,
-        [NoticeBar.name]: NoticeBar,
-        // [Icon.name]: Icon,
     },
     methods: {
         getPaByPhone() {
@@ -113,8 +97,7 @@ export default {
                 .then(res => {
                     const { id, docName } = res.data;
                     this.docName = docName;
-                    sessionStorage.setItem('PATIENT_ID', id);
-                    console.log(res);
+                    sessionStorage.setItem('PID', id);
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -122,16 +105,6 @@ export default {
         },
         toUrl(url) {
             this.$router.push(url);
-        },
-        afterRead(file) {
-            console.log('----', file);
-        },
-        beforeRead(file) {
-            console.log('====', file);
-            let img = new File([file], 'bar.jpg', {
-                type: 'image/jpeg',
-            });
-            return img;
         },
     },
 };

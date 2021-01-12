@@ -1,17 +1,24 @@
 <template>
     <div class="my-doctor">
-        <div v-if="haveDoctor" class="have-doctor">
-            <div>
-                您已选择XXX医生, 请等待XXX通过您的申请,
+        <div v-if="isHasSelection || currentDoc" class="have-doctor">
+            <van-cell title="您的全科医生" :label="currentDoc" size="large" />
+            <div v-if="isHasSelection" class="apply-doctor">
+                您已于{{ selectedTime }}日申请{{
+                    docName
+                }}医生作为您的全科医生，请耐心等待医生确认。如需更换全科医生，请重新选择申请。
             </div>
-            <van-cell title="您的全科医生" label="XX医院XX医生" size="large" />
             <van-cell
                 title="您的专科主管医生"
                 label="XX医院XX科室XX医生"
                 size="large"
             />
             <div class="btn-group">
-                <van-button type="info" @click="haveDoctor = false"
+                <van-button
+                    type="info"
+                    @click="
+                        isHasSelection = false;
+                        currentDoc = '';
+                    "
                     >申请变更全科医生</van-button
                 >
             </div>
@@ -63,47 +70,74 @@
 
 <script>
 import areaList from '@/const/area.js';
-import {
-    Button,
-    Cell,
-    CellGroup,
-    Picker,
-    Field,
-    Popup,
-    Area,
-    Toast,
-} from 'vant';
+import { Button, Cell, Picker, Field, Popup, Area, Toast } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
     data() {
         return {
-            haveDoctor: true,
+            pId: '',
+            isHasSelection: true,
+            docName: '',
+            selectedTime: '',
+
             areaList: areaList,
             address: '',
             doctor: '',
-            docId: '',
+            dId: '',
             showDoctorPicker: false,
             showAddressPicker: false,
             // 医生列表
             hospitalDoctor: [],
+
+            currentDoc: '',
+            isConfirmed: false,
         };
     },
     computed: {},
-    mounted() {},
+    mounted() {
+        this.pId = sessionStorage.getItem('PID') || '';
+        this.getSelectedDocByPId();
+        this.getDoctor();
+    },
     components: {
         [Button.name]: Button,
         [Cell.name]: Cell,
-        [CellGroup.name]: CellGroup,
         [Picker.name]: Picker,
         [Field.name]: Field,
         [Popup.name]: Popup,
         [Area.name]: Area,
         TabBar,
-        // [Icon.name]: Icon,
     },
     methods: {
+        getSelectedDocByPId() {
+            this.$api
+                .get(`/qkys/api/getSelectedDocByPId/${this.pId}`)
+                .then(res => {
+                    const { isHasSelection, docName, selectedTime } = res.data;
+                    this.isHasSelection = isHasSelection;
+                    this.docName = docName;
+                    this.selectedTime = (selectedTime || '').slice(0, 10);
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
         choseDoctor() {
-            // TODO: 申请选择全科医生
+            if (!this.doctor) {
+                Toast('请选择医生');
+                return;
+            }
+            this.$api
+                .post(`/qkys/api/insertSelectDoc`, {
+                    pId: this.pId,
+                    dId: this.dId,
+                })
+                .then(res => {
+                    Toast('申请成功');
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
         confirmAddress(value) {
             const province = value[0]?.name;
@@ -125,7 +159,7 @@ export default {
                     district: district || null,
                 })
                 .then(res => {
-                    this.hospitalDoctor = res.data.data;
+                    this.hospitalDoctor = res.data;
                     this.hospitalDoctor.forEach(item => {
                         item.text = item?.hospital + item?.docName + '医生';
                     });
@@ -136,8 +170,19 @@ export default {
         },
         confirmDoctor(value) {
             this.doctor = value?.text;
-            this.docId = value?.dId;
+            this.dId = value?.dId;
             this.showDoctorPicker = false;
+        },
+        getDoctor() {
+            this.$api
+                .get(`/qkys/api/getDocByPId/${this.pId}`)
+                .then(res => {
+                    const { name = '', hospital = '' } = res.data || {};
+                    this.currentDoc = name + hospital;
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
     },
 };
@@ -147,6 +192,11 @@ export default {
 .my-doctor {
     padding: 10px;
     .have-doctor {
+        .apply-doctor {
+            font-size: 12px;
+            text-align: center;
+            color: rgb(9, 54, 84);
+        }
     }
     .extra {
         text-align: center;

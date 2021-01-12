@@ -41,6 +41,14 @@ const routes = [
             ),
     },
     {
+        path: '/patients/add-calendar',
+        name: 'add-calendar-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "add-calendar-page" */ '../module/Patients/MonitorCalendar/AddCalendar.vue'
+            ),
+    },
+    {
         path: '/patients/my-doctor',
         name: 'my-doctor-page',
         component: () =>

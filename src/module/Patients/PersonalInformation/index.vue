@@ -62,6 +62,7 @@ export default {
                         district,
                         birth,
                         sex,
+                        profession,
                     } = res.data;
                     this.phone = phone;
                     this.name = name;
@@ -70,6 +71,7 @@ export default {
                     this.city = city;
                     this.district = district;
                     this.sex = sex;
+                    this.profession = profession;
                     this.birth = new Date(+birth).toLocaleDateString();
                 })
                 .catch(e => {

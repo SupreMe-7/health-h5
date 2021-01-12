@@ -34,7 +34,6 @@ export default {
         [Cell.name]: Cell,
         [CellGroup.name]: CellGroup,
         NavBar,
-        // [Icon.name]: Icon,
     },
     methods: {},
 };

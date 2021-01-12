@@ -3,14 +3,15 @@
         <van-tabs v-model="active">
             <van-tab title="血压">内容 1</van-tab>
             <van-tab title="血糖">内容 2</van-tab>
-            <van-tab title="运动">内容 3</van-tab>
-            <van-tab title="饮食">内容 4</van-tab>
+            <van-tab title="运动/饮食">内容 3</van-tab>
+            <van-tab title="辅助检查">内容 4</van-tab>
         </van-tabs>
         <TabBar :nowKey="1"></TabBar>
     </div>
 </template>
 
 <script>
+//TODO:
 import { Button, Cell, CellGroup, Tab, Tabs } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
