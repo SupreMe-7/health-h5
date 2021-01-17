@@ -38,7 +38,6 @@ export default {
     data() {
         return {
             firstList: [],
-            secondList: [],
             active: 0,
             loading: false,
             finished: false,

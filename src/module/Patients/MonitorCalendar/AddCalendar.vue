@@ -95,6 +95,7 @@
                 >上传</van-button
             >
         </div>
+        <img :src="value" alt="" />
     </div>
 </template>
 
@@ -163,6 +164,7 @@ export default {
             try {
                 for (let item of this.fileList) {
                     let res = await this.$lrz(item.file);
+                    this.value = res;
                     pics.push(res.base64.split(',')[1]);
                 }
             } catch {
