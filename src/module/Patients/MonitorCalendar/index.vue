@@ -1,7 +1,7 @@
 <template>
     <div class="monitor-calendar">
         <van-tabs v-model="diaryMethod" sticky>
-            <van-tab title="血糖" name="bloodSugar">
+            <van-tab title="血糖" name="blood_sugar">
                 <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
                     <van-list
                         v-model="loading"
@@ -41,45 +41,191 @@
                                 </div>
                             </div>
                             <div
-                                v-if="
-                                    item.picPath1 ||
-                                        item.picPath2 ||
-                                        item.picPath3
-                                "
+                                v-if="item.pics && item.pics.length"
                                 class="show-item-img"
                             >
-                                <img
-                                    v-if="item.picPath1"
-                                    :src="
-                                        'https://qkys.zhugaotech.com/pics/' +
-                                            item.picPath1
+                                <van-image
+                                    v-for="(ele, index) in item.pics"
+                                    :key="index"
+                                    width="30%"
+                                    :src="ele"
+                                    @click="
+                                        ImagePreview({
+                                            images: item.pics,
+                                            startPosition: index,
+                                        })
                                     "
-                                    alt=""
-                                />
-                                <img
-                                    v-if="item.picPath2"
-                                    :src="
-                                        'https://qkys.zhugaotech.com/pics/' +
-                                            item.picPath2
-                                    "
-                                    alt=""
-                                />
-                                <img
-                                    v-if="item.picPath3"
-                                    :src="
-                                        'https://qkys.zhugaotech.com/pics/' +
-                                            item.picPath3
-                                    "
-                                    alt=""
                                 />
                             </div>
                         </div>
                     </van-list>
                 </van-pull-refresh>
             </van-tab>
-            <van-tab title="血压">内容 2</van-tab>
-            <van-tab title="运动/饮食">内容 3</van-tab>
-            <van-tab title="辅助检查">内容 4</van-tab>
+            <van-tab title="血压" name="blood_pressure">
+                <van-pull-refresh
+                    v-if="diaryMethod === 'blood_pressure'"
+                    v-model="refreshing"
+                    @refresh="onRefresh"
+                >
+                    <van-list
+                        v-model="loading"
+                        :finished="finished"
+                        finished-text="没有更多了~"
+                        @load="onLoad"
+                    >
+                        <div
+                            class="show-item"
+                            v-for="(item, index) in list"
+                            :key="index"
+                        >
+                            <div class="show-item-time">
+                                {{ item.createTime }}
+                            </div>
+                            <div class="show-item-main">
+                                <div class="show-item-info">
+                                    早晨: {{ item.morningPressure }}
+                                </div>
+                                <div class="show-item-info">
+                                    中午: {{ item.afternoonPressure }}
+                                </div>
+                                <div class="show-item-info">
+                                    晚间: {{ item.eveningPressure }}
+                                </div>
+                            </div>
+                            <div
+                                v-if="item.pics && item.pics.length"
+                                class="show-item-img"
+                            >
+                                <van-image
+                                    v-for="(ele, index) in item.pics"
+                                    :key="index"
+                                    width="30%"
+                                    :src="ele"
+                                    @click="
+                                        ImagePreview({
+                                            images: item.pics,
+                                            startPosition: index,
+                                        })
+                                    "
+                                />
+                            </div>
+                        </div>
+                    </van-list> </van-pull-refresh
+            ></van-tab>
+            <van-tab title="运动/饮食" name="sport_diet">
+                <van-pull-refresh
+                    v-if="diaryMethod === 'sport_diet'"
+                    v-model="refreshing"
+                    @refresh="onRefresh"
+                >
+                    <van-list
+                        v-model="loading"
+                        :finished="finished"
+                        finished-text="没有更多了~"
+                        @load="onLoad"
+                    >
+                        <div
+                            class="show-item"
+                            v-for="(item, index) in list"
+                            :key="index"
+                        >
+                            <div class="show-item-time">
+                                {{ item.createTime }}
+                            </div>
+                            <div class="item-item-title">运动</div>
+                            <div class="show-item-main">
+                                <div class="show-item-info">
+                                    早晨: {{ item.morningSport }}
+                                </div>
+                                <div class="show-item-info">
+                                    中午: {{ item.afternoonSport }}
+                                </div>
+                                <div class="show-item-info">
+                                    晚间: {{ item.eveningSport }}
+                                </div>
+                            </div>
+                            <div class="item-item-title">饮食</div>
+                            <div class="show-item-main">
+                                <div class="show-item-info">
+                                    早餐: {{ item.breakfast }}
+                                </div>
+                                <div class="show-item-info">
+                                    午餐: {{ item.lunch }}
+                                </div>
+                                <div class="show-item-info">
+                                    晚餐: {{ item.dinner }}
+                                </div>
+                                <div class="show-item-info">
+                                    间食: {{ item.betweenMeals }}
+                                </div>
+                            </div>
+                            <div
+                                v-if="item.pics && item.pics.length"
+                                class="show-item-img"
+                            >
+                                <van-image
+                                    v-for="(ele, index) in item.pics"
+                                    :key="index"
+                                    width="30%"
+                                    :src="ele"
+                                    @click="
+                                        ImagePreview({
+                                            images: item.pics,
+                                            startPosition: index,
+                                        })
+                                    "
+                                />
+                            </div>
+                        </div>
+                    </van-list> </van-pull-refresh
+            ></van-tab>
+            <van-tab title="辅助检查" name="examination">
+                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                    <van-list
+                        v-model="loading"
+                        :finished="finished"
+                        finished-text="没有更多了~"
+                        @load="onLoad"
+                    >
+                        <div
+                            class="show-item"
+                            v-for="(item, index) in list"
+                            :key="index"
+                        >
+                            <div class="show-item-time">
+                                {{ item.createTime }}
+                            </div>
+                            <div class="show-item-main">
+                                <div class="show-item-info">
+                                    早晨: {{ item.morningPressure }}
+                                </div>
+                                <div class="show-item-info">
+                                    中午: {{ item.afternoonPressure }}
+                                </div>
+                                <div class="show-item-info">
+                                    晚上: {{ item.eveningPressure }}
+                                </div>
+                            </div>
+                            <div
+                                v-if="item.pics && item.pics.length"
+                                class="show-item-img"
+                            >
+                                <van-image
+                                    v-for="(ele, index) in item.pics"
+                                    :key="index"
+                                    width="30%"
+                                    :src="ele"
+                                    @click="
+                                        ImagePreview({
+                                            images: item.pics,
+                                            startPosition: index,
+                                        })
+                                    "
+                                />
+                            </div>
+                        </div>
+                    </van-list> </van-pull-refresh
+            ></van-tab>
         </van-tabs>
         <TabBar :nowKey="1"></TabBar>
     </div>
@@ -88,13 +234,13 @@
 <script>
 //TODO:
 import {
-    Button,
     Tab,
     Tabs,
     ImagePreview,
     Toast,
     List,
     PullRefresh,
+    Image as VanImage,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
@@ -107,21 +253,30 @@ export default {
             list: [],
             currPage: 0,
             pageSize: 10,
-            diaryMethod: 'bloodSugar',
+            diaryMethod: 'blood_sugar',
             totalPage: null,
+            picBaseUrl: 'https://qkys.zhugaotech.com/pics/',
         };
     },
     computed: {},
+    watch: {
+        diaryMethod() {
+            this.list = [];
+            this.loading = false;
+            this.totalPage = null;
+            this.finished = false;
+            this.currPage = 0;
+        },
+    },
     mounted() {
         this.pId = sessionStorage.getItem('PID');
     },
     components: {
-        [Button.name]: Button,
         [Tab.name]: Tab,
         [Tabs.name]: Tabs,
-        [ImagePreview.Component.name]: ImagePreview.Component,
         [List.name]: List,
         [PullRefresh.name]: PullRefresh,
+        [VanImage.name]: VanImage,
         TabBar,
     },
     methods: {
@@ -146,10 +301,20 @@ export default {
             this.getInfo()
                 .then(res => {
                     const { data } = res;
+                    data.data.forEach(item => {
+                        item.pics = [];
+                        item.picPath1 &&
+                            item.pics.push(this.picBaseUrl + item.picPath1);
+                        item.picPath2 &&
+                            item.pics.push(this.picBaseUrl + item.picPath2);
+                        item.picPath3 &&
+                            item.pics.push(this.picBaseUrl + item.picPath3);
+                    });
                     this.list = this.list.concat(data.data);
+                    console.log(this.list);
                     this.loading = false;
                     this.currPage = data.currPage;
-                    if (this.currPage === data.totalPage) {
+                    if (this.currPage >= data.totalPage) {
                         this.finished = true;
                     }
                 })
@@ -158,6 +323,7 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        ImagePreview: ImagePreview,
     },
 };
 </script>
@@ -170,6 +336,11 @@ export default {
         padding: 10px;
         .show-item-time {
             margin: 0 0 10px 0;
+        }
+        .item-item-title {
+            margin: 5px 0;
+            font-size: 18px;
+            font-weight: bold;
         }
         .show-item-main {
             display: flex;
@@ -184,9 +355,9 @@ export default {
         .show-item-img {
             margin: 10px 0 0 0;
             display: flex;
-            justify-content: space-between;
-            img {
-                width: 30%;
+            flex-wrap: wrap;
+            .van-image {
+                margin-right: 8px;
             }
         }
     }

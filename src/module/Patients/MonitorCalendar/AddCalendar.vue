@@ -6,87 +6,135 @@
                 readonly
                 clickable
                 label="上传类型"
-                :value="calendarType"
+                :value="diaryMethod.text"
                 placeholder="请选择上传的类型"
                 @click="choseTypePicker = true"
             />
             <van-popup v-model="choseTypePicker" round position="bottom">
                 <van-picker
                     show-toolbar
-                    :columns="calendarTypeList"
+                    :columns="diaryMethodList"
                     @cancel="choseTypePicker = false"
                     @confirm="confirmType"
                 />
             </van-popup>
         </div>
-        <div v-if="calendarType === '血糖'" class="calendar-type">
+        <div v-if="diaryMethod.value === 'blood_sugar'" class="calendar-type">
             <van-field
-                v-model="sugar.beforeBreakfastSugar"
+                v-model="blood_sugar.beforeBreakfastSugar"
                 type="number"
                 label="早餐前"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.afterBreakfastSugar"
+                v-model="blood_sugar.afterBreakfastSugar"
                 type="number"
                 label="早餐后"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.beforeLunchSugar"
+                v-model="blood_sugar.beforeLunchSugar"
                 type="number"
                 label="午餐前"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.afterLunchSugar"
+                v-model="blood_sugar.afterLunchSugar"
                 type="number"
                 label="午餐后"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.beforeDinnerSugar"
+                v-model="blood_sugar.beforeDinnerSugar"
                 type="number"
                 label="晚餐前"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.afterDinnerSugar"
+                v-model="blood_sugar.afterDinnerSugar"
                 type="number"
                 label="晚餐后"
                 placeholder="请输入血糖值"
             />
             <van-field
-                v-model="sugar.beforeSleepSugar"
+                v-model="blood_sugar.beforeSleepSugar"
                 type="number"
                 label="睡前"
                 placeholder="请输入血糖值"
             />
         </div>
-        <div v-else-if="calendarType === '血压'" class="calendar-type">
-            <van-field v-model="value" label="早晨" placeholder="" />
-            <van-field v-model="value" label="中午" placeholder="" />
-            <van-field v-model="value" label="晚间" placeholder="" />
+        <div
+            v-else-if="diaryMethod.value === 'blood_pressure'"
+            class="calendar-type"
+        >
+            <van-field
+                v-model="blood_pressure.morningPressure"
+                label="早晨"
+                placeholder=""
+            />
+            <van-field
+                v-model="blood_pressure.afternoonPressure"
+                label="中午"
+                placeholder=""
+            />
+            <van-field
+                v-model="blood_pressure.eveningPressure"
+                label="晚间"
+                placeholder=""
+            />
         </div>
-        <div v-else-if="calendarType === '运动/饮食'" class="calendar-type">
+        <div
+            v-else-if="diaryMethod.value === 'sport_diet'"
+            class="calendar-type"
+        >
             <div>运动</div>
-            <van-field v-model="value" label="早晨" placeholder="" />
-            <van-field v-model="value" label="中午" placeholder="" />
-            <van-field v-model="value" label="晚间" placeholder="" />
+            <van-field
+                v-model="sport_diet.morningSport"
+                label="早晨"
+                placeholder=""
+            />
+            <van-field
+                v-model="sport_diet.afternoonSport"
+                label="中午"
+                placeholder=""
+            />
+            <van-field
+                v-model="sport_diet.eveningSport"
+                label="晚间"
+                placeholder=""
+            />
             <div>饮食</div>
-            <van-field v-model="value" label="早晨" placeholder="" />
-            <van-field v-model="value" label="中午" placeholder="" />
-            <van-field v-model="value" label="晚间" placeholder="" />
+            <van-field
+                v-model="sport_diet.breakfast"
+                label="早餐"
+                placeholder=""
+            />
+            <van-field v-model="sport_diet.lunch" label="午餐" placeholder="" />
+            <van-field
+                v-model="sport_diet.dinner"
+                label="晚餐"
+                placeholder=""
+            />
+            <van-field
+                v-model="sport_diet.betweenMeals"
+                label="间食"
+                placeholder=""
+            />
         </div>
-        <div v-else-if="calendarType === '辅助检查'" class="calendar-type">
-            <van-field v-model="value" label="早晨" placeholder="" />
-            <van-field v-model="value" label="中午" placeholder="" />
-            <van-field v-model="value" label="晚间" placeholder="" />
+        <div
+            v-else-if="diaryMethod.value === 'examination'"
+            class="calendar-type"
+        >
+            <van-field
+                v-model="examination.examType"
+                label="早晨"
+                placeholder=""
+            />
         </div>
-        <div v-if="calendarType">
+        <div v-if="diaryMethod.value">
             <van-uploader v-model="fileList" accept="image/*" max-count="3" />
         </div>
-        <div v-if="calendarType" class="btn-group">
+        <div v-if="diaryMethod.value" class="btn-group">
             <van-button
                 type="info"
                 @click="uploadCalendar"
@@ -119,23 +167,49 @@ export default {
             value: '',
             loading: false,
             choseTypePicker: false,
-            calendarType: '',
-            calendarTypeList: ['血糖', '血压', '运动/饮食', '辅助检查'],
+            diaryMethod: {},
+            diaryMethodList: [
+                { text: '血糖', value: 'blood_sugar' },
+                { text: '血压', value: 'blood_pressure' },
+                { text: '运动/饮食', value: 'sport_diet' },
+                { text: '辅助检查', value: 'examination' },
+            ],
             fileList: [],
             pics: [],
-            sugar: {
-                afterBreakfastSugar: null,
-                afterDinnerSugar: null,
-                afterLunchSugar: null,
-                beforeBreakfastSugar: null,
-                beforeDinnerSugar: null,
-                beforeLunchSugar: null,
-                beforeSleepSugar: null,
+            // 血糖
+            blood_sugar: {
+                afterBreakfastSugar: '',
+                afterDinnerSugar: '',
+                afterLunchSugar: '',
+                beforeBreakfastSugar: '',
+                beforeDinnerSugar: '',
+                beforeLunchSugar: '',
+                beforeSleepSugar: '',
+            },
+            // 血压
+            blood_pressure: {
+                morningPressure: '',
+                afternoonPressure: '',
+                eveningPressure: '',
+            },
+            // 运动/饮食
+            sport_diet: {
+                betweenMeals: '',
+                morningSport: '',
+                afternoonSport: '',
+                eveningSport: '',
+                lunch: '',
+                breakfast: '',
+                dinner: '',
+            },
+            // 辅助操作
+            examination: {
+                examType: '',
             },
         };
     },
     watch: {
-        calendarType() {
+        diaryMethod() {
             this.fileList = [];
         },
     },
@@ -155,7 +229,7 @@ export default {
     },
     methods: {
         confirmType(value) {
-            this.calendarType = value;
+            this.diaryMethod = value;
             this.choseTypePicker = false;
         },
         // 循环处理图片压缩
@@ -172,28 +246,26 @@ export default {
             }
             return pics;
         },
-        async uplodaSugar() {
+        async uploadCalendar() {
+            this.loading = true;
             let pics = await this.lrz();
             this.$api
-                .post('/qkys/api/addBloodSugarDiary', {
+                .post('/qkys/api/addDiary', {
                     pId: this.pId,
-                    data: this.sugar,
+                    data: this[this.diaryMethod.value],
                     hasPic: !!this.fileList.length,
                     pics: pics,
+                    diaryMethod: this.diaryMethod.value,
                 })
                 .then(res => {
                     Toast('上传成功');
                 })
                 .catch(e => {
                     Toast(e.errMsg);
+                })
+                .finally(() => {
+                    this.loading = false;
                 });
-        },
-        uploadCalendar() {
-            this.loading = true;
-            console.log('上传');
-            this.uplodaSugar().finally(() => {
-                this.loading = false;
-            });
         },
     },
 };
