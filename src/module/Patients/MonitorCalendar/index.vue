@@ -2,7 +2,11 @@
     <div class="monitor-calendar">
         <van-tabs v-model="diaryMethod" sticky>
             <van-tab title="血糖" name="blood_sugar">
-                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-pull-refresh
+                    v-if="diaryMethod === 'blood_sugar'"
+                    v-model="refreshing"
+                    @refresh="onRefresh"
+                >
                     <van-list
                         v-model="loading"
                         :finished="finished"
@@ -180,7 +184,11 @@
                     </van-list> </van-pull-refresh
             ></van-tab>
             <van-tab title="辅助检查" name="examination">
-                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-pull-refresh
+                    v-if="diaryMethod === 'examination'"
+                    v-model="refreshing"
+                    @refresh="onRefresh"
+                >
                     <van-list
                         v-model="loading"
                         :finished="finished"
@@ -197,13 +205,7 @@
                             </div>
                             <div class="show-item-main">
                                 <div class="show-item-info">
-                                    早晨: {{ item.morningPressure }}
-                                </div>
-                                <div class="show-item-info">
-                                    中午: {{ item.afternoonPressure }}
-                                </div>
-                                <div class="show-item-info">
-                                    晚上: {{ item.eveningPressure }}
+                                    辅助检查类型: {{ item.examType }}
                                 </div>
                             </div>
                             <div
@@ -311,7 +313,6 @@ export default {
                             item.pics.push(this.picBaseUrl + item.picPath3);
                     });
                     this.list = this.list.concat(data.data);
-                    console.log(this.list);
                     this.loading = false;
                     this.currPage = data.currPage;
                     if (this.currPage >= data.totalPage) {

@@ -100,7 +100,12 @@
                 />
             </van-cell-group>
         </div>
-
+        <div class="register-agreement">
+            <!-- TODO: -->
+            注册即代表同意<router-link to="/patient/agreement"
+                >用户协议</router-link
+            >和<router-link to="/patient/agreement">隐私政策</router-link>
+        </div>
         <div class="btn-group">
             <van-button type="info" size="large" @click="register"
                 >注册</van-button
@@ -110,6 +115,7 @@
 </template>
 
 <script>
+// 注册
 import areaList from '@/const/area.js';
 import {
     Button,
@@ -145,7 +151,7 @@ export default {
             idNumber: '',
             profession: '',
             minDate: new Date(1900, 0, 1),
-            maxDate: new Date(2025, 10, 1),
+            maxDate: new Date(2030, 10, 1),
         };
     },
     computed: {},
@@ -263,6 +269,14 @@ export default {
         text-align: center;
         color: #ff976a;
         font-size: 14px;
+    }
+    .register-agreement {
+        margin: 20px 0 0 0;
+        text-align: center;
+        font-size: 14px;
+        .blue {
+            color: #3e89f2;
+        }
     }
 }
 </style>

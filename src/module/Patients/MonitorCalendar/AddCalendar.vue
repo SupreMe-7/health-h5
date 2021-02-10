@@ -68,18 +68,39 @@
             class="calendar-type"
         >
             <van-field
-                v-model="blood_pressure.morningPressure"
-                label="早晨"
+                v-model="blood_pressure.morningHighPressure"
+                type="number"
+                label="早晨高压"
                 placeholder=""
             />
             <van-field
-                v-model="blood_pressure.afternoonPressure"
-                label="中午"
+                v-model="blood_pressure.morningLowPressure"
+                type="number"
+                label="早晨低压"
                 placeholder=""
             />
             <van-field
-                v-model="blood_pressure.eveningPressure"
-                label="晚间"
+                v-model="blood_pressure.afternoonHighPressure"
+                type="number"
+                label="中午高压"
+                placeholder=""
+            />
+            <van-field
+                v-model="blood_pressure.afternoonLowPressure"
+                type="number"
+                label="中午低压"
+                placeholder=""
+            />
+            <van-field
+                v-model="blood_pressure.eveningHighPressure"
+                type="number"
+                label="晚间高压"
+                placeholder=""
+            />
+            <van-field
+                v-model="blood_pressure.eveningLowPressure"
+                type="number"
+                label="晚间低压"
                 placeholder=""
             />
         </div>
@@ -125,10 +146,18 @@
             v-else-if="diaryMethod.value === 'examination'"
             class="calendar-type"
         >
+            <van-radio-group v-model="examinationRadio">
+                <van-radio name="血液生化类">血液生化类</van-radio>
+                <van-radio name="肝肾检验类">肝肾检验类</van-radio>
+                <van-radio name="影像类">影像类</van-radio>
+                <van-radio name="彩超">彩超</van-radio>
+                <van-radio name="其他">其他</van-radio>
+            </van-radio-group>
             <van-field
+                v-if="examinationRadio === '其他'"
                 v-model="examination.examType"
-                label="早晨"
-                placeholder=""
+                label="辅助操作"
+                placeholder="请输入操作类型"
             />
         </div>
         <div v-if="diaryMethod.value">
@@ -157,6 +186,8 @@ import {
     Field,
     Popup,
     Uploader,
+    RadioGroup,
+    Radio,
     Toast,
 } from 'vant';
 import NavBar from '@/components/NavBar.vue';
@@ -188,9 +219,12 @@ export default {
             },
             // 血压
             blood_pressure: {
-                morningPressure: '',
-                afternoonPressure: '',
-                eveningPressure: '',
+                morningHighPressure: '',
+                morningLowPressure: '',
+                afternoonHighPressure: '',
+                afternoonLowPressure: '',
+                eveningHighPressure: '',
+                eveningLowPressure: '',
             },
             // 运动/饮食
             sport_diet: {
@@ -206,11 +240,19 @@ export default {
             examination: {
                 examType: '',
             },
+            examinationRadio: '',
         };
     },
     watch: {
         diaryMethod() {
             this.fileList = [];
+        },
+        examinationRadio(newVal) {
+            if (newVal !== '其他') {
+                this.examination.examType = newVal;
+                return;
+            }
+            this.examination.examType = '';
         },
     },
     computed: {},
@@ -225,6 +267,8 @@ export default {
         [Field.name]: Field,
         [Popup.name]: Popup,
         [Uploader.name]: Uploader,
+        [RadioGroup.name]: RadioGroup,
+        [Radio.name]: Radio,
         NavBar,
     },
     methods: {
@@ -247,6 +291,13 @@ export default {
             return pics;
         },
         async uploadCalendar() {
+            if (
+                this.diaryMethod.value === 'examination' &&
+                !this.fileList.length
+            ) {
+                Toast('请上传图片');
+                return;
+            }
             this.loading = true;
             let pics = await this.lrz();
             this.$api
@@ -259,6 +310,7 @@ export default {
                 })
                 .then(res => {
                     Toast('上传成功');
+                    this.$router.back();
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -275,7 +327,10 @@ export default {
 .add-calendar {
     .calendar-type {
         padding: 0 15px;
-        margin: 10px 0 0 0;
+        margin: 10px 0 20px 0;
+        .van-radio {
+            margin: 8px 0;
+        }
     }
     .btn-group {
         margin: 20px 15px 0 0;

@@ -73,6 +73,22 @@ const routes = [
             ),
     },
     {
+        path: '/patients/personal-edit-phone-password',
+        name: 'personal-edit-phone-password-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "personal-edit-phone-password-page" */ '../module/Patients/PersonalInformation/EditPhonePassword.vue'
+            ),
+    },
+    {
+        path: '/patients/personal-edit-information',
+        name: 'personal-edit-information-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "personal-edit-information-page" */ '../module/Patients/PersonalInformation/EditInformation.vue'
+            ),
+    },
+    {
         path: '/patients/personal-cases',
         name: 'personal-cases-page',
         component: () =>

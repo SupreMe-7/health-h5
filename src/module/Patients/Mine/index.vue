@@ -23,7 +23,7 @@
                     title="我的消息"
                     size="large"
                     is-link
-                    url="/vant/mobile.html"
+                    url="/patients/notice"
                     icon="chat-o"
                 />
                 <van-cell

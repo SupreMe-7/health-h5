@@ -2,7 +2,7 @@
     <div class="home-page">
         <div class="home-page-header">
             <div class="header-address">{{ address }}</div>
-            <van-badge :content="unreadNotice" max="9">
+            <van-badge :content="notReadMsgNum" max="9">
                 <div class="header-news" @click="toUrl('/patients/notice')">
                     消息
                 </div>
@@ -55,14 +55,20 @@
 
 <script>
 // 首页
-import { Swipe, SwipeItem, Badge, Toast, Image as VanImage } from 'vant';
+import {
+    Swipe,
+    SwipeItem,
+    Badge,
+    Toast,
+    Image as VanImage,
+    Dialog,
+} from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
     data() {
         return {
             address: '北京市海淀区上地西路6号',
-            fileList: [],
-            unreadNotice: 20,
+            notReadMsgNum: null,
             images: [
                 'https://img.yzcdn.cn/vant/apple-1.jpg',
                 'https://img.yzcdn.cn/vant/apple-2.jpg',
@@ -79,8 +85,9 @@ export default {
             docName: '',
         };
     },
-    mounted() {
-        this.getPaByPhone();
+    async mounted() {
+        await this.getPaByPhone();
+        this.getSysMsg();
     },
     components: {
         TabBar,
@@ -92,7 +99,7 @@ export default {
     methods: {
         getPaByPhone() {
             const phone = sessionStorage.getItem('USER_PHONE');
-            this.$api
+            return this.$api
                 .get(`/qkys/api/getPaByPhone/${phone}`)
                 .then(res => {
                     const { id, docName } = res.data;
@@ -103,8 +110,28 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        getSysMsg() {
+            const pId = sessionStorage.getItem('PID');
+            this.$api
+                .get(`/qkys/api/getStartSysMsg/Pa/${pId}`)
+                .then(res => {
+                    console.log(res);
+                    const { notReadMsgNum = 0, sysMsgs = [] } = res.data;
+                    this.notReadMsgNum = notReadMsgNum;
+                    sysMsgs.length &&
+                        sysMsgs.forEach(item => {
+                            this.viewNotice(item);
+                        });
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
         toUrl(url) {
             this.$router.push(url);
+        },
+        viewNotice(item) {
+            Dialog({ title: item.topic, message: item.message });
         },
     },
 };

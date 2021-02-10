@@ -1,23 +1,31 @@
 <template>
     <div class="my-doctor">
-        <div v-if="isHasSelection || currentDoc" class="have-doctor">
-            <van-cell title="您的全科医生" :label="currentDoc" size="large" />
-            <div v-if="isHasSelection" class="apply-doctor">
-                您已于{{ selectedTime }}日申请{{
-                    docName
+        <div v-if="hasDoc || hasNewSelect" class="have-doctor">
+            <van-cell
+                title="您的全科医生"
+                :label="`${doctor.hospital}${doctor.docName}医生`"
+                size="large"
+            />
+            <div v-if="hasNewSelect" class="apply-doctor">
+                您已于{{ selectDoctor.selectTime }}日申请{{
+                    `${selectDoctor.hospital}${selectDoctor.docName}`
                 }}医生作为您的全科医生，请耐心等待医生确认。如需更换全科医生，请重新选择申请。
             </div>
             <van-cell
+                v-for="(item, index) in superior"
+                :key="index"
                 title="您的专科主管医生"
-                label="XX医院XX科室XX医生"
+                :label="
+                    `${item.hospital}${item.specialty} ${item.level}${item.supName}医生`
+                "
                 size="large"
             />
             <div class="btn-group">
                 <van-button
                     type="info"
                     @click="
-                        isHasSelection = false;
-                        currentDoc = '';
+                        hasNewSelect = false;
+                        hasDoc = false;
                     "
                     >申请变更全科医生</van-button
                 >
@@ -45,7 +53,7 @@
                 readonly
                 clickable
                 label="选择全科医生"
-                :value="doctor"
+                :value="applyDoc"
                 placeholder="选择全科医生"
                 @click="showDoctorPicker = true"
             />
@@ -76,27 +84,26 @@ export default {
     data() {
         return {
             pId: '',
-            isHasSelection: true,
-            docName: '',
-            selectedTime: '',
+            hasDoc: true,
+            doctor: {},
+            hasNewSelect: false,
+            selectDoctor: {},
+            // 专科主管医生列表
+            superior: [],
 
             areaList: areaList,
             address: '',
-            doctor: '',
+            applyDoc: '',
             dId: '',
             showDoctorPicker: false,
             showAddressPicker: false,
             // 医生列表
             hospitalDoctor: [],
-
-            currentDoc: '',
-            isConfirmed: false,
         };
     },
     computed: {},
     mounted() {
         this.pId = sessionStorage.getItem('PID') || '';
-        this.getSelectedDocByPId();
         this.getDoctor();
     },
     components: {
@@ -109,21 +116,8 @@ export default {
         TabBar,
     },
     methods: {
-        getSelectedDocByPId() {
-            this.$api
-                .get(`/qkys/api/getSelectedDocByPId/${this.pId}`)
-                .then(res => {
-                    const { isHasSelection, docName, selectedTime } = res.data;
-                    this.isHasSelection = isHasSelection;
-                    this.docName = docName;
-                    this.selectedTime = (selectedTime || '').slice(0, 10);
-                })
-                .catch(e => {
-                    Toast(e.errMsg);
-                });
-        },
         choseDoctor() {
-            if (!this.doctor) {
+            if (!this.applyDoc) {
                 Toast('请选择医生');
                 return;
             }
@@ -134,6 +128,7 @@ export default {
                 })
                 .then(res => {
                     Toast('申请成功');
+                    this.getDoctor();
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -169,16 +164,26 @@ export default {
                 });
         },
         confirmDoctor(value) {
-            this.doctor = value?.text;
+            this.applyDoc = value?.text;
             this.dId = value?.dId;
             this.showDoctorPicker = false;
         },
         getDoctor() {
             this.$api
-                .get(`/qkys/api/getDocByPId/${this.pId}`)
+                .get(`/qkys/api/getDocsByPId/${this.pId}`)
                 .then(res => {
-                    const { name = '', hospital = '' } = res.data || {};
-                    this.currentDoc = name + hospital;
+                    const {
+                        hasDoc,
+                        doctor = {},
+                        hasNewSelect,
+                        selectDoctor = {},
+                        superior = [],
+                    } = res.data || {};
+                    this.hasDoc = hasDoc;
+                    this.doctor = doctor;
+                    this.hasNewSelect = hasNewSelect;
+                    this.selectDoctor = selectDoctor;
+                    this.superior = superior;
                 })
                 .catch(e => {
                     Toast(e.errMsg);

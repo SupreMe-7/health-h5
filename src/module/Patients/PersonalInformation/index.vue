@@ -15,7 +15,14 @@
             <van-cell title="职业" :label="profession" size="large" />
         </van-cell-group>
         <div class="btn-group">
-            <van-button type="info">修改</van-button>
+            <van-button type="info" url="/patients/personal-edit-information"
+                >修改个人信息</van-button
+            >
+        </div>
+        <div class="btn-group">
+            <van-button type="info" url="/patients/personal-edit-phone-password"
+                >修改手机号及密码</van-button
+            >
         </div>
     </div>
 </template>
