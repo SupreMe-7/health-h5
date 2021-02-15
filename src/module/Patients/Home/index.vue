@@ -67,6 +67,7 @@ import TabBar from '@/components/TabBar.vue';
 export default {
     data() {
         return {
+            pId: null,
             address: '北京市海淀区上地西路6号',
             notReadMsgNum: null,
             images: [
@@ -86,6 +87,10 @@ export default {
         };
     },
     async mounted() {
+        if (!sessionStorage.getItem('TOKEN')) {
+            this.$router.replace('/patients/login');
+            return;
+        }
         await this.getPaByPhone();
         this.getSysMsg();
     },
@@ -115,7 +120,6 @@ export default {
             this.$api
                 .get(`/qkys/api/getStartSysMsg/Pa/${pId}`)
                 .then(res => {
-                    console.log(res);
                     const { notReadMsgNum = 0, sysMsgs = [] } = res.data;
                     this.notReadMsgNum = notReadMsgNum;
                     sysMsgs.length &&
