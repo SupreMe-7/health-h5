@@ -11,40 +11,71 @@
                 >
                     <div
                         class="item"
-                        v-for="(item, index) in firstList"
+                        v-for="(item, index) in list"
                         :key="index"
                     >
                         <div class="item-title">
-                            <span>医生: 格台</span>
-                            <span>时间: 2020-10-10</span>
+                            <span>医生: {{ item.docName }}</span>
+                            <span>时间: {{ item.createTime }}</span>
                         </div>
-                        <div class="item-content">
-                            建议:s水电费违法威风威风无法违反微服务范围分为服务费违反威风威风我违反微服务发FFAF
-                            fewef wef we fwf wfwe fww分违反微服务访问访问发
-                        </div>
+                        <div class="item-content">建议:{{ item.advice }}</div>
                     </div>
                 </van-list>
             </van-tab>
-            <van-tab title="主管医生">内容 2</van-tab>
+            <van-tab title="主管医生"
+                ><van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                >
+                    <div
+                        class="item"
+                        v-for="(item, index) in list"
+                        :key="index"
+                    >
+                        <div class="item-title">
+                            <span>医生: {{ item.docName }}</span>
+                            <span>时间: {{ item.createTime }}</span>
+                        </div>
+                        <div class="item-content">建议:{{ item.advice }}</div>
+                    </div>
+                </van-list></van-tab
+            >
         </van-tabs>
     </div>
 </template>
 
 <script>
 // 诊疗建议
-import { Tab, Tabs, List } from 'vant';
+import { Tab, Tabs, List, Toast } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 export default {
     data() {
         return {
-            firstList: [],
+            list: [],
             active: 0,
             loading: false,
             finished: false,
+            currPage: 0,
+            pageSize: 10,
+            totalPage: null,
         };
     },
     computed: {},
-    mounted() {},
+    mounted() {
+        this.pId = sessionStorage.getItem('PID');
+    },
+    watch: {
+        active() {
+            this.finished = false;
+            this.loading = true;
+            this.totalPage = null;
+            this.currPage = 0;
+            this.list = [];
+            this.onLoad();
+        },
+    },
     components: {
         [Tab.name]: Tab,
         [Tabs.name]: Tabs,
@@ -53,20 +84,49 @@ export default {
     },
     methods: {
         onLoad() {
-            // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-            setTimeout(() => {
-                for (let i = 0; i < 10; i++) {
-                    this.firstList.push(this.firstList.length + 1);
-                }
-
-                // 加载状态结束
-                this.loading = false;
-
-                // 数据全部加载完成
-                if (this.firstList.length >= 40) {
-                    this.finished = true;
-                }
-            }, 1000);
+            this.currPage = this.currPage + 1;
+            if (this.active === 0) {
+                this.$api
+                    .post(`/qkys/api/getDoctorAdvice`, {
+                        pId: this.pId,
+                        currPage: this.currPage,
+                        pageSize: this.pageSize,
+                    })
+                    .then(res => {
+                        const { data } = res;
+                        this.list = this.list.concat(data.list);
+                        this.loading = false;
+                        this.currPage = data.currPage;
+                        if (this.currPage >= data.totalPage) {
+                            this.finished = true;
+                        }
+                    })
+                    .catch(e => {
+                        this.finished = true;
+                        Toast(e.errMsg);
+                    });
+            }
+            if (this.active === 1) {
+                this.$api
+                    .post(`/qkys/api/getSuperiorAdvice `, {
+                        pId: this.pId,
+                        currPage: this.currPage,
+                        pageSize: this.pageSize,
+                    })
+                    .then(res => {
+                        const { data } = res;
+                        this.list = this.list.concat(data.list);
+                        this.loading = false;
+                        this.currPage = data.currPage;
+                        if (this.currPage >= data.totalPage) {
+                            this.finished = true;
+                        }
+                    })
+                    .catch(e => {
+                        this.finished = true;
+                        Toast(e.errMsg);
+                    });
+            }
         },
     },
 };

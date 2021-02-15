@@ -92,7 +92,16 @@ export default {
     },
     methods: {
         viewNotice(item) {
-            Dialog({ title: item.topic, message: item.innerchain });
+            if (item.innerchain) {
+                Dialog({ title: item.topic, message: item.innerchain });
+            } else {
+                if (item.topic === '全科医生申请') {
+                    this.$router.push('/patients/my-doctor');
+                }
+                if (item.topic === '个人病例更新') {
+                    this.$router.push('/patients/personal-cases');
+                }
+            }
             this.$api
                 .post(`/qkys/api/updateReadMsg`, {
                     role: 'Pa',
