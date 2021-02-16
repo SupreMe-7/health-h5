@@ -56,7 +56,7 @@ import { Toast } from 'vant';
 export default {
     data() {
         return {
-            smsLogin: false,
+            smsLogin: true,
             phone: '',
             password: '',
             smsCode: '',

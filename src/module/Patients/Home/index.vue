@@ -1,7 +1,9 @@
 <template>
     <div class="home-page">
         <div class="home-page-header">
-            <div class="header-address">{{ address }}</div>
+            <div class="header-address">
+                <van-icon name="location-o" />{{ address }}
+            </div>
             <van-badge :content="notReadMsgNum" max="9">
                 <div class="header-news" @click="toUrl('/patients/notice')">
                     消息
@@ -62,6 +64,7 @@ import {
     Toast,
     Image as VanImage,
     Dialog,
+    Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
 export default {
@@ -100,6 +103,7 @@ export default {
         [SwipeItem.name]: SwipeItem,
         [Badge.name]: Badge,
         [VanImage.name]: VanImage,
+        [Icon.name]: Icon,
     },
     methods: {
         getPaByPhone() {
@@ -150,10 +154,12 @@ export default {
         margin-bottom: 10px;
         padding: 0 6px;
         .header-address {
-            width: 50%;
+            width: 80%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
         }
     }
     .home-page-swiper {

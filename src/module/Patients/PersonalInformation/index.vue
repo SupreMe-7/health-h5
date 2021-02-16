@@ -15,13 +15,10 @@
             <van-cell title="职业" :label="profession" size="large" />
         </van-cell-group>
         <div class="btn-group">
-            <van-button type="info" url="/patients/personal-edit-information"
+            <van-button
+                type="info"
+                @click="jumpUrl('/patients/personal-edit-information')"
                 >修改个人信息</van-button
-            >
-        </div>
-        <div class="btn-group">
-            <van-button type="info" url="/patients/personal-edit-phone-password"
-                >修改手机号及密码</van-button
             >
         </div>
     </div>
@@ -55,6 +52,9 @@ export default {
         NavBar,
     },
     methods: {
+        jumpUrl(url) {
+            this.$router.push(url);
+        },
         getPaByPhone() {
             const phone = sessionStorage.getItem('USER_PHONE');
             this.$api

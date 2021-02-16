@@ -3,7 +3,7 @@
         <div v-if="hasDoc || hasNewSelect" class="have-doctor">
             <van-cell
                 title="您的全科医生"
-                :label="`${doctor.hospital}${doctor.docName}医生`"
+                :label="`${doctor.hospital} ${doctor.docName}医生`"
                 size="large"
             />
             <div v-if="hasNewSelect" class="apply-doctor">
@@ -158,6 +158,7 @@ export default {
                     this.hospitalDoctor.forEach(item => {
                         item.text = item?.hospital + item?.docName + '医生';
                     });
+                    this.showDoctorPicker = true;
                 })
                 .catch(e => {
                     Toast(e.errMsg);

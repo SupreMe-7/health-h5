@@ -9,49 +9,49 @@
                     title="个人信息"
                     size="large"
                     is-link
-                    url="/patients/personal-information"
                     icon="user-o"
+                    @click="jumpUrl('/patients/personal-information')"
                 />
                 <van-cell
                     title="个人病例"
                     size="large"
                     is-link
-                    url="/patients/personal-cases"
                     icon="orders-o"
+                    @click="jumpUrl('/patients/personal-cases')"
                 />
                 <van-cell
                     title="我的消息"
                     size="large"
                     is-link
-                    url="/patients/notice"
                     icon="chat-o"
+                    @click="jumpUrl('/patients/notice')"
                 />
                 <van-cell
                     title="清理缓存"
                     size="large"
                     is-link
-                    url="/vant/mobile.html"
                     icon="brush-o"
+                    @click="jumpUrl('/patients/notice')"
                 />
                 <van-cell
                     title="系统更新"
                     size="large"
                     is-link
-                    url="/vant/mobile.html"
                     icon="info-o"
+                    @click="jumpUrl('/patients/notice')"
                 />
                 <van-cell
                     title="意见与建议"
                     size="large"
                     is-link
-                    url="/vant/mobile.html"
+                    @click="jumpUrl('/patients/notice')"
                     icon="question-o"
                 />
                 <van-cell
                     title="退出登录"
                     size="large"
                     is-link
-                    url="/vant/mobile.html"
+                    @click="jumpUrl('/patients/notice')"
                     icon="revoke"
                 />
             </van-cell-group>
@@ -68,7 +68,11 @@ export default {
     data() {
         return {};
     },
-    methods: {},
+    methods: {
+        jumpUrl(url) {
+            this.$router.push(url);
+        },
+    },
     components: {
         TabBar,
         [Cell.name]: Cell,

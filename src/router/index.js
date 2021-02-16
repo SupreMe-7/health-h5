@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/',
+        path: '/patients',
         redirect: '/patients/home',
     },
     {
@@ -115,7 +115,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes,
 });

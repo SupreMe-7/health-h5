@@ -310,7 +310,7 @@ export default {
                 })
                 .then(res => {
                     Toast('上传成功');
-                    this.$router.back();
+                    this.$router.go(0);
                 })
                 .catch(e => {
                     Toast(e.errMsg);
