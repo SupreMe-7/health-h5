@@ -27,7 +27,7 @@ export function responseSuccessFunc(responseObj) {
 }
 
 export function responseFailFunc(responseError) {
-    return Promise.reject(responseError);
+    return Promise.reject({ errMsg: '网络异常, 请稍后重试' });
 }
 
 const request = axios.create({
