@@ -1,9 +1,8 @@
 import axios from 'axios';
-
+import { getToken } from './util';
 export function requestSuccessFunc(requestObj) {
-    let token = sessionStorage.getItem('TOKEN');
-    if (token) {
-        requestObj.headers.Authorization = token;
+    if (getToken()) {
+        requestObj.headers.Authorization = getToken();
     }
     return requestObj;
 }
@@ -18,7 +17,7 @@ export function responseSuccessFunc(responseObj) {
     const resData = responseObj.data;
     const { result } = resData;
     if (result === 9) {
-        location.href = '/patients/login';
+        location.href = '/#/patients/login';
     }
     if (result !== 0) {
         return Promise.reject(resData);

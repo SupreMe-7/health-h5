@@ -24,43 +24,43 @@
                 v-model="blood_sugar.beforeBreakfastSugar"
                 type="number"
                 label="早餐前"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.afterBreakfastSugar"
                 type="number"
                 label="早餐后"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.beforeLunchSugar"
                 type="number"
                 label="午餐前"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.afterLunchSugar"
                 type="number"
                 label="午餐后"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.beforeDinnerSugar"
                 type="number"
                 label="晚餐前"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.afterDinnerSugar"
                 type="number"
                 label="晚餐后"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_sugar.beforeSleepSugar"
                 type="number"
                 label="睡前"
-                placeholder="请输入血糖值"
+                placeholder="请输入内容"
             />
         </div>
         <div
@@ -71,37 +71,37 @@
                 v-model="blood_pressure.morningHighPressure"
                 type="number"
                 label="早晨高压"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_pressure.morningLowPressure"
                 type="number"
                 label="早晨低压"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_pressure.afternoonHighPressure"
                 type="number"
                 label="中午高压"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_pressure.afternoonLowPressure"
                 type="number"
                 label="中午低压"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_pressure.eveningHighPressure"
                 type="number"
                 label="晚间高压"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="blood_pressure.eveningLowPressure"
                 type="number"
                 label="晚间低压"
-                placeholder=""
+                placeholder="请输入内容"
             />
         </div>
         <div
@@ -112,34 +112,38 @@
             <van-field
                 v-model="sport_diet.morningSport"
                 label="早晨"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="sport_diet.afternoonSport"
                 label="中午"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="sport_diet.eveningSport"
                 label="晚间"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <div>饮食</div>
             <van-field
                 v-model="sport_diet.breakfast"
                 label="早餐"
-                placeholder=""
+                placeholder="请输入内容"
             />
-            <van-field v-model="sport_diet.lunch" label="午餐" placeholder="" />
+            <van-field
+                v-model="sport_diet.lunch"
+                label="午餐"
+                placeholder="请输入内容"
+            />
             <van-field
                 v-model="sport_diet.dinner"
                 label="晚餐"
-                placeholder=""
+                placeholder="请输入内容"
             />
             <van-field
                 v-model="sport_diet.betweenMeals"
                 label="间食"
-                placeholder=""
+                placeholder="请输入内容"
             />
         </div>
         <div
@@ -246,6 +250,39 @@ export default {
     watch: {
         diaryMethod() {
             this.fileList = [];
+            this.blood_sugar = {
+                afterBreakfastSugar: '',
+                afterDinnerSugar: '',
+                afterLunchSugar: '',
+                beforeBreakfastSugar: '',
+                beforeDinnerSugar: '',
+                beforeLunchSugar: '',
+                beforeSleepSugar: '',
+            };
+            // 血压
+            this.blood_pressure = {
+                morningHighPressure: '',
+                morningLowPressure: '',
+                afternoonHighPressure: '',
+                afternoonLowPressure: '',
+                eveningHighPressure: '',
+                eveningLowPressure: '',
+            };
+            // 运动/饮食
+            this.sport_diet = {
+                betweenMeals: '',
+                morningSport: '',
+                afternoonSport: '',
+                eveningSport: '',
+                lunch: '',
+                breakfast: '',
+                dinner: '',
+            };
+            // 辅助操作
+            this.examination = {
+                examType: '',
+            };
+            this.examinationRadio = ''
         },
         examinationRadio(newVal) {
             if (newVal !== '其他') {
@@ -291,6 +328,20 @@ export default {
             return pics;
         },
         async uploadCalendar() {
+            let isNull = true;
+            if (!this.fileList.length) {
+                for (let i in this[this.diaryMethod.value]) {
+                    if (this[this.diaryMethod.value][i]) {
+                        isNull = false;
+                    }
+                }
+            } else {
+                isNull = false;
+            }
+            if (isNull) {
+                Toast('不能上传空日历');
+                return;
+            }
             if (
                 this.diaryMethod.value === 'examination' &&
                 !this.fileList.length
@@ -310,7 +361,7 @@ export default {
                 })
                 .then(res => {
                     Toast('上传成功');
-                    this.$router.go(0);
+                    this.diaryMethod = {};
                 })
                 .catch(e => {
                     Toast(e.errMsg);

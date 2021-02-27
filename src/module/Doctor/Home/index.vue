@@ -93,14 +93,14 @@ export default {
             this.$router.push('/patients/login');
             return;
         }
-        if (window.getLocation) {
-            console.log('我有window.getLocation', window.getLocation());
-            this.address = window.getLocation();
-        }
-        await this.getPaByToken();
-        this.getSysMsg();
-        this.getUrlPics();
-        this.getRecommand();
+        // if (window.getLocation) {
+        //     console.log('我有window.getLocation', window.getLocation());
+        //     this.address = window.getLocation();
+        // }
+        // await this.getPaByToken();
+        // this.getSysMsg();
+        // this.getUrlPics();
+        // this.getRecommand();
     },
     components: {
         TabBar,

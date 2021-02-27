@@ -71,7 +71,6 @@ export default {
         [Button.name]: Button,
         [Field.name]: Field,
         [CellGroup.name]: CellGroup,
-        // [Icon.name]: Icon,
     },
     methods: {
         changeSendText() {
@@ -103,7 +102,7 @@ export default {
                 return false;
             }
             this.$api
-                .post(`/qkys/api/user/pa/sendsms?phone=${this.phone}`)
+                .post(`/qkys/api/user/doc/sendsms?phone=${this.phone}&role=Doc`)
                 .then(res => {
                     Toast('验证码发送成功');
                     this.changeSendText();
@@ -122,18 +121,17 @@ export default {
                 })
             );
             this.$api
-                .post(`/qkys/api/user/pa/login?param=${data}`)
+                .post(`/qkys/api/user/doc/login?param=${data}`)
                 .then(res => {
                     const { newUser, token } = res.data || {};
                     if (newUser) {
                         this.$router.push(
-                            `/patients/registered?phone=${this.phone}`
+                            `/doctor/registered?phone=${this.phone}`
                         );
                         return;
                     }
                     setToken(token);
-                    // TODO: 调取bridge存储token
-                    this.$router.push('/patients/home');
+                    this.$router.push('/doctor/home');
                 })
                 .catch(e => {
                     Toast(e.errMsg);

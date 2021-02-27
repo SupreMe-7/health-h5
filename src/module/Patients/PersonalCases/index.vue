@@ -123,7 +123,6 @@ export default {
                 .get(`/qkys/api/getPatientHealthRecordByPId/${this.pId}`)
                 .then(res => {
                     const { data } = res;
-                    console.log(data);
                     this.healthCondition = data.healthCondition;
                     this.diagnosisRecord = data.diagnosisRecord;
                 })

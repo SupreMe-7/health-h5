@@ -56,9 +56,8 @@ export default {
             this.$router.push(url);
         },
         getPaByPhone() {
-            const phone = sessionStorage.getItem('USER_PHONE');
             this.$api
-                .get(`/qkys/api/getPaByPhone/${phone}`)
+                .get(`/qkys/api/getPaByToken`)
                 .then(res => {
                     const {
                         phone,

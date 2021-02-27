@@ -31,15 +31,21 @@
                     size="large"
                     is-link
                     icon="brush-o"
-                    @click="jumpUrl('/patients/notice')"
+                    @click="clearCache"
                 />
                 <van-cell
-                    title="系统更新"
                     size="large"
                     is-link
                     icon="info-o"
-                    @click="jumpUrl('/patients/notice')"
-                />
+                    @click="openUpdateModal"
+                >
+                    <template #title>
+                        <van-badge v-if="version.hasNewVersion" dot>
+                            <span class="custom-title">系统更新</span>
+                        </van-badge>
+                        <span v-else class="custom-title">系统更新</span>
+                    </template>
+                </van-cell>
                 <van-cell
                     title="意见与建议"
                     size="large"
@@ -51,7 +57,7 @@
                     title="退出登录"
                     size="large"
                     is-link
-                    @click="jumpUrl('/patients/notice')"
+                    @click="logOut"
                     icon="revoke"
                 />
             </van-cell-group>
@@ -63,20 +69,70 @@
 
 <script>
 import TabBar from '@/components/TabBar.vue';
-import { Cell, CellGroup } from 'vant';
+import { Cell, CellGroup, Toast, Badge, Dialog } from 'vant';
 export default {
     data() {
-        return {};
+        return {
+            version: {
+                hasNewVersion: false,
+            },
+        };
+    },
+    mounted() {
+        this.getUpdate();
     },
     methods: {
         jumpUrl(url) {
             this.$router.push(url);
+        },
+        clearCache() {
+            console.log(' window.clearCache', window.clearCache());
+            window.clearCache && window.clearCache();
+            Toast('清除缓存成功');
+        },
+        logOut() {
+            console.log(' window.logOut', window.logOut());
+            window.logOut && window.logOut();
+            sessionStorage.clear();
+            this.$router.push('/patients/login');
+        },
+        getUpdate() {
+            console.log('window.getAppVersion', window.getAppVersion());
+            const version =
+                (window.getAppVersion && window.getAppVersion()) || '1.0.0';
+            this.$api
+                .get(`/qkys/api/getAppUpdateInfo/Pa/${version}`)
+                .then(res => {
+                    const { data = {} } = res;
+                    this.version = data;
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
+        openUpdateModal() {
+            if (this.version.hasNewVersion) {
+                Dialog.confirm({
+                    title: '检查更新',
+                    message: `有新版本v${this.version.version} ${this.version.size} ${this.version.updateAppTime}`,
+                    confirmButtonText: '下载',
+                })
+                    .then(() => {
+                        window.open(
+                            'https://qkys.zhugaotech.com/downloads/Qkys_android_person.apk'
+                        );
+                    })
+                    .catch(() => {});
+            } else {
+                Dialog({ title: '检查更新', message: '已是最新版本' });
+            }
         },
     },
     components: {
         TabBar,
         [Cell.name]: Cell,
         [CellGroup.name]: CellGroup,
+        [Badge.name]: Badge,
     },
 };
 </script>

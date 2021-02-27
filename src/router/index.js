@@ -112,6 +112,38 @@ const routes = [
                 /* webpackChunkName: "notice-page" */ '../module/Patients/Notice/index.vue'
             ),
     },
+    {
+        path: '/download',
+        name: 'download-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "download-page" */ '../module/Download/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/login',
+        name: 'doctor-login-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-login-page" */ '../module/Doctor/Login/Login.vue'
+            ),
+    },
+    {
+        path: '/doctor/registered',
+        name: 'doctor-registered-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-registered-page" */ '../module/Doctor/Login/Registered.vue'
+            ),
+    },
+    {
+        path: '/doctor/home',
+        name: 'doctor-home-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-home-page" */ '../module/Doctor/Home/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({

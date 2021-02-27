@@ -128,6 +128,8 @@ import {
     Picker,
     Dialog,
 } from 'vant';
+import { setToken } from '@/common/util.js';
+
 export default {
     data() {
         return {
@@ -156,7 +158,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.phone = sessionStorage.getItem('USER_PHONE');
+        this.phone = this.$route.query.phone;
     },
     components: {
         [Button.name]: Button,
@@ -221,10 +223,8 @@ export default {
                     this.$api
                         .post(`/qkys/api/user/pa/registe?param=${data}`)
                         .then(res => {
-                            const { token, phone } = res.data;
-                            // TODO: 调取bridge存储token
-                            sessionStorage.setItem('TOKEN', token);
-                            sessionStorage.setItem('USER_PHONE', phone);
+                            const { token } = res.data;
+                            setToken(token);
                             this.$router.push('/patients/home');
                         })
                         .catch(e => {
