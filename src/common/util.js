@@ -1,8 +1,9 @@
 export const getToken = () => {
     if (navigator.userAgent.includes('xkysAndroidApp')) {
-        console.log('我有xkysAndroidApp getToken');
-        window.getToken && window.getToken();
-        console.log('我有window.getToken()', window.getToken());
+        if (window.getToken) {
+            console.log('我在window上有getToken');
+        }
+        return window.getToken && window.getToken();
     } else {
         return sessionStorage.getItem('TOKEN');
     }
@@ -10,9 +11,10 @@ export const getToken = () => {
 
 export const setToken = token => {
     if (navigator.userAgent.includes('xkysAndroidApp')) {
-        console.log('我有xkysAndroidApp setToken');
+        if (window.saveToken) {
+            console.log('我有window.saveToken()');
+        }
         window.saveToken && window.saveToken(token);
-        console.log('我有window.saveToken();', window.saveToken());
     } else {
         sessionStorage.setItem('TOKEN', token);
     }

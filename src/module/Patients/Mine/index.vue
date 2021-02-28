@@ -86,18 +86,15 @@ export default {
             this.$router.push(url);
         },
         clearCache() {
-            console.log(' window.clearCache', window.clearCache());
             window.clearCache && window.clearCache();
             Toast('清除缓存成功');
         },
         logOut() {
-            console.log(' window.logOut', window.logOut());
             window.logOut && window.logOut();
             sessionStorage.clear();
             this.$router.push('/patients/login');
         },
         getUpdate() {
-            console.log('window.getAppVersion', window.getAppVersion());
             const version =
                 (window.getAppVersion && window.getAppVersion()) || '1.0.0';
             this.$api
