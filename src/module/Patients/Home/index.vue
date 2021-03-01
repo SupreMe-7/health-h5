@@ -178,11 +178,12 @@ export default {
     .home-page-header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 10px;
         padding: 0 6px;
         .header-name {
             color: #fff;
-            background: rgb(80, 80, 240);
+            background: rgb(56, 137, 230);
             width: 30px;
             height: 30px;
             border-radius: 15px;
