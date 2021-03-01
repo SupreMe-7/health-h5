@@ -70,6 +70,7 @@
 <script>
 import TabBar from '@/components/TabBar.vue';
 import { Cell, CellGroup, Toast, Badge, Dialog } from 'vant';
+import { jsBridge } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -86,17 +87,18 @@ export default {
             this.$router.push(url);
         },
         clearCache() {
-            window.clearCache && window.clearCache();
+            jsBridge.clearCache && jsBridge.clearCache();
             Toast('清除缓存成功');
         },
         logOut() {
-            window.logOut && window.logOut();
+            jsBridge.logOut && jsBridge.logOut();
             sessionStorage.clear();
             this.$router.push('/patients/login');
         },
         getUpdate() {
             const version =
-                (window.getAppVersion && window.getAppVersion()) || '1.0.0';
+                (jsBridge.getAppVersion && jsBridge.getAppVersion()) ||
+                '100.9.9';
             this.$api
                 .get(`/qkys/api/getAppUpdateInfo/Pa/${version}`)
                 .then(res => {

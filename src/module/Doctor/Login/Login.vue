@@ -66,9 +66,7 @@ export default {
         };
     },
     computed: {},
-    mounted() {
-        console.log(window);
-    },
+    mounted() {},
     components: {
         [Button.name]: Button,
         [Field.name]: Field,

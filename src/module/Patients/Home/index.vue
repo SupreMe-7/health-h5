@@ -1,8 +1,11 @@
 <template>
     <div class="home-page">
         <div class="home-page-header">
-            <div class="header-address">
-                <van-icon name="location-o" />{{ address }}
+            <div
+                class="header-name"
+                @click="toUrl('/patients/personal-information')"
+            >
+                {{ name }}
             </div>
             <van-badge :content="notReadMsgNum" max="9">
                 <div class="header-news" @click="toUrl('/patients/notice')">
@@ -81,7 +84,7 @@ export default {
     data() {
         return {
             pId: null,
-            address: '',
+            name: '',
             notReadMsgNum: null,
             carouselList: [],
             recommend: [],
@@ -89,13 +92,9 @@ export default {
         };
     },
     async mounted() {
-        console.log(window);
         if (!getToken()) {
             this.$router.push('/patients/login');
             return;
-        }
-        if (window.getLocation) {
-            this.address = window.getLocation();
         }
         await this.getPaByToken();
         this.getSysMsg();
@@ -115,8 +114,9 @@ export default {
             return this.$api
                 .get(`/qkys/api/getPaByToken`)
                 .then(res => {
-                    const { id, docName } = res.data;
+                    const { id, docName, name } = res.data;
                     this.docName = docName;
+                    this.name = name.slice(-2);
                     sessionStorage.setItem('PID', id);
                 })
                 .catch(e => {
@@ -180,13 +180,16 @@ export default {
         justify-content: space-between;
         margin-bottom: 10px;
         padding: 0 6px;
-        .header-address {
-            width: 80%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+        .header-name {
+            color: #fff;
+            background: rgb(80, 80, 240);
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
     }
     .home-page-swiper {
