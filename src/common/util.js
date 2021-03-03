@@ -16,9 +16,5 @@ export const setToken = token => {
 };
 
 export const jumpOutUrl = path => {
-    if (jsBridge.getNewWebView) {
-        jsBridge.getNewWebView(path);
-    } else {
-        window.open(path);
-    }
+    window.open(path);
 };

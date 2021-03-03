@@ -8,7 +8,7 @@
                 height="100px"
             />
         </div>
-        <div class="title">全科e医生</div>
+        <div class="title">全科e管理</div>
         <div class="item">
             <div class="identity">个人用户</div>
             <div>
@@ -28,7 +28,7 @@
             </div>
             <div class="wangye">
                 <a href="https://qkys.zhugaotech.com/#/patients"
-                    >全科e医生网页版</a
+                    >全科e管理网页版</a
                 >
             </div>
         </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="wangye">
                 <a href="https://qkys.zhugaotech.com/#/patients"
-                    >全科e医生网页版</a
+                    >全科e管理网页版</a
                 >
             </div>
         </div>
@@ -78,7 +78,7 @@ export default {
     }
     .item {
         padding: 20px;
-        border: 1px solid rgb(186,198,212);
+        border: 1px solid rgb(186, 198, 212);
         margin-top: 30px;
         text-align: center;
     }
