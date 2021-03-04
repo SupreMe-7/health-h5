@@ -30,7 +30,7 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="toUrl('/patients/my-doctor')">
+                <div class="card" @click="toUrl('/patients/my-mediciner')">
                     {{ docName ? `我的全科医生` : '选择全科医生' }}
                 </div>
                 <div class="card" @click="toUrl('/patients/add-calendar')">
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <TabBar :nowKey="0"></TabBar>
+        <TabBar type="patients" :nowKey="0"></TabBar>
     </div>
 </template>
 
@@ -202,6 +202,7 @@ export default {
     }
     .home-page-card {
         padding: 0 10px;
+        color: #fff;
         .card-row {
             display: flex;
             justify-content: space-between;

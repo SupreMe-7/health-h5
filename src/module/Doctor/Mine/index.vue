@@ -63,7 +63,7 @@
             </van-cell-group>
         </div>
 
-        <TabBar type="patients" :nowKey="3"></TabBar>
+        <TabBar type="doctor" :nowKey="2"></TabBar>
     </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
         };
     },
     mounted() {
-        this.getUpdate();
+        // this.getUpdate();
     },
     methods: {
         jumpUrl(url) {

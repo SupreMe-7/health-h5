@@ -17,7 +17,12 @@ export function responseSuccessFunc(responseObj) {
     const resData = responseObj.data;
     const { result } = resData;
     if (result === 9) {
-        location.href = '/#/patients/login';
+        if (location.hash.includes('patients')) {
+            location.href = '/#/patients/login';
+        }
+        if (location.hash.includes('doctor')) {
+            location.href = '/#/doctor/login';
+        }
     }
     if (result !== 0) {
         return Promise.reject(resData);

@@ -15,17 +15,17 @@
 import { Tabbar, TabbarItem } from 'vant';
 import {
     patientsNavBar,
-    generalNavBar,
+    doctorNavBar,
     supervisorNavBar,
 } from '@/const/index.js';
 export default {
     props: {
         nowKey: Number,
+        type: String,
     },
     data() {
         return {
             nowTabbarList: [],
-            type: 1,
         };
     },
     computed: {
@@ -37,11 +37,11 @@ export default {
         },
     },
     mounted() {
-        if (this.type === 1) {
+        if (this.type === 'patients') {
             this.nowTabbarList = patientsNavBar;
         }
-        if (this.type === 2) {
-            this.nowTabbarList = generalNavBar;
+        if (this.type === 'doctor') {
+            this.nowTabbarList = doctorNavBar;
         }
         if (this.type === 3) {
             this.nowTabbarList = supervisorNavBar;

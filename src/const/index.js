@@ -12,7 +12,7 @@ export const patientsNavBar = [
     {
         label: '我的医生',
         icon: 'user-circle-o',
-        url: '/patients/my-doctor',
+        url: '/patients/my-mediciner',
     },
     {
         label: '我的',
@@ -21,21 +21,21 @@ export const patientsNavBar = [
     },
 ];
 
-export const generalNavBar = [
+export const doctorNavBar = [
     {
         label: '首页',
         icon: 'wap-home-o',
-        url: '/home',
+        url: '/doctor/home',
     },
     {
-        label: '病例',
-        icon: '',
-        url: '',
+        label: '我的患者',
+        icon: 'user-circle-o',
+        url: '/doctor/my-sufferer',
     },
     {
         label: '我的',
         icon: 'user-o',
-        url: '',
+        url: '/doctor/mine',
     },
 ];
 

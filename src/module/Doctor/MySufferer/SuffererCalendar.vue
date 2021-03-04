@@ -1,5 +1,15 @@
 <template>
     <div class="monitor-calendar">
+        <van-nav-bar
+            left-text="返回"
+            placeholder
+            title="患者监测日记"
+            left-arrow
+            fixed
+            @click-left="onClickLeft"
+            @click-right="onClickRight"
+            right-text="添加诊疗建议"
+        />
         <van-tabs v-model="diaryMethod" sticky>
             <van-tab title="血糖" name="blood_sugar">
                 <van-pull-refresh
@@ -229,12 +239,10 @@
                     </van-list> </van-pull-refresh
             ></van-tab>
         </van-tabs>
-        <TabBar type="patients" :nowKey="1"></TabBar>
     </div>
 </template>
 
 <script>
-//TODO:
 import {
     Tab,
     Tabs,
@@ -243,8 +251,9 @@ import {
     List,
     PullRefresh,
     Image as VanImage,
+    NavBar,
 } from 'vant';
-import TabBar from '@/components/TabBar.vue';
+
 export default {
     data() {
         return {
@@ -271,7 +280,7 @@ export default {
         },
     },
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.pId = this.$route.query.pId;
     },
     components: {
         [Tab.name]: Tab,
@@ -279,11 +288,17 @@ export default {
         [List.name]: List,
         [PullRefresh.name]: PullRefresh,
         [VanImage.name]: VanImage,
-        TabBar,
+        [NavBar.name]: NavBar,
     },
     methods: {
+        onClickLeft() {
+            this.$router.back();
+        },
+        onClickRight() {
+            this.$router.push(`/doctor/add-advice?pId=${this.pId}`);
+        },
         getInfo() {
-            return this.$api.post(`/qkys/api/getDiaryByPId`, {
+            return this.$api.post(`/qkys/api/doc/getPatientDiary`, {
                 pId: this.pId,
                 currPage: this.currPage,
                 pageSize: this.pageSize,

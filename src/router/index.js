@@ -49,11 +49,11 @@ const routes = [
             ),
     },
     {
-        path: '/patients/my-doctor',
-        name: 'my-doctor-page',
+        path: '/patients/my-mediciner',
+        name: 'my-mediciner-page',
         component: () =>
             import(
-                /* webpackChunkName: "my-doctor-page" */ '../module/Patients/MyDoctor/index.vue'
+                /* webpackChunkName: "my-mediciner-page" */ '../module/Patients/MyDoctor/index.vue'
             ),
     },
     {
@@ -121,6 +121,10 @@ const routes = [
             ),
     },
     {
+        path: '/doctor',
+        redirect: '/doctor/home',
+    },
+    {
         path: '/doctor/login',
         name: 'doctor-login-page',
         component: () =>
@@ -142,6 +146,78 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "doctor-home-page" */ '../module/Doctor/Home/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/new-sufferer',
+        name: 'doctor-new-sufferer-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-new-sufferer-page" */ '../module/Doctor/MySufferer/NewSufferer.vue'
+            ),
+    },
+    {
+        path: '/doctor/my-sufferer',
+        name: 'doctor-my-sufferer-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-my-sufferer-page" */ '../module/Doctor/MySufferer/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/notice',
+        name: 'doctor-notice-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-notice-page" */ '../module/Doctor/Notice/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/sufferer-cases',
+        name: 'doctor-sufferer-cases-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-sufferer-cases-page" */ '../module/Doctor/MySufferer/SuffererCases.vue'
+            ),
+    },
+    {
+        path: '/doctor/sufferer-calendar',
+        name: 'doctor-sufferer-calendar-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-sufferer-calendar-page" */ '../module/Doctor/MySufferer/SuffererCalendar.vue'
+            ),
+    },
+    {
+        path: '/doctor/mine',
+        name: 'doctor-mine-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-mine-page" */ '../module/Doctor/Mine/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/add-record',
+        name: 'doctor-add-record-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-add-record-page" */ '../module/Doctor/MySufferer/AddRecord.vue'
+            ),
+    },
+    {
+        path: '/doctor/add-advice',
+        name: 'doctor-add-advice-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-add-advice-page" */ '../module/Doctor/MySufferer/AddAdvice.vue'
+            ),
+    },
+    {
+        path: '/doctor/sufferer-information',
+        name: 'doctor-sufferer-information-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-sufferer-information-page" */ '../module/Doctor/MySufferer/SuffererInformation.vue'
             ),
     },
 ];

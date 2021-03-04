@@ -1,11 +1,14 @@
 <template>
     <div class="home-page">
         <div class="home-page-header">
-            <div class="header-address">
-                <van-icon name="location-o" />{{ address }}
+            <div
+                class="header-name"
+                @click="toUrl('/doctor/personal-information')"
+            >
+                {{ name }}
             </div>
             <van-badge :content="notReadMsgNum" max="9">
-                <div class="header-news" @click="toUrl('/patients/notice')">
+                <div class="header-news" @click="toUrl('/doctor/notice')">
                     消息
                 </div>
             </van-badge>
@@ -27,19 +30,19 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="toUrl('/patients/my-doctor')">
-                    {{ docName ? `我的全科医生` : '选择全科医生' }}
+                <div class="card" @click="toUrl('/doctor/my-doctor')">
+                    {{ docName ? `上级医生` : '选择上级医生' }}
                 </div>
-                <div class="card" @click="toUrl('/patients/add-calendar')">
-                    添加监测日历
+                <div class="card" @click="toUrl('/doctor/new-sufferer')">
+                    新患者申请
                 </div>
             </div>
             <div class="card-row">
-                <div class="card" @click="toUrl('/patients/diagnosis-advice')">
-                    查看诊疗建议
+                <div class="card" @click="toUrl('/doctor/diagnosis-advice')">
+                    我的咨询
                 </div>
-                <div class="card" @click="toUrl('/patients/personal-cases')">
-                    查看病例
+                <div class="card" @click="toUrl('/doctor/personal-cases')">
+                    诊疗建议
                 </div>
             </div>
         </div>
@@ -60,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <TabBar :nowKey="0"></TabBar>
+        <TabBar type="doctor" :nowKey="0"></TabBar>
     </div>
 </template>
 
@@ -80,8 +83,8 @@ import { getToken, jumpOutUrl } from '@/common/util.js';
 export default {
     data() {
         return {
-            pId: null,
-            address: '',
+            dId: null,
+            name: '',
             notReadMsgNum: null,
             carouselList: [],
             recommend: [],
@@ -90,14 +93,10 @@ export default {
     },
     async mounted() {
         if (!getToken()) {
-            this.$router.push('/patients/login');
+            this.$router.push('/doctor/login');
             return;
         }
-        // if (window.getLocation) {
-        //     console.log('我有window.getLocation', window.getLocation());
-        //     this.address = window.getLocation();
-        // }
-        // await this.getPaByToken();
+        await this.getDocByToken();
         // this.getSysMsg();
         // this.getUrlPics();
         // this.getRecommand();
@@ -111,22 +110,24 @@ export default {
         [Icon.name]: Icon,
     },
     methods: {
-        getPaByToken() {
+        getDocByToken() {
             return this.$api
-                .get(`/qkys/api/getPaByToken`)
+                .get(`/qkys/api/doc/getDocByToken`)
                 .then(res => {
-                    const { id, docName } = res.data;
-                    this.docName = docName;
-                    sessionStorage.setItem('PID', id);
+                    console.log(res);
+                    const { id, name } = res.data;
+                    this.dId = id;
+                    this.name = name.slice(-2);
+                    sessionStorage.setItem('DID', id);
                 })
                 .catch(e => {
                     Toast(e.errMsg);
                 });
         },
         getSysMsg() {
-            const pId = sessionStorage.getItem('PID');
+            const dId = sessionStorage.getItem('PID');
             this.$api
-                .get(`/qkys/api/getStartSysMsg/Pa/${pId}`)
+                .get(`/qkys/api/getStartSysMsg/Pa/${dId}`)
                 .then(res => {
                     const { notReadMsgNum = 0, sysMsgs = [] } = res.data;
                     this.notReadMsgNum = notReadMsgNum;
@@ -178,15 +179,19 @@ export default {
     .home-page-header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 10px;
         padding: 0 6px;
-        .header-address {
-            width: 80%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+        .header-name {
+            color: #fff;
+            background: rgb(56, 137, 230);
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
     }
     .home-page-swiper {
@@ -203,6 +208,7 @@ export default {
             justify-content: space-between;
             margin-bottom: 24px;
             .card {
+                color: #fff;
                 width: 45%;
                 height: 80px;
                 line-height: 80px;

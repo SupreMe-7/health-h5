@@ -72,7 +72,7 @@
                 <van-button type="info" @click="choseDoctor">申请</van-button>
             </div>
         </div>
-        <TabBar :nowKey="2"></TabBar>
+        <TabBar type="patients" :nowKey="2"></TabBar>
     </div>
 </template>
 
