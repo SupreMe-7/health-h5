@@ -70,8 +70,7 @@ export default {
         onLoad() {
             this.currPage = this.currPage + 1;
             this.$api
-                // .get(`/qkys/api/doc/getPatientsByDId/${this.dId}`)
-                .get(`/qkys/api/doc/getPatientsByDId/2`)
+                .get(`/qkys/api/doc/getPatientsByDId/${this.dId}`)
                 .then(res => {
                     const { data = [] } = res;
                     this.list = this.list.concat(data);

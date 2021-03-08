@@ -220,6 +220,14 @@ const routes = [
                 /* webpackChunkName: "doctor-sufferer-information-page" */ '../module/Doctor/MySufferer/SuffererInformation.vue'
             ),
     },
+    {
+        path: '/doctor/chose-superior',
+        name: 'doctor-chose-superior-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-chose-superior-page" */ '../module/Doctor/ChoseSuperior/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({

@@ -30,7 +30,7 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="toUrl('/doctor/my-doctor')">
+                <div class="card" @click="toUrl('/doctor/chose-superior')">
                     {{ docName ? `上级医生` : '选择上级医生' }}
                 </div>
                 <div class="card" @click="toUrl('/doctor/new-sufferer')">
