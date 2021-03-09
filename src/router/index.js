@@ -225,7 +225,15 @@ const routes = [
         name: 'doctor-chose-superior-page',
         component: () =>
             import(
-                /* webpackChunkName: "doctor-chose-superior-page" */ '../module/Doctor/ChoseSuperior/index.vue'
+                /* webpackChunkName: "doctor-chose-superior-page" */ '../module/Doctor/MySuperior/ChoseSuperior.vue'
+            ),
+    },
+    {
+        path: '/doctor/my-superior',
+        name: 'doctor-my-superior-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-my-superior-page" */ '../module/Doctor/MySuperior/index.vue'
             ),
     },
 ];

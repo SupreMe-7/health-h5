@@ -30,8 +30,8 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="toUrl('/doctor/chose-superior')">
-                    {{ docName ? `上级医生` : '选择上级医生' }}
+                <div class="card" @click="toUrl('/doctor/my-superior')">
+                    上级医生
                 </div>
                 <div class="card" @click="toUrl('/doctor/new-sufferer')">
                     新患者申请
@@ -88,7 +88,6 @@ export default {
             notReadMsgNum: null,
             carouselList: [],
             recommend: [],
-            docName: '',
         };
     },
     async mounted() {
