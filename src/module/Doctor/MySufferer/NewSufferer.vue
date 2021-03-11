@@ -11,19 +11,18 @@
                 <div class="item">
                     <div class="left">
                         <div class="name">{{ item.name }}</div>
-                        <div class="address">{{ item.address }}</div>
-                        <div class="time">{{ item.time }}</div>
+                        <div class="address">
+                            {{ item.province }}{{ item.city
+                            }}{{ item.district }}
+                        </div>
+                        <div class="time">{{ item.selectTime }}</div>
                     </div>
-                    <div v-if="item.status === 3">
-                        <van-button @click="viewMessage(item)">{{
-                            statusList[item.status]
-                        }}</van-button>
+                    <div v-if="item.expired === 1">已过期</div>
+                    <div v-if="item.expired === 0 && item.confirmed === 0">
+                        <van-button @click="viewMessage(item)">查看</van-button>
                     </div>
-                    <div v-else-if="item.status === 2">
-                        {{ statusList[item.status] }}
-                    </div>
-                    <div v-else-if="item.status === 1">
-                        {{ statusList[item.status] }}
+                    <div v-if="item.expired === 0 && item.confirmed === 1">
+                        已通过
                     </div>
                 </div>
                 <van-divider />
@@ -45,9 +44,15 @@
                     <div>姓名：{{ currentItem.name }}</div>
                     <div>性别：{{ currentItem.sex }}</div>
                 </div>
-                <div class="birth">出生日期：{{ currentItem.time }}</div>
+                <div class="birth">
+                    出生日期：{{
+                        currentItem.birth &&
+                            new Date(+currentItem.birth).toJSON().slice(0, 10)
+                    }}
+                </div>
                 <div class="dialog-address">
-                    地址：{{ currentItem.address }}
+                    住址：{{ currentItem.province }}{{ currentItem.city
+                    }}{{ currentItem.district }}
                 </div>
             </div>
         </van-dialog>
@@ -57,41 +62,12 @@
 <script>
 import { Button, Toast, List, Divider, Dialog } from 'vant';
 import NavBar from '@/components/NavBar.vue';
-const statusList = {
-    1: '已通过',
-    2: '已拒绝',
-    3: '查看',
-};
 export default {
     data() {
         return {
             show: false,
-            pId: null,
+            dId: null,
             list: [
-                {
-                    time: '2021-03-03',
-                    name: '张三',
-                    address: '北京市海淀区',
-                    status: 1,
-                },
-                {
-                    time: '2021-03-03',
-                    name: '张三',
-                    address: '北京市海淀区',
-                    status: 2,
-                },
-                {
-                    time: '2021-03-03',
-                    name: '张三',
-                    address: '北京市海淀区',
-                    status: 3,
-                },
-                {
-                    time: '2021-03-03',
-                    name: '张三',
-                    address: '北京市海淀区',
-                    status: 2,
-                },
                 {
                     time: '2021-03-03',
                     name: '张三',
@@ -104,14 +80,13 @@ export default {
             currPage: 0,
             pageSize: 10,
             totalPage: null,
-            statusList: statusList,
             currentItem: {},
         };
     },
     watch: {},
     computed: {},
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.dId = sessionStorage.getItem('DID');
     },
     components: {
         [Button.name]: Button,
@@ -123,6 +98,14 @@ export default {
     methods: {
         onLoad() {
             this.currPage = this.currPage + 1;
+            this.$api
+                .get(`/qkys/api/doc/getNewSelectPatientsByDId/${this.dId}`)
+                .then(res => {
+                    this.list = res.data;
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
             this.finished = true;
         },
         adopt() {

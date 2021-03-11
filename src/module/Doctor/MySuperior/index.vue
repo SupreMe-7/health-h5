@@ -4,8 +4,21 @@
         <div class="title">您的上级医生</div>
         <div class="content" v-if="hasSup">
             <div class="item" v-for="(item, index) in superior" :key="index">
-                {{ item.hospital }}{{ item.specialty }}{{ item.level
-                }}{{ item.supName }}
+                <div class="item-content">
+                    <div>
+                        {{ item.supName }} {{ item.level }}
+                        <div class="item-hospital">
+                            {{ item.specialty }}
+                            <br />
+                            {{ item.hospital }}
+                        </div>
+                    </div>
+                    <van-button
+                        type="info"
+                        :to="`/doctor/ask-superior?supId=${item.supId}`"
+                        >咨询</van-button
+                    >
+                </div>
                 <van-divider />
             </div>
         </div>
@@ -84,9 +97,17 @@ export default {
         font-size: 18px;
         margin: 15px 0;
     }
+    .item-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     .no-content {
         text-align: center;
         font-size: 20px;
+    }
+    .item-hospital {
+        color: #6e6a6a;
     }
     .btn-group {
         padding: 10px;

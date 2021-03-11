@@ -236,6 +236,14 @@ const routes = [
                 /* webpackChunkName: "doctor-my-superior-page" */ '../module/Doctor/MySuperior/index.vue'
             ),
     },
+    {
+        path: '/doctor/ask-superior',
+        name: 'doctor-ask-superior-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/MySuperior/AskSuperior.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({
