@@ -2,7 +2,7 @@
     <div class="diagnosis-advice">
         <NavBar title="诊疗建议" />
         <van-tabs v-model="active">
-            <van-tab title="全科医生">
+            <van-tab title="我的建议">
                 <van-list
                     v-model="loading"
                     :finished="finished"
@@ -15,7 +15,6 @@
                         :key="index"
                     >
                         <div class="item-title">
-                            <span>医生: {{ item.docName }}</span>
                             <span>时间: {{ item.createTime }}</span>
                         </div>
                         <div class="item-content">建议:{{ item.advice }}</div>
@@ -54,6 +53,7 @@ export default {
     data() {
         return {
             pId: null,
+            dId: null,
             list: [],
             active: 0,
             loading: false,
@@ -65,7 +65,8 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.pId = this.$route.query.pId;
+        this.dId = sessionStorage.getItem('DID');
     },
     watch: {
         active() {
@@ -88,7 +89,8 @@ export default {
             this.currPage = this.currPage + 1;
             if (this.active === 0) {
                 this.$api
-                    .post(`/qkys/api/getDoctorAdvice`, {
+                    .post(`/qkys/api/doc/getDoctorAdviceByDId`, {
+                        dId: this.dId,
                         pId: this.pId,
                         currPage: this.currPage,
                         pageSize: this.pageSize,
@@ -109,10 +111,11 @@ export default {
             }
             if (this.active === 1) {
                 this.$api
-                    .post(`/qkys/api/getSuperiorAdvice `, {
+                    .post(`/qkys/api/doc/getSuperiorAdvice`, {
                         pId: this.pId,
                         currPage: this.currPage,
                         pageSize: this.pageSize,
+                        role: 'Sup',
                     })
                     .then(res => {
                         const { data } = res;

@@ -45,7 +45,7 @@ export default {
             this.$api
                 .post(`/qkys/api/doc/addDoctorAdvice`, {
                     pId: this.pId,
-                    dId: this.dId,
+                    doctorId: this.dId,
                     role: 'Doc',
                     advice: this.advice,
                 })

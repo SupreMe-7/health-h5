@@ -33,8 +33,8 @@
             show-cancel-button
             confirmButtonText="通过"
             cancelButtonText="拒绝"
-            @confirm="adopt"
-            @cancel="refuse"
+            @confirm="submit(CONFIRMED_ENUM.ADOPT)"
+            @cancel="submit(CONFIRMED_ENUM.REFUSE)"
         >
             <div class="dialog">
                 <div class="dialog-header" @click="show = false">
@@ -67,20 +67,17 @@ export default {
         return {
             show: false,
             dId: null,
-            list: [
-                {
-                    time: '2021-03-03',
-                    name: '张三',
-                    address: '北京市海淀区',
-                    status: 1,
-                },
-            ],
+            list: [],
             loading: false,
             finished: false,
             currPage: 0,
             pageSize: 10,
             totalPage: null,
             currentItem: {},
+            CONFIRMED_ENUM: {
+                REFUSE: 0,
+                ADOPT: 1,
+            },
         };
     },
     watch: {},
@@ -108,11 +105,24 @@ export default {
                 });
             this.finished = true;
         },
-        adopt() {
-            Toast('我通过了');
-        },
-        refuse() {
-            Toast('我拒绝了');
+        submit(confirmed) {
+            this.$api
+                .post(`/qkys/api/doc/updateNewSelectPatient`, {
+                    dId: this.dId,
+                    pId: this.currentItem.pId,
+                    confirmed,
+                })
+                .then(res => {
+                    if (confirmed === this.CONFIRMED_ENUM.ADOPT) {
+                        Toast('已通过');
+                    } else {
+                        Toast('已拒绝');
+                    }
+                    location.reload();
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
         viewMessage(item) {
             this.currentItem = item;

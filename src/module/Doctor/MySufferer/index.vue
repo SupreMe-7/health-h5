@@ -32,6 +32,11 @@
                             :to="`/doctor/sufferer-cases?pId=${item.pId}`"
                             >患者病历</van-button
                         >
+                        <van-button
+                            size="mini"
+                            :to="`/doctor/diagnosis-advice?pId=${item.pId}`"
+                            >诊疗建议</van-button
+                        >
                     </div>
                 </div>
                 <van-divider />
@@ -101,9 +106,6 @@ export default {
         font-size: 22px;
     }
     .item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
     .left {
         flex-grow: 1;
