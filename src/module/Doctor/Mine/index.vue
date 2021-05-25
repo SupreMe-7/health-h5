@@ -10,21 +10,14 @@
                     size="large"
                     is-link
                     icon="user-o"
-                    @click="jumpUrl('/patients/personal-information')"
-                />
-                <van-cell
-                    title="个人病例"
-                    size="large"
-                    is-link
-                    icon="orders-o"
-                    @click="jumpUrl('/patients/personal-cases')"
+                    @click="jumpUrl('/doctor/personal-information')"
                 />
                 <van-cell
                     title="我的消息"
                     size="large"
                     is-link
                     icon="chat-o"
-                    @click="jumpUrl('/patients/notice')"
+                    @click="jumpUrl('/doctor/notice')"
                 />
                 <van-cell
                     title="清理缓存"
@@ -46,13 +39,6 @@
                         <span v-else class="custom-title">系统更新</span>
                     </template>
                 </van-cell>
-                <van-cell
-                    title="意见与建议"
-                    size="large"
-                    is-link
-                    @click="jumpUrl('/patients/notice')"
-                    icon="question-o"
-                />
                 <van-cell
                     title="退出登录"
                     size="large"
@@ -93,7 +79,7 @@ export default {
         logOut() {
             jsBridge.logOut && jsBridge.logOut();
             sessionStorage.clear();
-            this.$router.push('/patients/login');
+            this.$router.push('/doctor/login');
         },
         getUpdate() {
             const version =

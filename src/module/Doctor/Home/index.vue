@@ -38,11 +38,8 @@
                 </div>
             </div>
             <div class="card-row">
-                <div class="card" @click="toUrl('/doctor/diagnosis-advice')">
+                <div class="card" @click="toUrl('/doctor/my-consultation')">
                     我的咨询
-                </div>
-                <div class="card" @click="toUrl('/doctor/personal-cases')">
-                    诊疗建议
                 </div>
             </div>
         </div>
@@ -96,7 +93,7 @@ export default {
             return;
         }
         await this.getDocByToken();
-        // this.getSysMsg();
+        this.getSysMsg();
         // this.getUrlPics();
         // this.getRecommand();
     },
@@ -124,9 +121,9 @@ export default {
                 });
         },
         getSysMsg() {
-            const dId = sessionStorage.getItem('PID');
+            const dId = sessionStorage.getItem('DID');
             this.$api
-                .get(`/qkys/api/getStartSysMsg/Pa/${dId}`)
+                .get(`/qkys/api/doc/getStartSysMsg/Doc/${dId}`)
                 .then(res => {
                     const { notReadMsgNum = 0, sysMsgs = [] } = res.data;
                     this.notReadMsgNum = notReadMsgNum;

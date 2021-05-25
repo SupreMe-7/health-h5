@@ -252,6 +252,22 @@ const routes = [
                 /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DiagnosisAdvice/index.vue'
             ),
     },
+    {
+        path: '/doctor/my-consultation',
+        name: 'doctor-my-consultation',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/MyConsultation/index.vue'
+            ),
+    },
+    {
+        path: '/doctor/personal-information',
+        name: 'doctor-personal-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DoctorInformation/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({

@@ -47,13 +47,6 @@
                     </template>
                 </van-cell>
                 <van-cell
-                    title="意见与建议"
-                    size="large"
-                    is-link
-                    @click="jumpUrl('/patients/notice')"
-                    icon="question-o"
-                />
-                <van-cell
                     title="退出登录"
                     size="large"
                     is-link

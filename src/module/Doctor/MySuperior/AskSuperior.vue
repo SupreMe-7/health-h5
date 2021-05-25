@@ -20,7 +20,7 @@
                 />
             </van-popup>
             <van-field
-                v-model="condition"
+                v-model="patientInform"
                 rows="6"
                 autosize
                 label="患者情况"
@@ -29,7 +29,7 @@
                 show-word-limit
             />
             <van-field
-                v-model="content"
+                v-model="consult"
                 rows="6"
                 autosize
                 label="咨询内容"
@@ -53,11 +53,12 @@ export default {
         return {
             dId: null,
             supId: null,
+            pId: null,
             patient: '',
             chosePatientPicker: false,
             patients: [],
-            content: '',
-            condition: '',
+            consult: '',
+            patientInform: '',
         };
     },
     computed: {},
@@ -83,12 +84,14 @@ export default {
                     this.patients = res.data;
                 })
                 .catch(e => {
-                    this.finished = true;
                     Toast(e.errMsg);
                 });
         },
         confirmPatient(item) {
             this.patient = item.name;
+            this.pId = item.pId;
+            this.consult = '';
+            this.patientInform = '';
             this.chosePatientPicker = false;
         },
         submit() {
@@ -96,10 +99,24 @@ export default {
                 Toast('请选择患者');
                 return;
             }
-            if (!this.content || !this.condition) {
+            if (!this.consult || !this.patientInform) {
                 Toast('请填写完整信息');
                 return;
             }
+            this.$api
+                .post(`/qkys/api/doc/addDoctorConsult`, {
+                    dId: this.dId,
+                    supId: this.supId,
+                    pId: this.pId,
+                    patientInform: this.patientInform,
+                    consult: this.consult,
+                })
+                .then(res => {
+                    Toast('提交成功');
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
     },
 };

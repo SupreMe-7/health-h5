@@ -56,7 +56,7 @@ export default {
     data() {
         return {
             MSG_TYPE_ENUM: MSG_TYPE_ENUM,
-            pId: null,
+            dId: null,
             list: [],
             activeType: MSG_TYPE_ENUM.Notification,
             loading: false,
@@ -69,7 +69,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.dId = sessionStorage.getItem('DID');
     },
     watch: {
         activeType() {
@@ -92,20 +92,23 @@ export default {
     },
     methods: {
         viewNotice(item) {
+            if (item.topic === '患者监测日记更新') {
+                this.$router.push(
+                    `/doctor/sufferer-calendar?pId=${item.innerchain}`
+                );
+                return;
+            }
+            if (item.topic === '全科医生申请') {
+                this.$router.push('/doctor/new-sufferer');
+                return;
+            }
             if (item.innerchain) {
                 Dialog({ title: item.topic, message: item.innerchain });
-            } else {
-                if (item.topic === '全科医生申请') {
-                    this.$router.push('/patients/my-mediciner');
-                }
-                if (item.topic === '个人病例更新') {
-                    this.$router.push('/patients/personal-cases');
-                }
             }
             this.$api
                 .post(`/qkys/api/updateReadMsg`, {
-                    role: 'Pa',
-                    id: this.pId,
+                    role: 'Doc',
+                    id: this.dId,
                     msgId: item.id,
                     msgType: item.msgType,
                 })
@@ -121,8 +124,8 @@ export default {
             if (this.activeType === MSG_TYPE_ENUM.Notification) {
                 this.$api
                     .post(`/qkys/api/getUserMsg`, {
-                        role: 'Pa',
-                        id: this.pId,
+                        role: 'Doc',
+                        id: this.dId,
                         currPage: this.currPage,
                         pageSize: this.pageSize,
                     })
@@ -144,8 +147,8 @@ export default {
             if (this.activeType === MSG_TYPE_ENUM.System) {
                 this.$api
                     .post(`/qkys/api/getAllSysMsg`, {
-                        role: 'Pa',
-                        id: this.pId,
+                        role: 'Doc',
+                        id: this.dId,
                         currPage: this.currPage,
                         pageSize: this.pageSize,
                     })
