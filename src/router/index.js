@@ -5,6 +5,17 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path: '/',
+        redirect: '/login',
+    },
+    {
+        path: '/login',
+        component: () =>
+            import(
+                /* webpackChunkName: "login-page" */ '../module/Login/index.vue'
+            ),
+    },
+    {
         path: '/patients',
         redirect: '/patients/home',
     },
@@ -13,7 +24,7 @@ const routes = [
         name: 'login-page',
         component: () =>
             import(
-                /* webpackChunkName: "login-page" */ '../module/Patients/Login/Login.vue'
+                /* webpackChunkName: "patients-login-page" */ '../module/Patients/Login/Login.vue'
             ),
     },
     {
