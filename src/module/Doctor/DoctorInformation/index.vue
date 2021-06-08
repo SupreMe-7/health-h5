@@ -12,7 +12,12 @@
         <div class="btn-group">
             <van-button
                 type="info"
-                @click="jumpUrl('/patients/personal-edit-information')"
+                @click="jumpUrl('/doctor/personal-edit-phone-password')"
+                >修改手机号及密码</van-button
+            >
+            <van-button
+                type="info"
+                @click="jumpUrl('/doctor/personal-edit-information')"
                 >修改个人信息</van-button
             >
         </div>
@@ -84,6 +89,9 @@ export default {
         padding: 0 10px;
         margin: 10px 0 0 0;
         text-align: right;
+        .van-button--normal {
+            margin-left: 10px;
+        }
     }
 }
 </style>

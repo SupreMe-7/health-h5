@@ -24,8 +24,6 @@
 
         <div class="btn-group">
             <van-button type="info" @click="updatePhone">修改手机号</van-button>
-        </div>
-        <div class="btn-group">
             <van-button type="info" @click="updatePassword"
                 >修改密码</van-button
             >
@@ -88,6 +86,10 @@ export default {
                 Toast('请输入有效的身份证号！');
                 return;
             }
+            if (!this.password) {
+                Toast('请输入有效的密码！');
+                return;
+            }
             this.$api
                 .post(`/qkys/api/updatePassword`, {
                     id: this.pId,
@@ -115,5 +117,8 @@ export default {
     padding: 0 10px;
     margin: 10px 0 0 0;
     text-align: right;
+    .van-button--normal {
+        margin-left: 10px;
+    }
 }
 </style>

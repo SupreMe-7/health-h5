@@ -71,13 +71,6 @@
                 >修改信息</van-button
             >
         </div>
-        <div class="btn-group">
-            <van-button
-                type="info"
-                @click="jumpUrl('/patients/personal-edit-phone-password')"
-                >修改手机号及密码</van-button
-            >
-        </div>
     </div>
 </template>
 

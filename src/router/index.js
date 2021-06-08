@@ -268,6 +268,22 @@ const routes = [
                 /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DoctorInformation/index.vue'
             ),
     },
+    {
+        path: '/doctor/personal-edit-information',
+        name: 'doctor-personal-edit-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DoctorInformation/EditInformation.vue'
+            ),
+    },
+    {
+        path: '/doctor/personal-edit-phone-password',
+        name: 'doctor-personal-edit-phone-password',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DoctorInformation/EditPhonePassword.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({
