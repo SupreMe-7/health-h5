@@ -86,7 +86,7 @@ export default {
         logOut() {
             jsBridge.logOut && jsBridge.logOut();
             sessionStorage.clear();
-            this.$router.push('/patients/login');
+            this.$router.push('/login');
         },
         getUpdate() {
             const version =

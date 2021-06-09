@@ -57,7 +57,7 @@ import { setToken } from '@/common/util.js';
 export default {
     data() {
         return {
-            smsLogin: true,
+            smsLogin: false,
             phone: '',
             password: '',
             smsCode: '',

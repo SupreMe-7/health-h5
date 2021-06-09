@@ -93,7 +93,7 @@ export default {
     },
     async mounted() {
         if (!getToken()) {
-            this.$router.push('/patients/login');
+            this.$router.push('/login');
             return;
         }
         await this.getPaByToken();
@@ -227,8 +227,8 @@ export default {
             }
             .recommend-title {
                 font-size: 18px;
-                font-weight: 500;
                 margin-bottom: 4px;
+                color: #222;
             }
             .recommend-desc {
                 color: rgb(59, 56, 56);

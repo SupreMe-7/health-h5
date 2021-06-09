@@ -74,7 +74,7 @@ export default {
                     Toast({
                         message: '修改成功',
                         duration: 1000,
-                        onClose: () => this.$router.push('/doctor/login'),
+                        onClose: () => this.$router.push('/login'),
                     });
                 })
                 .catch(e => {
@@ -101,7 +101,7 @@ export default {
                     Toast({
                         message: '修改成功',
                         duration: 1000,
-                        onClose: () => this.$router.push('/doctor/login'),
+                        onClose: () => this.$router.push('/login'),
                     });
                 })
                 .catch(e => {

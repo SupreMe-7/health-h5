@@ -89,7 +89,7 @@ export default {
     },
     async mounted() {
         if (!getToken()) {
-            this.$router.push('/doctor/login');
+            this.$router.push('/login');
             return;
         }
         await this.getDocByToken();

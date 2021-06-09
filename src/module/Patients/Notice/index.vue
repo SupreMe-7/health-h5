@@ -102,19 +102,22 @@ export default {
                     this.$router.push('/patients/personal-cases');
                 }
             }
-            this.$api
-                .post(`/qkys/api/updateReadMsg`, {
-                    role: 'Pa',
-                    id: this.pId,
-                    msgId: item.id,
-                    msgType: item.msgType,
-                })
-                .then(res => {
-                    item.isRead = 1;
-                })
-                .catch(e => {
-                    Toast(e.errMsg);
-                });
+            if (item.isRead === 0) {
+                this.$api
+                    .post(`/qkys/api/updateReadMsg`, {
+                        role: 'Pa',
+                        id: this.pId,
+                        msgId: item.id,
+                        msgType: item.msgType,
+                    })
+                    .then(res => {
+                        item.isRead = 1;
+                        this.notReadUserMsgNum = this.notReadUserMsgNum - 1;
+                    })
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    });
+            }
         },
         onLoad() {
             this.currPage = this.currPage + 1;

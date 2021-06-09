@@ -79,7 +79,7 @@ export default {
         logOut() {
             jsBridge.logOut && jsBridge.logOut();
             sessionStorage.clear();
-            this.$router.push('/doctor/login');
+            this.$router.push('/login');
         },
         getUpdate() {
             const version =
