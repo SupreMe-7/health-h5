@@ -97,13 +97,43 @@
                             </div>
                             <div class="show-item-main">
                                 <div class="show-item-info">
-                                    早晨: {{ item.morningPressure }}
+                                    <div class="show-item-info-pressure">
+                                        早晨
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        低压:
+                                        {{ item.morningLowPressure || '-' }}
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        高压:
+                                        {{ item.morningHighPressure || '-' }}
+                                    </div>
                                 </div>
                                 <div class="show-item-info">
-                                    中午: {{ item.afternoonPressure }}
+                                    <div class="show-item-info-pressure">
+                                        中午
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        低压:
+                                        {{ item.afternoonLowPressure || '-' }}
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        高压:
+                                        {{ item.afternoonHighPressure || '-' }}
+                                    </div>
                                 </div>
                                 <div class="show-item-info">
-                                    晚间: {{ item.eveningPressure }}
+                                    <div class="show-item-info-pressure">
+                                        晚间
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        低压:
+                                        {{ item.eveningLowPressure || '-' }}
+                                    </div>
+                                    <div class="show-item-info-pressure">
+                                        高压:
+                                        {{ item.eveningHighPressure || '-' }}
+                                    </div>
                                 </div>
                             </div>
                             <div
@@ -359,13 +389,14 @@ export default {
             font-weight: bold;
         }
         .show-item-main {
-            display: flex;
-            flex-wrap: wrap;
             .show-item-info {
-                flex: 1 1 50%;
+                display: flex;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                .show-item-info-pressure {
+                    flex-grow: 1;
+                }
             }
         }
         .show-item-img {

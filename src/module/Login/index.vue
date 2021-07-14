@@ -32,6 +32,7 @@
 
 <script>
 import { Icon } from 'vant';
+import { getUserType } from '@/common/util.js';
 
 export default {
     methods: {
@@ -41,6 +42,17 @@ export default {
     },
     components: {
         [Icon.name]: Icon,
+    },
+    mounted() {
+        let userType = getUserType();
+        if (userType === 'Patients') {
+            this.$router.push('/patients/home');
+            return;
+        }
+        if (userType === 'Doctor') {
+            this.$router.push('/doctor/home');
+            return;
+        }
     },
 };
 </script>

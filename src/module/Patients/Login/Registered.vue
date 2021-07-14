@@ -222,7 +222,7 @@ export default {
                         .post(`/qkys/api/user/pa/registe?param=${data}`)
                         .then(res => {
                             const { token } = res.data;
-                            setToken(token);
+                            setToken(token, 'Patients');
                             this.$router.push('/patients/home');
                         })
                         .catch(e => {

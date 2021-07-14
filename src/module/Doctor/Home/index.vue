@@ -110,7 +110,6 @@ export default {
             return this.$api
                 .get(`/qkys/api/doc/getDocByToken`)
                 .then(res => {
-                    console.log(res);
                     const { id, name } = res.data;
                     this.dId = id;
                     this.name = name.slice(-2);

@@ -3,16 +3,21 @@ export const getToken = () => {
     if (navigator.userAgent.includes('xkysAndroidApp')) {
         return jsBridge.getToken && jsBridge.getToken();
     } else {
-        return sessionStorage.getItem('TOKEN');
+        return localStorage.getItem('TOKEN');
     }
 };
 
-export const setToken = token => {
+export const setToken = (token, userType) => {
     if (navigator.userAgent.includes('xkysAndroidApp')) {
         jsBridge.saveToken && jsBridge.saveToken(token);
     } else {
-        sessionStorage.setItem('TOKEN', token);
+        localStorage.setItem('TOKEN', token);
+        localStorage.setItem('USER_TYPE', userType);
     }
+};
+
+export const getUserType = () => {
+    return localStorage.getItem('USER_TYPE');
 };
 
 export const jumpOutUrl = path => {
