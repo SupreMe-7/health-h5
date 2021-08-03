@@ -43,16 +43,16 @@ export const supervisorNavBar = [
     {
         label: '首页',
         icon: 'wap-home-o',
-        url: '/home',
+        url: '/supervisor/home',
     },
     {
-        label: '病例',
+        label: '全科医生',
         icon: 'description',
-        url: '',
+        url: '/supervisor/my-doctor',
     },
     {
         label: '我的',
         icon: 'user-o',
-        url: '',
+        url: '/supervisor/mine',
     },
 ];

@@ -43,7 +43,7 @@ export default {
         if (this.type === 'doctor') {
             this.nowTabbarList = doctorNavBar;
         }
-        if (this.type === 3) {
+        if (this.type === 'supervisor') {
             this.nowTabbarList = supervisorNavBar;
         }
     },

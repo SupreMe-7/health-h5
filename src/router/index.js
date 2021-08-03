@@ -295,6 +295,54 @@ const routes = [
                 /* webpackChunkName: "doctor-ask-superior-page" */ '../module/Doctor/DoctorInformation/EditPhonePassword.vue'
             ),
     },
+    {
+        path: '/supervisor/home',
+        name: 'superior-home',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-home-page" */ '../module/Supervisor/Home/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/new-doctor-consult',
+        name: 'superior-new-doctor-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-new-doctor-consult" */ '../module/Supervisor/NewDoctorConsult/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/new-doctor-apply',
+        name: 'superior-new-doctor-apply',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-new-doctor-apply" */ '../module/Supervisor/NewDoctorApply/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/my-doctor',
+        name: 'superior-my-doctor',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-my-doctor" */ '../module/Supervisor/MyDoctor/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/my-patients',
+        name: 'superior-my-patients',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-my-patients" */ '../module/Supervisor/MyPatients/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/answer-doctor-consult',
+        name: 'superior-answer-doctor-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-answer-doctor-consult" */ '../module/Supervisor/AnswerDoctorConsult/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({
