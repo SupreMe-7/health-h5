@@ -343,6 +343,142 @@ const routes = [
                 /* webpackChunkName: "superior-answer-doctor-consult" */ '../module/Supervisor/AnswerDoctorConsult/index.vue'
             ),
     },
+    {
+        path: '/supervisor/login',
+        name: 'supervisor-login-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-login-page" */ '../module/Supervisor/Login/Login.vue'
+            ),
+    },
+    {
+        path: '/supervisor/registered',
+        name: 'supervisor-registered-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-registered-page" */ '../module/Supervisor/Login/Registered.vue'
+            ),
+    },
+    {
+        path: '/supervisor/notice',
+        name: 'supervisor-notice-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-notice-page" */ '../module/Supervisor/Notice/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/doctor-information',
+        name: 'supervisor-doctor-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-doctor-information" */ '../module/Supervisor/MyDoctor/DoctorInfomation.vue'
+            ),
+    },
+    {
+        path: '/supervisor/manage-patients',
+        name: 'supervisor-manage-patients',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-manage-patients" */ '../module/Supervisor/MyDoctor/ManagePatients.vue'
+            ),
+    },
+    {
+        path: '/supervisor/patients-information',
+        name: 'supervisor-patients-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-patients-information" */ '../module/Supervisor/MyDoctor/PatientsInformation.vue'
+            ),
+    },
+    {
+        path: '/supervisor/patients-cases',
+        name: 'supervisor-patients-cases',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-patients-cases" */ '../module/Supervisor/MyDoctor/PatientsCases.vue'
+            ),
+    },
+    {
+        path: '/supervisor/patients-calendar',
+        name: 'supervisor-patients-calendar',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-patients-calendar" */ '../module/Supervisor/MyDoctor/PatientsCalendar.vue'
+            ),
+    },
+    {
+        path: '/supervisor/add-advice',
+        name: 'supervisor-add-advice',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-add-advice" */ '../module/Supervisor/MyDoctor/AddAdvice.vue'
+            ),
+    },
+    {
+        path: '/supervisor/diagnosis-advice',
+        name: 'supervisor-diagnosis-advice',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-diagnosis-advice" */ '../module/Supervisor/MyDoctor/DiagnosisAdvice.vue'
+            ),
+    },
+    {
+        path: '/supervisor/doctor-consult',
+        name: 'supervisor-doctor-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-doctor-consult" */ '../module/Supervisor/MyDoctor/DoctorConsult.vue'
+            ),
+    },
+    {
+        path: '/supervisor/mine',
+        name: 'supervisor-mine',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-mine" */ '../module/Supervisor/Mine/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/personal-informatin',
+        name: 'supervisor-personal-informatin',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-personal-informatin" */ '../module/Supervisor/PersonalInformation/index.vue'
+            ),
+    },
+    {
+        path: '/supervisor/edit-informatin',
+        name: 'supervisor-edit-informatin',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-edit-informatin" */ '../module/Supervisor/PersonalInformation/EditInformation.vue'
+            ),
+    },
+    {
+        path: '/supervisor/edit-phone-password',
+        name: 'supervisor-edit-phone-password',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-edit-phone-password" */ '../module/Supervisor/PersonalInformation/EditPhonePassword.vue'
+            ),
+    },
+    {
+        path: '/admin/login',
+        name: 'admin-login',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-edit-phone-password" */ '../module/Admin/Login/Login.vue'
+            ),
+    },
+    {
+        path: '/admin/home',
+        name: 'admin-home',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-home" */ '../module/Admin/Home/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({

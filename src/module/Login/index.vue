@@ -27,6 +27,17 @@
             </div>
             <van-icon name="arrow" />
         </div>
+        <div class="login-item" @click="jumpUrl('/supervisor/login')">
+            <div class="login-item-label">
+                <img
+                    width="40px"
+                    src="https://tse2-mm.cn.bing.net/th/id/OIP.ihhgzDlrGRKHugGZYrDlWQHaHa?pid=ImgDet&rs=1"
+                    alt=""
+                />
+                <span class="login-item-name">上级医生登录</span>
+            </div>
+            <van-icon name="arrow" />
+        </div>
     </div>
 </template>
 
@@ -51,6 +62,10 @@ export default {
         }
         if (userType === 'Doctor') {
             this.$router.push('/doctor/home');
+            return;
+        }
+        if (userType === 'Supervisor') {
+            this.$router.push('/supervisor/home');
             return;
         }
     },

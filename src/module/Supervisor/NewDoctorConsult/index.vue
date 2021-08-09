@@ -3,13 +3,18 @@
         <NavBar title="新全科医生咨询" />
         <div v-for="(item, index) in list" :key="index" class="item">
             <van-row>
-                <van-col span="12">{{ item.name }}</van-col>
-                <van-col span="12">{{ item.time }}</van-col>
+                <van-col span="12">{{ item.doctorName }}医生</van-col>
+                <van-col span="12">{{ item.createTime }}</van-col>
             </van-row>
-            <div>患者情况说明: {{ item.content }}</div>
-            <div>咨询内容: {{ item.msg }}</div>
+            <div>
+                患者情况说明:
+                <span class="text">{{ item.patientInformation }}</span>
+            </div>
+            <div>
+                咨询内容: <span class="text">{{ item.consult }}</span>
+            </div>
             <div class="btn-group">
-                <van-button type="info" @click="check(item.id)"
+                <van-button type="info" size="small" @click="check(item)"
                     >查看</van-button
                 >
             </div>
@@ -19,26 +24,12 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue';
-import { Col, Row, Button } from 'vant';
+import { Col, Row, Button, Toast } from 'vant';
 export default {
     data() {
         return {
-            list: [
-                {
-                    id: 1,
-                    name: 'xxx医生',
-                    time: '2016',
-                    content: '情况说明',
-                    msg: '咨询内容',
-                },
-                {
-                    id: 2,
-                    name: 'xxx医生',
-                    time: '2016',
-                    content: '情况说明',
-                    msg: '咨询内容',
-                },
-            ],
+            sId: null,
+            list: [],
         };
     },
     components: {
@@ -48,14 +39,23 @@ export default {
         [Button.name]: Button,
     },
     async mounted() {
+        this.sId = sessionStorage.getItem('SID');
         await this.getConsult();
     },
     methods: {
         getConsult() {
-            console.log('获取咨询');
+            this.$api
+                .get(`/qkys/api/sup/getNewDoctorConsultBySupId/${this.sId}`)
+                .then(res => {
+                    this.list = res.data;
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
-        check(id) {
-            console.log(id);
+        check(item) {
+            sessionStorage.setItem('new-doctor-consult', JSON.stringify(item));
+            this.$router.push('/supervisor/answer-doctor-consult');
         },
     },
 };

@@ -3,17 +3,17 @@
         <NavBar title="回复全科医生咨询" />
         <div class="item">
             <van-row>
-                <van-col span="12">{{ item.name }}</van-col>
-                <van-col span="12">时间: {{ item.time }}</van-col>
+                <van-col span="12">{{ item.doctorName }}医生</van-col>
+                <van-col span="12">时间: {{ item.createTime }}</van-col>
             </van-row>
             <div class="explain">
-                患者情况说明: {{ item.content }}
+                患者情况说明: {{ item.patientInformation }}
                 <van-button type="info" size="mini">患者详情</van-button>
             </div>
-            <div>咨询内容: {{ item.msg }}</div>
+            <div>咨询内容: {{ item.consult }}</div>
             <div class="textarea">
                 <van-field
-                    v-model="advice"
+                    v-model="reply"
                     rows="8"
                     autosize
                     label="回复建议"
@@ -24,9 +24,7 @@
                 />
             </div>
             <div class="btn-group">
-                <van-button type="info" @click="check(item.id)"
-                    >提交</van-button
-                >
+                <van-button type="info" @click="submit">提交</van-button>
             </div>
         </div>
     </div>
@@ -34,19 +32,13 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue';
-import { Col, Row, Button, Field } from 'vant';
+import { Col, Row, Button, Field, Toast } from 'vant';
 
 export default {
     data() {
         return {
-            advice: '',
-            item: {
-                id: 1,
-                name: 'xxx医生',
-                time: '2016',
-                content: '情况说明',
-                msg: '咨询内容',
-            },
+            reply: '',
+            item: {},
         };
     },
     components: {
@@ -55,6 +47,27 @@ export default {
         [Row.name]: Row,
         [Button.name]: Button,
         [Field.name]: Field,
+    },
+    mounted() {
+        this.item = JSON.parse(sessionStorage.getItem('new-doctor-consult'));
+        console.log(this.item);
+    },
+    methods: {
+        submit() {
+            this.$api
+                .post(`/qkys/api/sup/addSuperiorReply`, {
+                    consultId: this.item.id,
+                    pId: this.item.pId,
+                    dId: this.item.dId,
+                    reply: this.reply,
+                })
+                .then(res => {
+                    Toast('提交成功');
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
     },
 };
 </script>

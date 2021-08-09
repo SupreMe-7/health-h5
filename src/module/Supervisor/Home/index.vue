@@ -30,7 +30,10 @@
         </div>
         <div class="home-page-card">
             <div class="card-row">
-                <div class="card" @click="toUrl('/supervisor/new-doctor-consult')">
+                <div
+                    class="card"
+                    @click="toUrl('/supervisor/new-doctor-consult')"
+                >
                     新全科医生咨询
                 </div>
                 <div
@@ -38,11 +41,6 @@
                     @click="toUrl('/supervisor/new-doctor-apply')"
                 >
                     新全科医生申请
-                </div>
-            </div>
-            <div class="card-row">
-                <div class="card" @click="toUrl('/supervisor/my-patients')">
-                    患者信息
                 </div>
             </div>
         </div>
@@ -83,7 +81,7 @@ import { getToken, jumpOutUrl } from '@/common/util.js';
 export default {
     data() {
         return {
-            dId: null,
+            sId: null,
             name: '',
             notReadMsgNum: null,
             carouselList: [],
@@ -91,12 +89,12 @@ export default {
         };
     },
     async mounted() {
-        // if (!getToken()) {
-        //     this.$router.push('/login');
-        //     return;
-        // }
-        // await this.getDocByToken();
-        // this.getSysMsg();
+        if (!getToken()) {
+            this.$router.push('/login');
+            return;
+        }
+        await this.getSupByToken();
+        this.getSysMsg();
         // this.getUrlPics();
         // this.getRecommand();
     },
@@ -109,23 +107,23 @@ export default {
         [Icon.name]: Icon,
     },
     methods: {
-        getDocByToken() {
+        getSupByToken() {
             return this.$api
-                .get(`/qkys/api/doc/getDocByToken`)
+                .get(`/qkys/api/sup/getSupByToken`)
                 .then(res => {
                     const { id, name } = res.data;
-                    this.dId = id;
+                    this.sId = id;
                     this.name = name.slice(-2);
-                    sessionStorage.setItem('DID', id);
+                    sessionStorage.setItem('SID', id);
                 })
                 .catch(e => {
                     Toast(e.errMsg);
                 });
         },
         getSysMsg() {
-            const dId = sessionStorage.getItem('DID');
+            const sId = sessionStorage.getItem('SID');
             this.$api
-                .get(`/qkys/api/doc/getStartSysMsg/Doc/${dId}`)
+                .get(`/qkys/api/sup/getStartSysMsg/Sup/${sId}`)
                 .then(res => {
                     const { notReadMsgNum = 0, sysMsgs = [] } = res.data;
                     this.notReadMsgNum = notReadMsgNum;
