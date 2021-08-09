@@ -111,7 +111,18 @@ export default {
             return this.$api
                 .get(`/qkys/api/sup/getSupByToken`)
                 .then(res => {
-                    const { id, name } = res.data;
+                    const { id, name, isConfirmed } = res.data;
+                    if (isConfirmed === 0) {
+                        Dialog.alert({
+                            title: '通知',
+                            message:
+                                '您的注册申请需要管理员确认，请耐心等待申请通过',
+                            confirmButtonText: '退出',
+                        }).then(() => {
+                            localStorage.clear();
+                            this.$router.push('/login');
+                        });
+                    }
                     this.sId = id;
                     this.name = name.slice(-2);
                     sessionStorage.setItem('SID', id);

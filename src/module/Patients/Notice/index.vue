@@ -92,6 +92,22 @@ export default {
     },
     methods: {
         viewNotice(item) {
+            if (item.isRead === 0) {
+                this.$api
+                    .post(`/qkys/api/updateReadMsg`, {
+                        role: 'Pa',
+                        id: this.pId,
+                        msgId: item.id,
+                        msgType: item.msgType,
+                    })
+                    .then(() => {
+                        item.isRead = 1;
+                        this.notReadUserMsgNum = this.notReadUserMsgNum - 1;
+                    })
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    });
+            }
             if (item.innerchain) {
                 Dialog({ title: item.topic, message: item.innerchain });
             } else {
@@ -101,22 +117,6 @@ export default {
                 if (item.topic === '个人病例更新') {
                     this.$router.push('/patients/personal-cases');
                 }
-            }
-            if (item.isRead === 0) {
-                this.$api
-                    .post(`/qkys/api/updateReadMsg`, {
-                        role: 'Pa',
-                        id: this.pId,
-                        msgId: item.id,
-                        msgType: item.msgType,
-                    })
-                    .then(res => {
-                        item.isRead = 1;
-                        this.notReadUserMsgNum = this.notReadUserMsgNum - 1;
-                    })
-                    .catch(e => {
-                        Toast(e.errMsg);
-                    });
             }
         },
         onLoad() {

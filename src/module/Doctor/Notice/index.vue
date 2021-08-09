@@ -92,17 +92,6 @@ export default {
     },
     methods: {
         viewNotice(item) {
-            if (item.topic === '患者监测日记更新') {
-                this.$router.push(
-                    `/doctor/sufferer-calendar?pId=${item.innerchain}`
-                );
-            }
-            if (item.topic === '全科医生申请') {
-                this.$router.push('/doctor/new-sufferer');
-            }
-            if (item.innerchain) {
-                Dialog({ title: item.topic, message: item.innerchain });
-            }
             if (item.isRead === 0) {
                 this.$api
                     .post(`/qkys/api/updateReadMsg`, {
@@ -111,13 +100,26 @@ export default {
                         msgId: item.id,
                         msgType: item.msgType,
                     })
-                    .then(res => {
+                    .then(() => {
                         item.isRead = 1;
                         this.notReadUserMsgNum = this.notReadUserMsgNum - 1;
                     })
                     .catch(e => {
                         Toast(e.errMsg);
                     });
+            }
+            if (item.topic === '患者监测日记更新') {
+                this.$router.push(
+                    `/doctor/sufferer-calendar?pId=${item.innerchain}`
+                );
+                return;
+            }
+            if (item.topic === '全科医生申请') {
+                this.$router.push('/doctor/new-sufferer');
+                return;
+            }
+            if (item.innerchain) {
+                Dialog({ title: item.topic, message: item.innerchain });
             }
         },
         onLoad() {
