@@ -275,7 +275,7 @@ import {
     Image as VanImage,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getPid } from '@/common/util.js';
+import { getPId } from '@/common/util.js';
 
 export default {
     data() {
@@ -303,7 +303,7 @@ export default {
         },
     },
     mounted() {
-        this.pId = getPid();
+        this.pId = getPId();
     },
     components: {
         [Tab.name]: Tab,

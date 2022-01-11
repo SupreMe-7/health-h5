@@ -24,7 +24,7 @@ export const jumpOutUrl = path => {
     window.open(path);
 };
 
-export const getPid = () => {
+export const getPId = () => {
     const pid = sessionStorage.getItem('PID');
     if (pid) {
         return pid;

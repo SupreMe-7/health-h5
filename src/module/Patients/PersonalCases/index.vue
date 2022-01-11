@@ -95,7 +95,7 @@
 // 个人病例
 import { Button, Cell, CellGroup, Toast, Tab, Tabs } from 'vant';
 import NavBar from '@/components/NavBar.vue';
-import { getPid } from '@/common/util.js';
+import { getPId } from '@/common/util.js';
 
 export default {
     data() {
@@ -108,7 +108,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = getPid();
+        this.pId = getPId();
         this.getInfo();
     },
     components: {

@@ -63,7 +63,11 @@
                 </div>
             </div>
         </div>
-        <TabBar type="patients" :nowKey="0"></TabBar>
+        <TabBar
+            type="patients"
+            :nowKey="0"
+            :unReadChatNum="unReadChatNum"
+        ></TabBar>
     </div>
 </template>
 
@@ -79,16 +83,16 @@ import {
     Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getToken, jumpOutUrl, getPid } from '@/common/util.js';
+import { getToken, jumpOutUrl, getPId } from '@/common/util.js';
 export default {
     data() {
         return {
-            pId: null,
             name: '',
             notReadMsgNum: null,
             carouselList: [],
             recommend: [],
             docName: '',
+            unReadChatNum: '',
         };
     },
     async mounted() {
@@ -97,6 +101,7 @@ export default {
             return;
         }
         await this.getPaByToken();
+        this.getUnReadChatNum();
         this.getSysMsg();
         this.getUrlPics();
         this.getRecommand();
@@ -123,8 +128,20 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        getUnReadChatNum() {
+            const pId = getPId();
+            return this.$api
+                .get(`/qkys/api/getUnReadChatNum/${pId}/13`)
+                .then(res => {
+                    this.unReadChatNum = res.data + '';
+                    console.log('----', this.unReadChatNum);
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
         getSysMsg() {
-            const pId = getPid();
+            const pId = getPId();
             this.$api
                 .get(`/qkys/api/getStartSysMsg/Pa/${pId}`)
                 .then(res => {

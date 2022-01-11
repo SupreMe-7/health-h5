@@ -87,7 +87,7 @@ import {
 } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 import areaList from '@/const/area.js';
-import { getPid } from '@/common/util.js';
+import { getPId } from '@/common/util.js';
 
 export default {
     data() {
@@ -113,7 +113,7 @@ export default {
         };
     },
     mounted() {
-        this.pId = getPid();
+        this.pId = getPId();
     },
     components: {
         [Button.name]: Button,

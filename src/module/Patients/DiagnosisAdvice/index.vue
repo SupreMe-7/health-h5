@@ -50,7 +50,7 @@
 // 诊疗建议
 import { Tab, Tabs, List, Toast } from 'vant';
 import NavBar from '@/components/NavBar.vue';
-import { getPid } from '@/common/util.js';
+import { getPId } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -66,7 +66,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = getPid();
+        this.pId = getPId();
     },
     watch: {
         active() {
