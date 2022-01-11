@@ -34,6 +34,8 @@
 <script>
 import { Button, Field, CellGroup, Toast } from 'vant';
 import NavBar from '@/components/NavBar.vue';
+import { getPid } from '@/common/util.js';
+
 export default {
     data() {
         return {
@@ -44,7 +46,7 @@ export default {
         };
     },
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.pId = getPid();
     },
     components: {
         [Button.name]: Button,

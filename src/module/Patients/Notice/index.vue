@@ -48,6 +48,8 @@
 <script>
 import { Tab, Tabs, List, Icon, Badge, Divider, Dialog, Toast } from 'vant';
 import NavBar from '@/components/NavBar.vue';
+import { getPid } from '@/common/util.js';
+
 const MSG_TYPE_ENUM = {
     Notification: 'Notification',
     System: 'System',
@@ -69,7 +71,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = sessionStorage.getItem('PID');
+        this.pId = getPid();
     },
     watch: {
         activeType() {

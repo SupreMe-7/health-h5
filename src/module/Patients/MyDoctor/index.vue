@@ -80,6 +80,8 @@
 import areaList from '@/const/area.js';
 import { Button, Cell, Picker, Field, Popup, Area, Toast } from 'vant';
 import TabBar from '@/components/TabBar.vue';
+import { getPid } from '@/common/util.js';
+
 export default {
     data() {
         return {
@@ -103,7 +105,7 @@ export default {
     },
     computed: {},
     mounted() {
-        this.pId = sessionStorage.getItem('PID') || '';
+        this.pId = getPid();
         this.getDoctor();
     },
     components: {

@@ -79,7 +79,7 @@ import {
     Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getToken, jumpOutUrl } from '@/common/util.js';
+import { getToken, jumpOutUrl, getPid } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -124,7 +124,7 @@ export default {
                 });
         },
         getSysMsg() {
-            const pId = sessionStorage.getItem('PID');
+            const pId = getPid();
             this.$api
                 .get(`/qkys/api/getStartSysMsg/Pa/${pId}`)
                 .then(res => {

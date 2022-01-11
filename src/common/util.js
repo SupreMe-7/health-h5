@@ -23,3 +23,13 @@ export const getUserType = () => {
 export const jumpOutUrl = path => {
     window.open(path);
 };
+
+export const getPid = () => {
+    const pid = sessionStorage.getItem('PID');
+    if (pid) {
+        return pid;
+    } else {
+        location.href = '/#/patients/home';
+        return;
+    }
+};
