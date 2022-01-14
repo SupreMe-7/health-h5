@@ -134,7 +134,6 @@ export default {
                 .get(`/qkys/api/getUnReadChatNum/${pId}/13`)
                 .then(res => {
                     this.unReadChatNum = res.data + '';
-                    console.log('----', this.unReadChatNum);
                 })
                 .catch(e => {
                     Toast(e.errMsg);

@@ -5,6 +5,9 @@
                 title="您的全科医生"
                 :label="`${doctor.hospital} ${doctor.docName}医生`"
                 size="large"
+                :to="
+                    `/patients/mediciner-chat?dId=${doctor.dId}&doctorName=${doctor.docName}`
+                "
             />
             <div v-if="hasNewSelect" class="apply-doctor">
                 您已于{{ selectDoctor.selectTime }}日申请{{
@@ -128,7 +131,7 @@ export default {
                     pId: this.pId,
                     dId: this.dId,
                 })
-                .then(res => {
+                .then(() => {
                     Toast('申请成功');
                     this.getDoctor();
                 })

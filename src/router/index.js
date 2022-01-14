@@ -68,6 +68,14 @@ const routes = [
             ),
     },
     {
+        path: '/patients/mediciner-chat',
+        name: 'mediciner-chat',
+        component: () =>
+            import(
+                /* webpackChunkName: "mediciner-chat" */ '../module/Patients/DoctorChat/index.vue'
+            ),
+    },
+    {
         path: '/patients/mine',
         name: 'mine-page',
         component: () =>
