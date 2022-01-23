@@ -289,7 +289,7 @@ export default {
             pageSize: 10,
             diaryMethod: 'blood_sugar',
             totalPage: null,
-            picBaseUrl: 'https://qkys.zhugaotech.com/pics/',
+            picBaseUrl: '',
         };
     },
     computed: {},
@@ -335,6 +335,7 @@ export default {
             this.getInfo()
                 .then(res => {
                     const { data } = res;
+                    this.picBaseUrl = data.path;
                     data.data.forEach(item => {
                         item.pics = [];
                         item.picPath1 &&

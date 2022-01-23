@@ -27,6 +27,13 @@
                     @click="jumpUrl('/patients/notice')"
                 />
                 <van-cell
+                    title="定时提醒"
+                    size="large"
+                    is-link
+                    icon="underway-o"
+                    @click="jumpUrl('/patients/timed-reminders')"
+                />
+                <van-cell
                     title="清理缓存"
                     size="large"
                     is-link

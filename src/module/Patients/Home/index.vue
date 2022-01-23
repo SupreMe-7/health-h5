@@ -210,6 +210,7 @@ export default {
         }
     }
     .home-page-swiper {
+        height: 270px;
         margin-bottom: 24px;
         .my-swipe .van-swipe-item {
             color: #fff;

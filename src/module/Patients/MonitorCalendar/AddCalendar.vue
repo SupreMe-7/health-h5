@@ -196,6 +196,8 @@ import {
 } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 import { getPId } from '@/common/util.js';
+var COS = require('cos-js-sdk-v5');
+var moment = require('moment');
 
 export default {
     data() {
@@ -205,6 +207,10 @@ export default {
             loading: false,
             choseTypePicker: false,
             diaryMethod: {},
+            config: {
+                Bucket: 'qkys-1255565436' /* 必须 */,
+                Region: 'ap-shanghai' /* 存储桶所在地域，必须字段 */,
+            },
             diaryMethodList: [
                 { text: '血糖', value: 'blood_sugar' },
                 { text: '血压', value: 'blood_pressure' },
@@ -296,7 +302,23 @@ export default {
     },
     computed: {},
     mounted() {
+        var _this = this;
         this.pId = getPId();
+        this.cos = new COS({
+            getAuthorization: function(options, callback) {
+                _this.$api.get('/qkys/api/getPatientChatCosSts').then(res => {
+                    var credentials = res.data.response.credentials;
+                    callback({
+                        TmpSecretId: credentials.tmpSecretId,
+                        TmpSecretKey: credentials.tmpSecretKey,
+                        SecurityToken: credentials.sessionToken,
+                        // 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
+                        StartTime: res.data.response.startTime, // 时间戳，单位秒，如：1580000000
+                        ExpiredTime: res.data.response.expiredTime, // 时间戳，单位秒，如：1580000000
+                    });
+                });
+            },
+        });
     },
     components: {
         [Button.name]: Button,
@@ -315,21 +337,8 @@ export default {
             this.diaryMethod = value;
             this.choseTypePicker = false;
         },
-        // 循环处理图片压缩
-        async lrz() {
-            let pics = [];
-            try {
-                for (let item of this.fileList) {
-                    let res = await this.$lrz(item.file);
-                    this.value = res;
-                    pics.push(res.base64.split(',')[1]);
-                }
-            } catch {
-                Toast('压缩图片失败');
-            }
-            return pics;
-        },
         async uploadCalendar() {
+            let pics = [];
             let isNull = true;
             if (!this.fileList.length) {
                 for (let i in this[this.diaryMethod.value]) {
@@ -352,25 +361,61 @@ export default {
                 return;
             }
             this.loading = true;
-            let pics = await this.lrz();
-            this.$api
-                .post('/qkys/api/addDiary', {
-                    pId: this.pId,
-                    data: this[this.diaryMethod.value],
-                    hasPic: !!this.fileList.length,
-                    pics: pics,
-                    diaryMethod: this.diaryMethod.value,
-                })
-                .then(res => {
-                    Toast('上传成功');
-                    this.diaryMethod = {};
-                })
-                .catch(e => {
-                    Toast(e.errMsg);
-                })
-                .finally(() => {
-                    this.loading = false;
+            let files = [];
+            let _this = this;
+            this.fileList.forEach((item, index) => {
+                let filePath = `${this.pId}${moment().format('x')}-${index}`;
+                files.push({
+                    ...this.config,
+                    Key: `diary/${filePath}` /* 必须 */,
+                    Body: item.file,
+                    onTaskReady: function(taskId) {
+                        console.log(taskId);
+                    },
                 });
+                pics.push(filePath);
+            });
+            this.cos.uploadFiles(
+                {
+                    files: files,
+                    onProgress: function(info) {
+                        var percent = parseInt(info.percent * 10000) / 100;
+                        var speed =
+                            parseInt((info.speed / 1024 / 1024) * 100) / 100;
+                        console.log(
+                            '进度：' + percent + '%; 速度：' + speed + 'Mb/s;'
+                        );
+                    },
+                    onFileFinish: function(err, data, options) {
+                        console.log(
+                            options.Key + '上传' + (err ? '失败' : '完成')
+                        );
+                    },
+                },
+                function(err, data) {
+                    console.log(err || data);
+                    if (data.files.length === _this.fileList.length) {
+                        _this.$api
+                            .post('/qkys/api/addDiary', {
+                                pId: _this.pId,
+                                data: _this[_this.diaryMethod.value],
+                                hasPic: !!_this.fileList.length,
+                                pics: pics,
+                                diaryMethod: _this.diaryMethod.value,
+                            })
+                            .then(() => {
+                                Toast('上传成功');
+                                _this.diaryMethod = {};
+                            })
+                            .catch(e => {
+                                Toast(e.errMsg);
+                            })
+                            .finally(() => {
+                                _this.loading = false;
+                            });
+                    }
+                }
+            );
         },
     },
 };

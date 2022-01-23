@@ -132,6 +132,14 @@ const routes = [
             ),
     },
     {
+        path: '/patients/timed-reminders',
+        name: 'patients-timed-reminders',
+        component: () =>
+            import(
+                /* webpackChunkName: "patients-timed-reminders" */ '../module/Patients/TimedReminders/index.vue'
+            ),
+    },
+    {
         path: '/download',
         name: 'download-page',
         component: () =>
