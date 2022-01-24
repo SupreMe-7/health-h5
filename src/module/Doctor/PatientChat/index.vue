@@ -1,7 +1,7 @@
 <template>
     <div class="doctor-chat">
         <div class="chat">
-            <NavBar :title="`${doctorName}`" />
+            <NavBar :title="`${patientName}`" />
             <div class="chat-content" id="chat-content">
                 <van-pull-refresh
                     v-model="isLoading"
@@ -12,11 +12,11 @@
                     :disabled="refreshDisabled"
                 >
                     <div v-for="(itemc, index) in content" :key="index">
-                        <div class="word" v-if="itemc.isPatientSend === 0">
-                            <img class="avator" :src="itemc.headUrl" />
+                        <div class="word" v-if="itemc.isPatientSend === 1">
+                            <img class="avator" :src="profileIcon" />
                             <div class="info">
                                 <p class="time">
-                                    {{ doctorName }}
+                                    {{ patientName }}
                                     {{ formatTime(itemc.createTime) }}
                                 </p>
                                 <div
@@ -94,14 +94,13 @@ import {
     PullRefresh,
     Uploader,
 } from 'vant';
-import { getPId } from '@/common/util.js';
 var moment = require('moment');
 var COS = require('cos-js-sdk-v5');
 
 export default {
     data() {
         return {
-            doctorName: '',
+            patientName: '',
             pId: null,
             dId: null,
             text: '',
@@ -130,9 +129,9 @@ export default {
         [Uploader.name]: Uploader,
     },
     async mounted() {
-        this.pId = getPId();
-        this.dId = this.$route.query.dId;
-        this.doctorName = this.$route.query.doctorName;
+        this.pId = this.$route.query.pId;
+        this.patientName = this.$route.query.name;
+        this.dId = sessionStorage.getItem('DID');
         await this.getContent();
         setTimeout(() => {
             var ele = document.getElementById('chat-content');
@@ -184,7 +183,6 @@ export default {
                 this.disabled = false;
             }
         },
-        //TODO: 自动定位未做，头像未做，添加消息到最后一条，
         async onRefresh() {
             let ele = document.getElementById('chat-content');
 
@@ -212,12 +210,12 @@ export default {
         send(isPic, data, fullPath) {
             if (isPic) {
                 this.$api
-                    .post(`/qkys/api/doc/addPatientDoctorChat`, {
+                    .post(`/qkys/api/addPatientDoctorChat`, {
                         pId: this.pId,
                         dId: this.dId,
                         pic: data,
                         // 0是医生发送的， 1是患者发送的
-                        isPatientSend: 1,
+                        isPatientSend: 0,
                         // 1是图像
                         isPic: 1,
                     })
@@ -225,7 +223,7 @@ export default {
                         this.content.push({
                             createTime: moment().format('HH:mm:ss'),
                             dId: this.dId,
-                            isPatientSend: 1,
+                            isPatientSend: 0,
                             isPic: 1,
                             isRead: 1,
                             pId: this.pId,
@@ -241,12 +239,12 @@ export default {
             } else {
                 this.disabled = true;
                 this.$api
-                    .post(`/qkys/api/doc/addPatientDoctorChat`, {
+                    .post(`/qkys/api/addPatientDoctorChat`, {
                         pId: this.pId,
                         dId: this.dId,
                         text: this.text,
                         // 0是医生发送的， 1是患者发送的
-                        isPatientSend: 1,
+                        isPatientSend: 0,
                         // 1是图像
                         isPic: 0,
                     })
@@ -254,7 +252,7 @@ export default {
                         this.content.push({
                             createTime: moment().format('HH:mm:ss'),
                             dId: this.dId,
-                            isPatientSend: 1,
+                            isPatientSend: 0,
                             isPic: 0,
                             isRead: 1,
                             pId: this.pId,
@@ -273,7 +271,7 @@ export default {
         },
         getContent() {
             this.$api
-                .post(`/qkys/api/getPatientDoctorChat`, {
+                .post(`/qkys/api/doc/getPatientDoctorChat`, {
                     pId: this.pId,
                     dId: this.dId,
                     currPage: this.currPage,
@@ -341,7 +339,7 @@ export default {
                     display: inline-block;
                     padding: 10px;
                     font-size: 14px;
-                    background: #fff;
+                    background: #a3c3f6;
                     position: relative;
                     margin-top: 8px;
                 }
@@ -351,7 +349,7 @@ export default {
                     left: -8px;
                     top: 8px;
                     content: '';
-                    border-right: 10px solid #fff;
+                    border-right: 10px solid #a3c3f6;
                     border-top: 8px solid transparent;
                     border-bottom: 8px solid transparent;
                 }
@@ -390,10 +388,10 @@ export default {
                     padding: 10px;
                     font-size: 14px;
                     float: right;
+                    background: #fff;
                     margin-right: 10px;
                     position: relative;
                     margin-top: 8px;
-                    background: #a3c3f6;
                     text-align: left;
                 }
                 //小三角形
@@ -402,7 +400,7 @@ export default {
                     right: -8px;
                     top: 8px;
                     content: '';
-                    border-left: 10px solid #a3c3f6;
+                    border-left: 10px solid #fff;
                     border-top: 8px solid transparent;
                     border-bottom: 8px solid transparent;
                 }

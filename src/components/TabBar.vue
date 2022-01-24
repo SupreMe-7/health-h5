@@ -58,6 +58,11 @@ export default {
                     url: '/doctor/my-sufferer',
                 },
                 {
+                    label: '留言',
+                    icon: 'chat-o',
+                    url: '/doctor/chat-list',
+                },
+                {
                     label: '我的',
                     icon: 'user-o',
                     url: '/doctor/mine',

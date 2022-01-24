@@ -176,6 +176,22 @@ const routes = [
             ),
     },
     {
+        path: '/doctor/chat-list',
+        name: 'doctor-chat-list',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-chat-list" */ '../module/Doctor/PatientChat/ChatList.vue'
+            ),
+    },
+    {
+        path: '/doctor/patient-chat',
+        name: 'doctor-patient-chat',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-patient-chat" */ '../module/Doctor/PatientChat/index.vue'
+            ),
+    },
+    {
         path: '/doctor/new-sufferer',
         name: 'doctor-new-sufferer-page',
         component: () =>
