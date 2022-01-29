@@ -75,7 +75,10 @@ export default {
     .chat-item {
         width: 100%;
         display: flex;
+        margin-bottom: 12px;
         .chat-avator {
+            padding-bottom: 8px;
+            flex-shrink: 0;
             width: 60px;
             height: 60px;
             object-fit: contain;

@@ -361,61 +361,89 @@ export default {
                 return;
             }
             this.loading = true;
-            let files = [];
-            let _this = this;
-            this.fileList.forEach((item, index) => {
-                let filePath = `${this.pId}${moment().format('x')}-${index}`;
-                files.push({
-                    ...this.config,
-                    Key: `diary/${filePath}` /* 必须 */,
-                    Body: item.file,
-                    onTaskReady: function(taskId) {
-                        console.log(taskId);
-                    },
+            if (this.fileList.length) {
+                let files = [];
+                let _this = this;
+                this.fileList.forEach((item, index) => {
+                    let filePath = `${this.pId}${moment().format(
+                        'x'
+                    )}-${index}`;
+                    files.push({
+                        ...this.config,
+                        Key: `diary/${filePath}` /* 必须 */,
+                        Body: item.file,
+                        onTaskReady: function(taskId) {
+                            console.log(taskId);
+                        },
+                    });
+                    pics.push(filePath);
                 });
-                pics.push(filePath);
-            });
-            this.cos.uploadFiles(
-                {
-                    files: files,
-                    onProgress: function(info) {
-                        var percent = parseInt(info.percent * 10000) / 100;
-                        var speed =
-                            parseInt((info.speed / 1024 / 1024) * 100) / 100;
-                        console.log(
-                            '进度：' + percent + '%; 速度：' + speed + 'Mb/s;'
-                        );
+                this.cos.uploadFiles(
+                    {
+                        files: files,
+                        onProgress: function(info) {
+                            var percent = parseInt(info.percent * 10000) / 100;
+                            var speed =
+                                parseInt((info.speed / 1024 / 1024) * 100) /
+                                100;
+                            console.log(
+                                '进度：' +
+                                    percent +
+                                    '%; 速度：' +
+                                    speed +
+                                    'Mb/s;'
+                            );
+                        },
+                        onFileFinish: function(err, data, options) {
+                            console.log(
+                                options.Key + '上传' + (err ? '失败' : '完成')
+                            );
+                        },
                     },
-                    onFileFinish: function(err, data, options) {
-                        console.log(
-                            options.Key + '上传' + (err ? '失败' : '完成')
-                        );
-                    },
-                },
-                function(err, data) {
-                    console.log(err || data);
-                    if (data.files.length === _this.fileList.length) {
-                        _this.$api
-                            .post('/qkys/api/addDiary', {
-                                pId: _this.pId,
-                                data: _this[_this.diaryMethod.value],
-                                hasPic: !!_this.fileList.length,
-                                pics: pics,
-                                diaryMethod: _this.diaryMethod.value,
-                            })
-                            .then(() => {
-                                Toast('上传成功');
-                                _this.diaryMethod = {};
-                            })
-                            .catch(e => {
-                                Toast(e.errMsg);
-                            })
-                            .finally(() => {
-                                _this.loading = false;
-                            });
+                    function(err, data) {
+                        console.log(err || data);
+                        if (data.files.length === _this.fileList.length) {
+                            _this.$api
+                                .post('/qkys/api/addDiary', {
+                                    pId: _this.pId,
+                                    data: _this[_this.diaryMethod.value],
+                                    hasPic: !!_this.fileList.length,
+                                    pics: pics,
+                                    diaryMethod: _this.diaryMethod.value,
+                                })
+                                .then(() => {
+                                    Toast('上传成功');
+                                    _this.diaryMethod = {};
+                                })
+                                .catch(e => {
+                                    Toast(e.errMsg);
+                                })
+                                .finally(() => {
+                                    _this.loading = false;
+                                });
+                        }
                     }
-                }
-            );
+                );
+            } else {
+                this.$api
+                    .post('/qkys/api/addDiary', {
+                        pId: this.pId,
+                        data: this[this.diaryMethod.value],
+                        hasPic: !!this.fileList.length,
+                        pics: pics,
+                        diaryMethod: this.diaryMethod.value,
+                    })
+                    .then(() => {
+                        Toast('上传成功');
+                        this.diaryMethod = {};
+                    })
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    });
+            }
         },
     },
 };

@@ -55,7 +55,7 @@
                                     />
                                 </div>
                             </div>
-                            <img class="avator" :src="profileIcon" />
+                            <img class="avator" :src="doctorIcon" />
                         </div>
                     </div>
                 </van-pull-refresh>
@@ -116,6 +116,7 @@ export default {
             cos: null,
             disabled: false,
             profileIcon: '',
+            doctorIcon: '',
             refreshDisabled: false,
         };
     },
@@ -210,7 +211,7 @@ export default {
         send(isPic, data, fullPath) {
             if (isPic) {
                 this.$api
-                    .post(`/qkys/api/addPatientDoctorChat`, {
+                    .post(`/qkys/api/doc/addPatientDoctorChat`, {
                         pId: this.pId,
                         dId: this.dId,
                         pic: data,
@@ -239,7 +240,7 @@ export default {
             } else {
                 this.disabled = true;
                 this.$api
-                    .post(`/qkys/api/addPatientDoctorChat`, {
+                    .post(`/qkys/api/doc/addPatientDoctorChat`, {
                         pId: this.pId,
                         dId: this.dId,
                         text: this.text,
@@ -281,6 +282,7 @@ export default {
                     this.currPage = res.data.currPage;
                     this.totalPage = res.data.totalPage;
                     this.profileIcon = res.data.profileIcon;
+                    this.doctorIcon = res.data.doctorIcon;
                     const temp = res.data.data;
                     temp.forEach(item => {
                         this.content.unshift(item);

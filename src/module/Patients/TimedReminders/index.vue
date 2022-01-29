@@ -1,5 +1,6 @@
 <template>
     <div class="timed-reminders">
+        <NavBar title="监测日历定时提醒" />
         <van-cell-group>
             <van-cell center title="添加监测日历定时提醒">
                 <template #right-icon>
@@ -29,6 +30,7 @@
 <script>
 import { Switch, Cell, CellGroup, Toast, DatetimePicker, Popup } from 'vant';
 import { getPId } from '@/common/util.js';
+import NavBar from '@/components/NavBar.vue';
 
 export default {
     data() {
@@ -46,6 +48,7 @@ export default {
         [CellGroup.name]: CellGroup,
         [DatetimePicker.name]: DatetimePicker,
         [Popup.name]: Popup,
+        NavBar,
     },
     mounted() {
         this.pId = getPId();
