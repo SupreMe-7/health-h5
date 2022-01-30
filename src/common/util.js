@@ -21,7 +21,11 @@ export const getUserType = () => {
 };
 
 export const jumpOutUrl = path => {
-    window.open(path);
+    if (path) {
+        window.open(path);
+    } else {
+        return;
+    }
 };
 
 export const getPId = () => {

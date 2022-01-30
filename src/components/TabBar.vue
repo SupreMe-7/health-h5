@@ -5,7 +5,7 @@
             :key="index"
             :to="item.url"
             :icon="item.icon"
-            :badge="item.badge"
+            :badge="item.badge ? item.badge : null"
         >
             {{ item.label }}
         </van-tabbar-item>
@@ -97,7 +97,7 @@ export default {
     },
     watch: {
         unReadChatNum(newVal) {
-            this.patientsNavBar[2].badge = newVal;
+            this.patientsNavBar[2].badge = +newVal;
         },
     },
     mounted() {
