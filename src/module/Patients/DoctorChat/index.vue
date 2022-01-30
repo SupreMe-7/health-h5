@@ -16,7 +16,6 @@
                             <img class="avator" :src="doctorIcon" />
                             <div class="info">
                                 <p class="time">
-                                    {{ doctorName }}
                                     {{ formatTime(itemc.createTime) }}
                                 </p>
                                 <div
