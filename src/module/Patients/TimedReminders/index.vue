@@ -14,6 +14,9 @@
                 :value="time"
                 @click="popupShow = true"
             ></van-cell>
+            <div class="explain">
+                开启定时提醒功能后，如您在当日未上传监测日记，系统将在您指定的时间向您发送消息提醒。
+            </div>
             <van-popup v-model="popupShow" position="bottom">
                 <van-datetime-picker
                     v-model="popupTime"
@@ -88,6 +91,7 @@ export default {
                     this.time = value;
                     this.popupTime = value;
                     this.popupShow = false;
+                    Toast('设置成功');
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -110,5 +114,10 @@ export default {
 <style lang="less" scoped>
 .timed-reminders {
     padding: 10px 0;
+    .explain {
+        padding: 10px 16px;
+        font-size: 14px;
+        color: rgb(105, 102, 102);
+    }
 }
 </style>
