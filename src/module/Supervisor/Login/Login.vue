@@ -130,7 +130,7 @@ export default {
                         );
                         return;
                     }
-                    setToken(token, 'Supervisor');
+                    setToken(token);
                     this.$router.push('/supervisor/home');
                 })
                 .catch(e => {

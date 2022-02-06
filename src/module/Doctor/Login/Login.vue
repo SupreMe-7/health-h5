@@ -130,7 +130,7 @@ export default {
                         );
                         return;
                     }
-                    setToken(token, 'Doctor');
+                    setToken(token);
                     this.$router.push('/doctor/home');
                 })
                 .catch(e => {

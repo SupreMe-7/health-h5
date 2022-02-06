@@ -15,7 +15,7 @@
         </div>
         <div class="home-page-swiper">
             <van-swipe
-                :autoplay="2000"
+                :autoplay="10000"
                 class="my-swipe"
                 indicator-color="white"
             >
@@ -87,6 +87,8 @@ import { getToken, jumpOutUrl, getPId } from '@/common/util.js';
 export default {
     data() {
         return {
+            pId: '',
+            dId: '',
             name: '',
             notReadMsgNum: null,
             carouselList: [],
@@ -119,9 +121,11 @@ export default {
             return this.$api
                 .get(`/qkys/api/getPaByToken`)
                 .then(res => {
-                    const { id, docName, name } = res.data;
+                    const { id, docName, name, dId } = res.data;
                     this.docName = docName;
                     this.name = name.slice(-2);
+                    this.pId = id;
+                    this.dId = dId;
                     sessionStorage.setItem('PID', id);
                 })
                 .catch(e => {
@@ -131,7 +135,7 @@ export default {
         getUnReadChatNum() {
             const pId = getPId();
             return this.$api
-                .get(`/qkys/api/getUnReadChatNum/${pId}/13`)
+                .get(`/qkys/api/getUnReadChatNum/${pId}/${this.dId}`)
                 .then(res => {
                     this.unReadChatNum = res.data + '';
                 })

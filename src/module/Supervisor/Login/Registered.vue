@@ -137,7 +137,7 @@ export default {
                         .post(`/qkys/api/user/sup/registe?param=${data}`)
                         .then(res => {
                             const { token } = res.data;
-                            setToken(token, 'Supervisor');
+                            setToken(token);
                             this.$router.push('/supervisor/home');
                         })
                         .catch(e => {

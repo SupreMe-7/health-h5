@@ -49,7 +49,7 @@
             </van-cell-group>
         </div>
 
-        <TabBar type="doctor" :nowKey="2"></TabBar>
+        <TabBar type="doctor" :nowKey="3"></TabBar>
     </div>
 </template>
 
@@ -78,7 +78,7 @@ export default {
         },
         logOut() {
             jsBridge.logOut && jsBridge.logOut();
-            localStorage.removeItem('USER_TYPE');
+            localStorage.clear();
             sessionStorage.clear();
             this.$router.push('/login');
         },

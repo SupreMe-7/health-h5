@@ -1,7 +1,7 @@
 <template>
     <div class="doctor-chat">
         <div class="chat">
-            <NavBar :title="`${doctorName}`" />
+            <NavBar :title="`${docName}`" />
             <div class="chat-content" id="chat-content">
                 <van-pull-refresh
                     v-model="isLoading"
@@ -100,7 +100,7 @@ var COS = require('cos-js-sdk-v5');
 export default {
     data() {
         return {
-            doctorName: '',
+            docName: '',
             pId: null,
             dId: null,
             text: '',
@@ -131,7 +131,6 @@ export default {
     },
     async mounted() {
         this.pId = getPId();
-        this.dId = this.$route.query.dId;
         this.doctorName = this.$route.query.doctorName;
         await this.getContent();
         setTimeout(() => {
@@ -275,11 +274,16 @@ export default {
             this.$api
                 .post(`/qkys/api/getPatientDoctorChat`, {
                     pId: this.pId,
-                    dId: this.dId,
                     currPage: this.currPage,
                     pageSize: 20,
                 })
                 .then(res => {
+                    if (!res.data) {
+                        Toast('您还未选择全科医生,请选择全科医生后再试');
+                        return;
+                    }
+                    this.dId = res.data.dId;
+                    this.docName = res.data.docName;
                     this.currPage = res.data.currPage;
                     this.totalPage = res.data.totalPage;
                     this.profileIcon = res.data.profileIcon;
@@ -288,7 +292,6 @@ export default {
                     temp.forEach(item => {
                         this.content.unshift(item);
                     });
-                    // this.content = [...temp, ...this.content];
                 })
                 .catch(e => {
                     if (this.currPage === 1) {

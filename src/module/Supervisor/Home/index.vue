@@ -120,6 +120,7 @@ export default {
                             confirmButtonText: '退出',
                         }).then(() => {
                             localStorage.clear();
+                            sessionStorage.clear();
                             this.$router.push('/login');
                         });
                     }

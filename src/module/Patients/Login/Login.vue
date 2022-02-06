@@ -131,8 +131,7 @@ export default {
                         );
                         return;
                     }
-                    setToken(token, 'Patients');
-                    // TODO: 调取bridge存储token
+                    setToken(token);
                     this.$router.push('/patients/home');
                 })
                 .catch(e => {

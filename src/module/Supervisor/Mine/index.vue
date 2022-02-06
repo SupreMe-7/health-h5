@@ -79,7 +79,6 @@ export default {
         logOut() {
             jsBridge.logOut && jsBridge.logOut();
             localStorage.clear();
-            localStorage.removeItem('USER_TYPE');
             sessionStorage.clear();
             this.$router.push('/login');
         },

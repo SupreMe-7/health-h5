@@ -137,7 +137,7 @@ export default {
                         .post(`/qkys/api/user/doc/registe?param=${data}`)
                         .then(res => {
                             const { token } = res.data;
-                            setToken(token, 'Doctor');
+                            setToken(token);
                             this.$router.push('/doctor/home');
                         })
                         .catch(e => {

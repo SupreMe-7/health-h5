@@ -76,6 +76,7 @@ export default {
                         duration: 1000,
                         onClose: () => {
                             localStorage.clear();
+                            sessionStorage.clear();
                             this.$router.push('/login');
                         },
                     });
@@ -106,6 +107,7 @@ export default {
                         duration: 1000,
                         onClose: () => {
                             localStorage.clear();
+                            sessionStorage.clear();
                             this.$router.push('/login');
                         },
                     });

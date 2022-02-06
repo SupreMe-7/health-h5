@@ -17,7 +17,6 @@ export function responseSuccessFunc(responseObj) {
     const resData = responseObj.data;
     const { result } = resData;
     if (result === 9) {
-        localStorage.removeItem('USER_TYPE');
         localStorage.removeItem('TOKEN');
         location.href = '/#/login';
     }

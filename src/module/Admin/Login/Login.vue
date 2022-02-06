@@ -102,9 +102,7 @@ export default {
                 return false;
             }
             this.$api
-                .post(
-                    `/qkys/api/user/admin/sendsms?phone=${this.phone}`
-                )
+                .post(`/qkys/api/user/admin/sendsms?phone=${this.phone}`)
                 .then(res => {
                     Toast('验证码发送成功');
                     this.changeSendText();
@@ -126,7 +124,7 @@ export default {
                 .post(`/qkys/api/user/admin/login?param=${data}`)
                 .then(res => {
                     const { token } = res.data || {};
-                    setToken(token, 'Admin');
+                    setToken(token);
                     this.$router.push('/admin/home');
                 })
                 .catch(e => {

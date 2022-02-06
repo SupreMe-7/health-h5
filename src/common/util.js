@@ -7,17 +7,12 @@ export const getToken = () => {
     }
 };
 
-export const setToken = (token, userType) => {
+export const setToken = token => {
     if (navigator.userAgent.includes('xkysAndroidApp')) {
         jsBridge.saveToken && jsBridge.saveToken(token);
     } else {
         localStorage.setItem('TOKEN', token);
-        localStorage.setItem('USER_TYPE', userType);
     }
-};
-
-export const getUserType = () => {
-    return localStorage.getItem('USER_TYPE');
 };
 
 export const jumpOutUrl = path => {

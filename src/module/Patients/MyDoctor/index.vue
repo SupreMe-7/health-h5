@@ -1,5 +1,6 @@
 <template>
     <div class="my-doctor">
+        <NavBar :title="`${doctor.docName}`" />
         <div v-if="hasDoc || hasNewSelect" class="have-doctor">
             <van-cell
                 title="您的全科医生"
@@ -75,14 +76,13 @@
                 <van-button type="info" @click="choseDoctor">申请</van-button>
             </div>
         </div>
-        <TabBar type="patients" :nowKey="2"></TabBar>
     </div>
 </template>
 
 <script>
 import areaList from '@/const/area.js';
 import { Button, Cell, Picker, Field, Popup, Area, Toast } from 'vant';
-import TabBar from '@/components/TabBar.vue';
+import NavBar from '@/components/NavBar.vue';
 import { getPId } from '@/common/util.js';
 
 export default {
@@ -118,7 +118,7 @@ export default {
         [Field.name]: Field,
         [Popup.name]: Popup,
         [Area.name]: Area,
-        TabBar,
+        NavBar,
     },
     methods: {
         choseDoctor() {

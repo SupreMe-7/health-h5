@@ -35,9 +35,9 @@ export default {
                     url: '/patients/monitor-calendar',
                 },
                 {
-                    label: '我的医生',
+                    label: '医生留言',
                     icon: 'user-circle-o',
-                    url: '/patients/my-mediciner',
+                    url: '/patients/mediciner-chat',
                     badge: null,
                 },
                 {

@@ -43,9 +43,12 @@
 
 <script>
 import { Icon } from 'vant';
-import { getUserType } from '@/common/util.js';
-
+import { getToken } from '@/common/util.js';
+import { Toast } from 'vant';
 export default {
+    data() {
+        return {};
+    },
     methods: {
         jumpUrl(url) {
             this.$router.push(url);
@@ -55,18 +58,27 @@ export default {
         [Icon.name]: Icon,
     },
     mounted() {
-        let userType = getUserType();
-        if (userType === 'Patients') {
-            this.$router.push('/patients/home');
-            return;
-        }
-        if (userType === 'Doctor') {
-            this.$router.push('/doctor/home');
-            return;
-        }
-        if (userType === 'Supervisor') {
-            this.$router.push('/supervisor/home');
-            return;
+        if (getToken()) {
+            this.$api
+                .get(`/qkys/api/user/getRoleByToken`)
+                .then(res => {
+                    let userType = res.data;
+                    if (userType === 'Pa') {
+                        this.$router.push('/patients/home');
+                        return;
+                    }
+                    if (userType === 'Doc') {
+                        this.$router.push('/doctor/home');
+                        return;
+                    }
+                    if (userType === 'Sup') {
+                        this.$router.push('/supervisor/home');
+                        return;
+                    }
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         }
     },
 };
