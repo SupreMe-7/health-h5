@@ -30,6 +30,7 @@
                                         v-lazy="itemc.pic"
                                         preload="200"
                                         alt=""
+                                        @click="ImagePreview([itemc.pic])"
                                     />
                                 </div>
                             </div>
@@ -51,6 +52,7 @@
                                         v-lazy="itemc.pic"
                                         preload="200"
                                         alt=""
+                                        @click="ImagePreview([itemc.pic])"
                                     />
                                 </div>
                             </div>
@@ -92,6 +94,7 @@ import {
     Icon,
     PullRefresh,
     Uploader,
+    ImagePreview,
 } from 'vant';
 var moment = require('moment');
 var COS = require('cos-js-sdk-v5');
@@ -156,6 +159,7 @@ export default {
         });
     },
     methods: {
+        ImagePreview: ImagePreview,
         afterRead(file) {
             this.disabled = true;
             let _this = this;

@@ -30,6 +30,7 @@
                                         v-lazy="itemc.pic"
                                         preload="200"
                                         alt=""
+                                        @click="ImagePreview([itemc.pic])"
                                     />
                                 </div>
                             </div>
@@ -51,6 +52,7 @@
                                         v-lazy="itemc.pic"
                                         preload="200"
                                         alt=""
+                                        @click="ImagePreview([itemc.pic])"
                                     />
                                 </div>
                             </div>
@@ -92,6 +94,7 @@ import {
     Icon,
     PullRefresh,
     Uploader,
+    ImagePreview,
 } from 'vant';
 import { getPId } from '@/common/util.js';
 var moment = require('moment');
@@ -302,6 +305,7 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        ImagePreview,
     },
 };
 </script>

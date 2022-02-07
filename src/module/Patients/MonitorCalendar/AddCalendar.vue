@@ -381,6 +381,7 @@ export default {
                 this.cos.uploadFiles(
                     {
                         files: files,
+                        SliceSize: 1024 * 1024 * 100,
                         onProgress: function(info) {
                             var percent = parseInt(info.percent * 10000) / 100;
                             var speed =
@@ -401,7 +402,6 @@ export default {
                         },
                     },
                     function(err, data) {
-                        console.log(err || data);
                         if (data.files.length === _this.fileList.length) {
                             _this.$api
                                 .post('/qkys/api/addDiary', {
