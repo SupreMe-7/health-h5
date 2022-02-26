@@ -77,7 +77,7 @@ import {
     Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getToken, jumpOutUrl } from '@/common/util.js';
+import { getToken, jumpOutUrl, jsBridge } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -95,6 +95,7 @@ export default {
         }
         await this.getSupByToken();
         this.getSysMsg();
+        this.uploadRegistrationId();
         // this.getUrlPics();
         // this.getRecommand();
     },
@@ -175,6 +176,22 @@ export default {
                 .catch(e => {
                     Toast(e.errMsg);
                 });
+        },
+        uploadRegistrationId() {
+            if (navigator.userAgent.includes('xkysAndroidApp')) {
+                let registrationId =
+                    jsBridge.getRegisteId && jsBridge.getRegisteId();
+                this.$api
+                    .post(`/qkys/api/user/updateJiGuangId`, {
+                        userId: this.pId,
+                        role: 'Sup',
+                        registrationId,
+                    })
+                    .then(() => {})
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    });
+            }
         },
         jumpOutUrl,
     },

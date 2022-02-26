@@ -118,9 +118,7 @@ export default {
                     confirmButtonText: '下载',
                 })
                     .then(() => {
-                        window.open(
-                            'https://qkys.zhugaotech.com/downloads/Qkys_android_person.apk'
-                        );
+                        window.open('https://qkys.zhugaotech.com/#/download');
                     })
                     .catch(() => {});
             } else {

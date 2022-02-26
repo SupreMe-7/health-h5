@@ -31,12 +31,12 @@ export default {
                 },
                 {
                     label: '监测日历',
-                    icon: 'user-circle-o',
+                    icon: 'notes-o',
                     url: '/patients/monitor-calendar',
                 },
                 {
                     label: '医生留言',
-                    icon: 'user-circle-o',
+                    icon: 'chat-o',
                     url: '/patients/mediciner-chat',
                     badge: null,
                 },

@@ -7,11 +7,13 @@
             >
                 {{ name }}
             </div>
-            <van-badge :content="notReadMsgNum" max="9">
-                <div class="header-news" @click="toUrl('/patients/notice')">
-                    消息
-                </div>
-            </van-badge>
+            <div>
+                <van-badge :content="notReadMsgNum" max="9">
+                    <div class="header-news" @click="toUrl('/patients/notice')">
+                        消息
+                    </div>
+                </van-badge>
+            </div>
         </div>
         <div class="home-page-swiper">
             <van-swipe
@@ -28,37 +30,69 @@
                 </van-swipe-item>
             </van-swipe>
         </div>
-        <div class="home-page-card">
-            <div class="card-row">
+        <div class="home-page-content">
+            <div class="home-page-card">
                 <div class="card" @click="toUrl('/patients/my-mediciner')">
-                    {{ docName ? `我的全科医生` : '选择全科医生' }}
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
+                        alt=""
+                    />
+                    <div>{{ docName ? `我的全科医生` : '选择全科医生' }}</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/add-calendar')">
-                    添加监测日历
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
+                        alt=""
+                    />
+                    <div>添加监测日历</div>
                 </div>
-            </div>
-            <div class="card-row">
                 <div class="card" @click="toUrl('/patients/diagnosis-advice')">
-                    查看诊疗建议
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG387.jpeg"
+                        alt=""
+                    />
+                    <div>查看诊疗建议</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/personal-cases')">
-                    查看病例
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG386.jpeg"
+                        alt=""
+                    />
+                    <div>查看病例</div>
                 </div>
             </div>
-        </div>
-        <div class="home-page-recommend">
-            <div>推荐</div>
-            <div class="recommend-content">
-                <div
-                    class="recommend-item"
-                    v-for="(item, index) in recommend"
-                    :key="index"
-                    @click="jumpOutUrl(item.url)"
-                >
-                    <div class="recommend-title">{{ item.title }}</div>
-                    <div class="recommend-desc">{{ item.introduction }}</div>
-                    <div class="recommend-time">
-                        {{ item.website }} {{ item.createTime }}
+            <div class="home-page-recommend">
+                <div>推荐阅读</div>
+                <div class="recommend-content">
+                    <div
+                        class="recommend-item"
+                        v-for="(item, index) in recommend"
+                        :key="index"
+                        @click="jumpOutUrl(item.url)"
+                    >
+                        <div v-if="item.picNum === 1">
+                            <div class="recommend-title">
+                                <div class="title">{{ item.title }}</div>
+                                <img :src="item.picUrl1" alt="" />
+                            </div>
+                            <div class="recommend-time">
+                                <span class="webset"> {{ item.website }}</span>
+                                {{ item.createTime }}
+                            </div>
+                        </div>
+                        <div v-if="item.picNum === 2">
+                            <div class="recommend-title-two">
+                                <div class="title-img">
+                                    <img :src="item.picUrl1" alt="" />
+                                    <img :src="item.picUrl2" alt="" />
+                                </div>
+                                <div class="title">{{ item.title }}</div>
+                            </div>
+                            <div class="recommend-time">
+                                <span class="webset"> {{ item.website }}</span>
+                                {{ item.createTime }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +117,7 @@ import {
     Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getToken, jumpOutUrl, getPId } from '@/common/util.js';
+import { getToken, jumpOutUrl, getPId, jsBridge } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -107,6 +141,7 @@ export default {
         this.getSysMsg();
         this.getUrlPics();
         this.getRecommand();
+        this.uploadRegistrationId();
     },
     components: {
         TabBar,
@@ -187,6 +222,22 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        uploadRegistrationId() {
+            let registrationId =
+                jsBridge.getRegisteId && jsBridge.getRegisteId();
+            if (registrationId) {
+                this.$api
+                    .post(`/qkys/api/user/updateJiGuangId`, {
+                        userId: this.pId,
+                        role: 'Pa',
+                        registrationId: registrationId,
+                    })
+                    .then(() => {})
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    });
+            }
+        },
         jumpOutUrl,
     },
 };
@@ -194,13 +245,16 @@ export default {
 
 <style lang="less" scoped>
 .home-page {
-    padding: 10px 8px;
+    height: 100%;
+    background: #f8f8f8;
     .home-page-header {
+        position: absolute;
+        z-index: 9;
+        width: 95%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
-        padding: 0 6px;
+        padding: 6px;
         .header-name {
             color: #fff;
             background: rgb(56, 137, 230);
@@ -215,46 +269,81 @@ export default {
     }
     .home-page-swiper {
         height: 270px;
-        margin-bottom: 24px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;
         }
     }
+    .home-page-content {
+        padding: 10px;
+    }
     .home-page-card {
-        padding: 0 10px;
-        color: #fff;
-        .card-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            .card {
-                width: 45%;
-                height: 80px;
-                line-height: 80px;
-                font-size: 20px;
-                background-color: #39a9ed;
-                text-align: center;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        .card {
+            text-align: center;
+            color: #000;
+            font-size: 14px;
+            img {
+                margin-bottom: 8px;
+                width: 60px;
+                height: 60px;
             }
         }
     }
     .home-page-recommend {
         font-size: 24px;
         .recommend-content {
+            margin-top: 10px;
             font-size: 14px;
             .recommend-item {
-                padding: 15px 5px;
-                border-bottom: 1px solid #e8e8e8;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                background: #fff;
+                padding: 10px;
             }
             .recommend-title {
+                display: flex;
                 font-size: 18px;
                 margin-bottom: 4px;
                 color: #222;
+                .title {
+                    flex-grow: 1;
+                }
+                img {
+                    flex-shrink: 0;
+                    margin-left: 18px;
+                    border-radius: 4px;
+                    width: 70px;
+                    height: 70px;
+                }
             }
-            .recommend-desc {
-                color: rgb(59, 56, 56);
+            .recommend-title-two {
+                margin-bottom: 4px;
+                .title-img {
+                    display: flex;
+                    justify-content: space-between;
+                    img {
+                        object-fit: cover;
+                        width: 48%;
+                        border-radius: 4px;
+                        height: 90px;
+                    }
+                }
+                .title {
+                    margin-top: 8px;
+                    font-size: 18px;
+                    color: #222;
+                }
             }
             .recommend-time {
+                .webset {
+                    margin-right: 8px;
+                }
                 margin-top: 4px;
                 font-size: 12px;
                 color: #666;

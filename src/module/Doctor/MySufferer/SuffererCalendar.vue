@@ -348,6 +348,7 @@ export default {
             this.getInfo()
                 .then(res => {
                     const { data } = res;
+                    this.picBaseUrl = data.path;
                     data.data.forEach(item => {
                         item.pics = [];
                         item.picPath1 &&

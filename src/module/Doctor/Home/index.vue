@@ -15,7 +15,7 @@
         </div>
         <div class="home-page-swiper">
             <van-swipe
-                :autoplay="2000"
+                :autoplay="10000"
                 class="my-swipe"
                 indicator-color="white"
             >
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="home-page-recommend">
+        <!-- <div class="home-page-recommend">
             <div>推荐</div>
             <div class="recommend-content">
                 <div
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <TabBar type="doctor" :nowKey="0"></TabBar>
     </div>
 </template>
@@ -76,7 +76,7 @@ import {
     Icon,
 } from 'vant';
 import TabBar from '@/components/TabBar.vue';
-import { getToken, jumpOutUrl } from '@/common/util.js';
+import { getToken, jumpOutUrl, jsBridge } from '@/common/util.js';
 export default {
     data() {
         return {
@@ -94,7 +94,8 @@ export default {
         }
         await this.getDocByToken();
         this.getSysMsg();
-        // this.getUrlPics();
+        this.uploadRegistrationId();
+        this.getUrlPics();
         // this.getRecommand();
     },
     components: {
@@ -163,6 +164,22 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        uploadRegistrationId() {
+            if (navigator.userAgent.includes('xkysAndroidApp')) {
+                let registrationId =
+                    jsBridge.getRegisteId && jsBridge.getRegisteId();
+                this.$api
+                    .post(`/qkys/api/user/updateJiGuangId`, {
+                        userId: this.pId,
+                        role: 'Doc',
+                        registrationId,
+                    })
+                    .then(() => {})
+                    .catch(e => {
+                        Toast(e.errMsg);
+                    });
+            }
+        },
         jumpOutUrl,
     },
 };
@@ -170,13 +187,15 @@ export default {
 
 <style lang="less" scoped>
 .home-page {
-    padding: 10px 8px;
+    position: relative;
     .home-page-header {
+        position: absolute;
+        z-index: 9;
+        width: 94%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
-        padding: 0 6px;
+        padding: 8px;
         .header-name {
             color: #fff;
             background: rgb(56, 137, 230);
@@ -190,7 +209,8 @@ export default {
         }
     }
     .home-page-swiper {
-        margin-bottom: 24px;
+        height: 270px;
+        margin-bottom: 12px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;

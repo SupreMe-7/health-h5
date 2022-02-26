@@ -1,6 +1,6 @@
 <template>
     <div class="my-doctor">
-        <NavBar :title="`${doctor.docName}`" />
+        <NavBar :title="`${doctor.docName || '选择全科医生'}`" />
         <div v-if="hasDoc || hasNewSelect" class="have-doctor">
             <van-cell
                 title="您的全科医生"
@@ -180,16 +180,16 @@ export default {
                 .then(res => {
                     const {
                         hasDoc,
-                        doctor = {},
+                        doctor,
                         hasNewSelect,
-                        selectDoctor = {},
-                        superior = [],
+                        selectDoctor,
+                        superior,
                     } = res.data || {};
                     this.hasDoc = hasDoc;
-                    this.doctor = doctor;
+                    this.doctor = doctor || {};
                     this.hasNewSelect = hasNewSelect;
-                    this.selectDoctor = selectDoctor;
-                    this.superior = superior;
+                    this.selectDoctor = selectDoctor || {};
+                    this.superior = superior || [];
                 })
                 .catch(e => {
                     Toast(e.errMsg);
