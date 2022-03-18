@@ -10,7 +10,7 @@
             <div>
                 <van-badge :content="notReadMsgNum" max="9">
                     <div class="header-news" @click="toUrl('/patients/notice')">
-                        消息
+                        <van-icon name="comment-o" size="24" />
                     </div>
                 </van-badge>
             </div>
@@ -37,21 +37,21 @@
                         src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
                         alt=""
                     />
-                    <div>{{ docName ? `我的全科医生` : '选择全科医生' }}</div>
+                    <div>全科医生</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/add-calendar')">
                     <img
                         src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
                         alt=""
                     />
-                    <div>添加监测日历</div>
+                    <div>监测日历</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/diagnosis-advice')">
                     <img
                         src="https://cos.zhugaotech.com/logo/WechatIMG387.jpeg"
                         alt=""
                     />
-                    <div>查看诊疗建议</div>
+                    <div>诊疗建议</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/personal-cases')">
                     <img
@@ -255,6 +255,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 6px;
+        padding-top: 10px;
         .header-name {
             color: #fff;
             background: rgb(56, 137, 230);
@@ -269,6 +270,7 @@ export default {
     }
     .home-page-swiper {
         height: 270px;
+        margin-bottom: 12px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;
@@ -296,13 +298,13 @@ export default {
         }
     }
     .home-page-recommend {
-        font-size: 24px;
+        font-size: 22px;
         .recommend-content {
-            margin-top: 10px;
+            margin-top: 18px;
             font-size: 14px;
             .recommend-item {
                 border-radius: 4px;
-                margin-bottom: 10px;
+                margin-bottom: 12px;
                 background: #fff;
                 padding: 10px;
             }

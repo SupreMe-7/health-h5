@@ -1,7 +1,7 @@
 <template>
     <div class="mine-page">
         <div class="mine-page-title">
-            我的
+            全科e管理
         </div>
         <div class="mine-page-content">
             <van-cell-group>
@@ -140,7 +140,7 @@ export default {
     padding: 10px 8px;
     .mine-page-title {
         margin-bottom: 24px;
-        font-size: 28px;
+        font-size: 22px;
         text-align: center;
     }
     .mine-page-content {

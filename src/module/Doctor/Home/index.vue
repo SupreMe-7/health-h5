@@ -196,6 +196,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 8px;
+        padding-top: 10px;
         .header-name {
             color: #fff;
             background: rgb(56, 137, 230);

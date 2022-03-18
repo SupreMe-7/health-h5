@@ -125,7 +125,7 @@ export default {
         padding: 20px;
         margin: 40px 40px;
         text-align: center;
-        background: rgba(255, 106, 50, 0.07);
+        background: #d3eaf5;
         border-radius: 4px;
         .login-item-label {
             display: flex;

@@ -47,8 +47,8 @@
                         <div>录入医生:{{ healthCondition.docName }}</div>
                         <div>更新时间:{{ healthCondition.updateTime }}</div>
                         <div class="btn-group">
-                            <van-button type="default" @click="isEdit = true"
-                                >修改</van-button
+                            <van-button type="info" @click="isEdit = true" round
+                                >修改病历</van-button
                             >
                         </div>
                     </div>
@@ -144,11 +144,6 @@
                     <div class="footer">
                         <div>医师:{{ item.docName }}</div>
                         <div>录入时间:{{ item.createTime }}</div>
-                        <div class="btn-group">
-                            <van-button type="default" @click="isEdit = true"
-                                >修改</van-button
-                            >
-                        </div>
                     </div>
                 </div>
             </van-tab>
@@ -224,12 +219,16 @@ export default {
     background: #f8f8f8;
     .footer {
         background: #fff;
-        padding: 0 10px 0 0;
-        margin: 0 0 20px 0;
+        padding: 12px 12px 0 0;
+        margin: 20px 0;
+        text-align: right;
+    }
+    .btn-group {
+        padding: 15px 0;
         text-align: right;
     }
     .btn-group2 {
-        padding: 15px 10px;
+        padding: 15px 12px;
         text-align: right;
     }
 }
