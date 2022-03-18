@@ -8,7 +8,7 @@
             </van-row>
             <div class="explain">
                 患者情况说明: {{ item.patientInformation }}
-                <van-button type="info" size="mini">患者详情</van-button>
+                <van-button type="info" size="mini" round>患者详情</van-button>
             </div>
             <div>咨询内容: {{ item.consult }}</div>
             <div class="textarea">
@@ -24,7 +24,7 @@
                 />
             </div>
             <div class="btn-group">
-                <van-button type="info" @click="submit">提交</van-button>
+                <van-button type="info" @click="submit" round>提交</van-button>
             </div>
         </div>
     </div>

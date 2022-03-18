@@ -23,8 +23,10 @@
         </van-cell-group>
 
         <div class="btn-group">
-            <van-button type="info" @click="updatePhone">修改手机号</van-button>
-            <van-button type="info" @click="updatePassword"
+            <van-button type="info" @click="updatePhone" round
+                >修改手机号</van-button
+            >
+            <van-button type="info" @click="updatePassword" round
                 >修改密码</van-button
             >
         </div>

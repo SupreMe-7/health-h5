@@ -8,19 +8,39 @@
             </van-row>
             <div>地址: {{ item.address }}</div>
             <div class="btn-group">
-                <van-button type="info" size="small" @click="check(item.id)"
+                <van-button
+                    type="info"
+                    size="small"
+                    @click="check(item.id)"
+                    round
                     >患者信息</van-button
                 >
-                <van-button type="info" size="small" @click="check(item.id)"
+                <van-button
+                    type="info"
+                    size="small"
+                    @click="check(item.id)"
+                    round
                     >监测日记</van-button
                 >
-                <van-button type="info" size="small" @click="check(item.id)"
+                <van-button
+                    type="info"
+                    size="small"
+                    @click="check(item.id)"
+                    round
                     >患者病历</van-button
                 >
-                <van-button type="info" size="small" @click="check(item.id)"
+                <van-button
+                    type="info"
+                    size="small"
+                    @click="check(item.id)"
+                    round
                     >诊疗建议</van-button
                 >
-                <van-button type="info" size="small" @click="check(item.id)"
+                <van-button
+                    type="info"
+                    size="small"
+                    @click="check(item.id)"
+                    round
                     >医生咨询</van-button
                 >
             </div>

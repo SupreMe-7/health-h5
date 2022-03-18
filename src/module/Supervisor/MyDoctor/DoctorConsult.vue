@@ -1,6 +1,6 @@
 <template>
     <div class="my-consultation">
-        <NavBar title="我的咨询" />
+        <NavBar title="全科医生咨询" />
         <van-list
             v-model="loading"
             :finished="finished"
@@ -31,9 +31,7 @@
                     <div class="row">
                         回复内容:
                         <span class="item-value">
-                            {{
-                                item.advice || '您的上级医生暂未回复当前咨询'
-                            }}</span
+                            {{ item.advice || '您暂未回复当前咨询' }}</span
                         >
                     </div>
                 </div>
@@ -98,8 +96,12 @@ export default {
 
 <style lang="less" scoped>
 .my-consultation {
+    background: #f8f8f8;
     padding: 20px;
     .item {
+        padding: 10px;
+        border-radius: 4px;
+        background: #fff;
         margin-bottom: 30px;
         .row {
             margin-bottom: 6px;

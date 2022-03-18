@@ -2,19 +2,19 @@
     <div class="new-doctor-consult">
         <NavBar title="新全科医生咨询" />
         <div v-for="(item, index) in list" :key="index" class="item">
-            <van-row>
-                <van-col span="12">{{ item.doctorName }}医生</van-col>
-                <van-col span="12">{{ item.createTime }}</van-col>
+            <van-row class="item1">
+                <van-col span="13">{{ item.doctorName }}医生</van-col>
+                <van-col span="11">{{ item.createTime }}</van-col>
             </van-row>
-            <div>
+            <div class="item1">
                 患者情况说明:
                 <span class="text">{{ item.patientInformation }}</span>
             </div>
-            <div>
+            <div class="item1">
                 咨询内容: <span class="text">{{ item.consult }}</span>
             </div>
             <div class="btn-group">
-                <van-button type="info" size="small" @click="check(item)"
+                <van-button type="info" size="small" @click="check(item)" round
                     >查看</van-button
                 >
             </div>
@@ -66,6 +66,9 @@ export default {
     .item {
         padding: 10px;
         border-bottom: 1px solid rgb(120, 117, 117);
+        .item1 {
+            margin-bottom: 2px;
+        }
         .btn-group {
             padding: 0 10px;
             margin: 10px 0 0 0;

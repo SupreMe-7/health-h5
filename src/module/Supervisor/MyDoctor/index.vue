@@ -1,22 +1,25 @@
 <template>
     <div class="my-doctor">
-        <div class="title">我管理的全科医生</div>
+        <div class="title">下属全科医生</div>
         <div v-for="(item, index) in list" :key="index" class="item">
-            <div>{{ item.name }}医生</div>
-            <div>{{ item.hospital }}</div>
+            <div class="name">{{ item.name }}医生</div>
+            <div class="hospital">{{ item.hospital }}</div>
             <div class="btn-group">
                 <van-button
-                    type="info"
+                    size="small"
+                    round
                     :to="`/supervisor/doctor-information?dId=${item.id}`"
                     >医生信息</van-button
                 >
                 <van-button
-                    type="info"
+                    size="small"
+                    round
                     :to="`/supervisor/manage-patients?dId=${item.id}`"
                     >管理的患者</van-button
                 >
                 <van-button
-                    type="info"
+                    size="small"
+                    round
                     :to="`/supervisor/doctor-consult?dId=${item.id}`"
                     >医生咨询</van-button
                 >
@@ -68,11 +71,17 @@ export default {
     .title {
         margin: 15px 0 0 0;
         text-align: center;
-        font-size: 24px;
+        font-size: 22px;
     }
     .item {
         padding: 10px;
         border-bottom: 1px solid rgb(120, 117, 117);
+        .name {
+            font-size: 18px;
+        }
+        .hospital {
+            opacity: 0.7;
+        }
         .btn-group {
             padding: 0 10px 0 0;
             margin: 10px 0 0 0;

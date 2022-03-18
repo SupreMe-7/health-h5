@@ -26,6 +26,7 @@
             />
             <div class="btn-group">
                 <van-button
+                    round
                     type="info"
                     @click="
                         hasNewSelect = false;
@@ -73,7 +74,9 @@
                 您选择的地区, 暂无符合条件的医院, 请选择附近的地址
             </div>
             <div class="btn-group">
-                <van-button type="info" @click="choseDoctor">申请</van-button>
+                <van-button type="info" @click="choseDoctor" round
+                    >申请</van-button
+                >
             </div>
         </div>
     </div>

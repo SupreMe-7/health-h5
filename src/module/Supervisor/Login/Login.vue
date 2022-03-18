@@ -24,6 +24,7 @@
                 >
                     <template v-if="smsLogin" #button>
                         <van-button
+                            round
                             size="small"
                             type="primary"
                             @click="sendSmsCode"
@@ -36,7 +37,7 @@
         </div>
 
         <div class="btn-group">
-            <van-button type="info" size="large" @click="login"
+            <van-button type="info" size="large" @click="login" round
                 >登录</van-button
             >
         </div>

@@ -9,24 +9,28 @@
                         {{ item.province }}{{ item.city }}{{ item.district }}
                     </div>
                 </div>
-                <div>
+                <div class="btn-group">
                     <van-button
-                        size="mini"
+                        size="small"
+                        round
                         :to="`/supervisor/patients-information?pId=${item.pId}`"
                         >患者信息</van-button
                     >
                     <van-button
-                        size="mini"
+                        size="small"
+                        round
                         :to="`/supervisor/patients-calendar?pId=${item.pId}`"
                         >监测日记</van-button
                     >
                     <van-button
-                        size="mini"
+                        size="small"
+                        round
                         :to="`/supervisor/patients-cases?pId=${item.pId}`"
                         >患者病历</van-button
                     >
                     <van-button
-                        size="mini"
+                        size="small"
+                        round
                         :to="
                             `/supervisor/diagnosis-advice?pId=${item.pId}&dId=${dId}`
                         "
@@ -93,6 +97,11 @@ export default {
         margin: 3px 0;
         font-size: 14px;
         color: #5f5b5b;
+    }
+    .btn-group {
+        .van-button {
+            margin-right: 4px;
+        }
     }
 }
 </style>

@@ -169,6 +169,7 @@
         </div>
         <div v-if="diaryMethod.value" class="btn-group">
             <van-button
+                round
                 type="info"
                 @click="uploadCalendar"
                 :loading="loading"
@@ -181,7 +182,6 @@
 </template>
 
 <script>
-// TODO:
 import {
     Button,
     Cell,

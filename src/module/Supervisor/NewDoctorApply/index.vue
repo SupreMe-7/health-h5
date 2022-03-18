@@ -10,7 +10,9 @@
             <div class="btn-group">
                 <div v-if="item.expired === 1">已拒绝</div>
                 <div v-if="item.expired === 0 && item.confirmed === 0">
-                    <van-button @click="viewMessage(item)">查看</van-button>
+                    <van-button @click="viewMessage(item)" round
+                        >查看</van-button
+                    >
                 </div>
                 <div v-if="item.expired === 0 && item.confirmed === 1">
                     已通过

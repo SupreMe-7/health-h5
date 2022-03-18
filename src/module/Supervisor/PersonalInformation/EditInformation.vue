@@ -24,7 +24,7 @@
         </van-cell-group>
 
         <div class="btn-group">
-            <van-button type="info" @click="updateInformation"
+            <van-button type="info" @click="updateInformation" round
                 >修改信息</van-button
             >
         </div>

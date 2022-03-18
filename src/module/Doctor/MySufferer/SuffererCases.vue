@@ -101,7 +101,7 @@
                         />
                     </van-cell-group>
                     <div class="btn-group2">
-                        <van-button type="info" @click="submit"
+                        <van-button type="info" @click="submit" round
                             >提交</van-button
                         >
                     </div>

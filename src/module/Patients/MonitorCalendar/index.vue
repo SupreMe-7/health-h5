@@ -264,7 +264,6 @@
 </template>
 
 <script>
-//TODO:
 import {
     Tab,
     Tabs,

@@ -17,7 +17,7 @@
                         <div
                             v-if="item.expired === 0 && item.isConfirmed === 0"
                         >
-                            <van-button @click="viewMessage(item)"
+                            <van-button @click="viewMessage(item)" round
                                 >查看</van-button
                             >
                         </div>
@@ -45,7 +45,7 @@
                         <div
                             v-if="item.expired === 0 && item.isConfirmed === 0"
                         >
-                            <van-button @click="viewMessage(item)"
+                            <van-button @click="viewMessage(item)" round
                                 >查看</van-button
                             >
                         </div>

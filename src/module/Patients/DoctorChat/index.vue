@@ -186,7 +186,6 @@ export default {
                 this.disabled = false;
             }
         },
-        //TODO: 自动定位未做，头像未做，添加消息到最后一条，
         async onRefresh() {
             let ele = document.getElementById('chat-content');
 

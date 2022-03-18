@@ -16,11 +16,13 @@
         </van-cell-group>
         <div class="btn-group">
             <van-button
+                round
                 type="info"
                 @click="jumpUrl('/patients/personal-edit-phone-password')"
                 >修改手机号及密码</van-button
             >
             <van-button
+                round
                 type="info"
                 @click="jumpUrl('/patients/personal-edit-information')"
                 >修改个人信息</van-button

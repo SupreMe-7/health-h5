@@ -105,7 +105,7 @@
             >和<router-link to="/policy">隐私政策</router-link>
         </div>
         <div class="btn-group">
-            <van-button type="info" size="large" @click="register"
+            <van-button type="info" size="large" @click="register" round
                 >注册</van-button
             >
         </div>

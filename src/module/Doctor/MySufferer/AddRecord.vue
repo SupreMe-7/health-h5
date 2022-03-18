@@ -40,7 +40,7 @@
             />
         </van-cell-group>
         <div class="btn-group">
-            <van-button type="info" @click="submit">提交</van-button>
+            <van-button type="info" round @click="submit">提交</van-button>
         </div>
     </div>
 </template>

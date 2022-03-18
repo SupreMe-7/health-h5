@@ -9,7 +9,7 @@
             </div>
             <van-badge :content="notReadMsgNum" max="9">
                 <div class="header-news" @click="toUrl('/supervisor/notice')">
-                    消息
+                    <van-icon name="comment-o" size="24" />
                 </div>
             </van-badge>
         </div>
