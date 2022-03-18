@@ -96,8 +96,12 @@ export default {
 
 <style lang="less" scoped>
 .my-consultation {
+    background: #f8f8f8;
     padding: 20px;
     .item {
+        border-radius: 4px;
+        padding: 10px;
+        background: #fff;
         margin-bottom: 30px;
         .row {
             margin-bottom: 6px;

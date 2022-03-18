@@ -14,9 +14,10 @@
                         </div>
                     </div>
                     <van-button
+                        round
                         type="info"
                         :to="`/doctor/ask-superior?supId=${item.supId}`"
-                        >咨询</van-button
+                        >咨询上级医生</van-button
                     >
                 </div>
                 <van-divider />
@@ -41,7 +42,7 @@
         </div>
 
         <div class="btn-group">
-            <van-button type="info" to="/doctor/chose-superior"
+            <van-button type="info" to="/doctor/chose-superior" round
                 >申请新的上级医生</van-button
             >
         </div>
@@ -94,7 +95,7 @@ export default {
 .my-superior {
     padding: 0 10px;
     .title {
-        font-size: 18px;
+        font-size: 16px;
         margin: 15px 0;
     }
     .item-content {
@@ -104,7 +105,7 @@ export default {
     }
     .no-content {
         text-align: center;
-        font-size: 20px;
+        font-size: 16px;
     }
     .item-hospital {
         color: #6e6a6a;

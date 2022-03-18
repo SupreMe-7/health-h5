@@ -1,5 +1,6 @@
 <template>
     <div class="chat-list">
+        <div class="chat-list-header">留言</div>
         <div
             class="chat-item"
             v-for="(item, index) in list"
@@ -24,7 +25,9 @@
                     <div class="chat-name">
                         {{ item.patientName }}
                     </div>
-                    <div class="chat-time">{{ item.updateTime }}</div>
+                    <div class="chat-time">
+                        {{ item.updateTime.slice(0, 10) }}
+                    </div>
                 </div>
                 <div class="item-two">{{ item.lastText }}</div>
             </div>
@@ -72,6 +75,11 @@ export default {
     box-sizing: border-box;
     width: 100%;
     padding: 10px;
+    .chat-list-header {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 14px;
+    }
     .chat-item {
         width: 100%;
         display: flex;
@@ -91,7 +99,7 @@ export default {
                 display: flex;
                 justify-content: space-between;
                 .chat-name {
-                    font-size: 20px;
+                    font-size: 18px;
                     color: #161616;
                 }
                 .chat-time {

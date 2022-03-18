@@ -18,22 +18,26 @@
                     </div>
                     <div>
                         <van-button
-                            size="mini"
+                            round
+                            size="small"
                             :to="`/doctor/sufferer-information?pId=${item.pId}`"
                             >患者信息</van-button
                         >
                         <van-button
-                            size="mini"
+                            round
+                            size="small"
                             :to="`/doctor/sufferer-calendar?pId=${item.pId}`"
                             >监测日记</van-button
                         >
                         <van-button
-                            size="mini"
+                            round
+                            size="small"
                             :to="`/doctor/sufferer-cases?pId=${item.pId}`"
                             >患者病历</van-button
                         >
                         <van-button
-                            size="mini"
+                            round
+                            size="small"
                             :to="`/doctor/diagnosis-advice?pId=${item.pId}`"
                             >诊疗建议</van-button
                         >
@@ -102,16 +106,21 @@ export default {
 .my-sufferer {
     padding: 10px;
     .title {
+        margin-bottom: 12px;
         text-align: center;
         font-size: 22px;
     }
     .item {
+        .van-button {
+            margin-right: 4px;
+        }
     }
     .left {
         flex-grow: 1;
     }
     .name {
-        font-size: 16px;
+        font-size: 18px;
+        opacity: 0.8;
     }
     .address {
         margin: 3px 0;

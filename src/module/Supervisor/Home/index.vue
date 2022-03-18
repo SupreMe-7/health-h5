@@ -28,39 +28,78 @@
                 </van-swipe-item>
             </van-swipe>
         </div>
-        <div class="home-page-card">
-            <div class="card-row">
+
+        <div class="home-page-content">
+            <div class="home-page-card">
                 <div
                     class="card"
                     @click="toUrl('/supervisor/new-doctor-consult')"
                 >
-                    新全科医生咨询
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
+                        alt=""
+                    />
+                    <div>全科医生咨询</div>
                 </div>
                 <div
                     class="card"
                     @click="toUrl('/supervisor/new-doctor-apply')"
                 >
-                    新全科医生申请
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
+                        alt=""
+                    />
+                    <div>全科医生申请</div>
+                </div>
+                <div
+                    class="card"
+                    @click="toUrl('/supervisor/personal-informatin')"
+                >
+                    <img
+                        src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
+                        alt=""
+                    />
+                    <div>我的个人信息</div>
                 </div>
             </div>
-        </div>
-        <div class="home-page-recommend">
-            <div>推荐</div>
-            <div class="recommend-content">
-                <div
-                    class="recommend-item"
-                    v-for="(item, index) in recommend"
-                    :key="index"
-                    @click="jumpOutUrl(item.url)"
-                >
-                    <div class="recommend-title">{{ item.title }}</div>
-                    <div class="recommend-desc">{{ item.introduction }}</div>
-                    <div class="recommend-time">
-                        {{ item.website }} {{ item.createTime }}
+
+            <div class="home-page-recommend">
+                <div>推荐阅读</div>
+                <div class="recommend-content">
+                    <div
+                        class="recommend-item"
+                        v-for="(item, index) in recommend"
+                        :key="index"
+                        @click="jumpOutUrl(item.url)"
+                    >
+                        <div v-if="item.picNum === 1">
+                            <div class="recommend-title">
+                                <div class="title">{{ item.title }}</div>
+                                <img :src="item.picUrl1" alt="" />
+                            </div>
+                            <div class="recommend-time">
+                                <span class="webset"> {{ item.website }}</span>
+                                {{ item.createTime }}
+                            </div>
+                        </div>
+                        <div v-if="item.picNum === 2">
+                            <div class="recommend-title-two">
+                                <div class="title-img">
+                                    <img :src="item.picUrl1" alt="" />
+                                    <img :src="item.picUrl2" alt="" />
+                                </div>
+                                <div class="title">{{ item.title }}</div>
+                            </div>
+                            <div class="recommend-time">
+                                <span class="webset"> {{ item.website }}</span>
+                                {{ item.createTime }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <TabBar type="supervisor" :nowKey="0"></TabBar>
     </div>
 </template>
@@ -96,8 +135,8 @@ export default {
         await this.getSupByToken();
         this.getSysMsg();
         this.uploadRegistrationId();
-        // this.getUrlPics();
-        // this.getRecommand();
+        this.getUrlPics();
+        this.getRecommand();
     },
     components: {
         TabBar,
@@ -200,13 +239,17 @@ export default {
 
 <style lang="less" scoped>
 .home-page {
-    padding: 10px 8px;
+    height: 100%;
+    background: #f8f8f8;
     .home-page-header {
+        position: absolute;
+        z-index: 9;
+        width: 95%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
-        padding: 0 6px;
+        padding: 6px;
+        padding-top: 10px;
         .header-name {
             color: #fff;
             background: rgb(56, 137, 230);
@@ -220,46 +263,83 @@ export default {
         }
     }
     .home-page-swiper {
-        margin-bottom: 24px;
+        height: 270px;
+        margin-bottom: 12px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;
         }
     }
+    .home-page-content {
+        padding: 10px;
+    }
     .home-page-card {
-        padding: 0 10px;
-        .card-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            .card {
-                color: #fff;
-                width: 45%;
-                height: 80px;
-                line-height: 80px;
-                font-size: 20px;
-                background-color: #39a9ed;
-                text-align: center;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        background: #fff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        .card {
+            text-align: center;
+            color: #000;
+            font-size: 14px;
+            img {
+                margin-bottom: 8px;
+                width: 60px;
+                height: 60px;
             }
         }
     }
     .home-page-recommend {
-        font-size: 24px;
+        font-size: 22px;
         .recommend-content {
+            margin-top: 18px;
             font-size: 14px;
             .recommend-item {
-                padding: 15px 5px;
-                border-bottom: 1px solid #e8e8e8;
+                border-radius: 4px;
+                margin-bottom: 12px;
+                background: #fff;
+                padding: 10px;
             }
             .recommend-title {
+                display: flex;
                 font-size: 18px;
-                font-weight: 500;
                 margin-bottom: 4px;
+                color: #222;
+                .title {
+                    flex-grow: 1;
+                }
+                img {
+                    flex-shrink: 0;
+                    margin-left: 18px;
+                    border-radius: 4px;
+                    width: 70px;
+                    height: 70px;
+                }
             }
-            .recommend-desc {
-                color: rgb(59, 56, 56);
+            .recommend-title-two {
+                margin-bottom: 4px;
+                .title-img {
+                    display: flex;
+                    justify-content: space-between;
+                    img {
+                        object-fit: cover;
+                        width: 48%;
+                        border-radius: 4px;
+                        height: 90px;
+                    }
+                }
+                .title {
+                    margin-top: 8px;
+                    font-size: 18px;
+                    color: #222;
+                }
             }
             .recommend-time {
+                .webset {
+                    margin-right: 8px;
+                }
                 margin-top: 4px;
                 font-size: 12px;
                 color: #666;

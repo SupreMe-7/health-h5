@@ -47,8 +47,8 @@
                         <div>录入医生:{{ healthCondition.docName }}</div>
                         <div>更新时间:{{ healthCondition.updateTime }}</div>
                         <div class="btn-group">
-                            <van-button type="default" @click="isEdit = true"
-                                >修改</van-button
+                            <van-button type="info" round @click="isEdit = true"
+                                >修改病历</van-button
                             >
                         </div>
                     </div>
@@ -110,6 +110,7 @@
             <van-tab title="就诊记录">
                 <div class="add-btn">
                     <van-button
+                        round
                         type="info"
                         :to="`/doctor/add-record?pId=${pId}`"
                         >添加就诊记录</van-button
@@ -226,12 +227,12 @@ export default {
     background: #f8f8f8;
     .footer {
         background: #fff;
-        padding: 0 10px 0 0;
-        margin: 0 0 20px 0;
+        padding: 12px 12px 0 0;
+        margin: 20px 0;
         text-align: right;
     }
     .add-btn {
-        margin: 10px 0;
+        margin: 10px;
         text-align: right;
     }
     .btn-group {
@@ -239,7 +240,7 @@ export default {
         text-align: right;
     }
     .btn-group2 {
-        padding: 15px 10px;
+        padding: 15px 12px;
         text-align: right;
     }
 }
