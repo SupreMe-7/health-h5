@@ -59,9 +59,6 @@ export default {
                     Toast(e.errMsg);
                 });
         },
-        check(id) {
-            console.log(id);
-        },
     },
 };
 </script>

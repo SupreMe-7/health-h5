@@ -8,7 +8,15 @@
             </van-row>
             <div class="explain">
                 患者情况说明: {{ item.patientInformation }}
-                <van-button type="info" size="mini" round>患者详情</van-button>
+                <van-button
+                    type="info"
+                    size="mini"
+                    round
+                    :to="
+                        `/supervisor/patients-detail?dId=${item.dId}&pId=${item.pId}`
+                    "
+                    >患者详情</van-button
+                >
             </div>
             <div>咨询内容: {{ item.consult }}</div>
             <div class="textarea">
@@ -50,7 +58,6 @@ export default {
     },
     mounted() {
         this.item = JSON.parse(sessionStorage.getItem('new-doctor-consult'));
-        console.log(this.item);
     },
     methods: {
         submit() {
@@ -68,6 +75,7 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        checkPatientsDetail() {},
     },
 };
 </script>

@@ -368,6 +368,14 @@ const routes = [
             ),
     },
     {
+        path: '/supervisor/patients-detail',
+        name: 'superior-patients-detail',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-patients-detail" */ '../module/Supervisor/PatientsDetail/index.vue'
+            ),
+    },
+    {
         path: '/supervisor/answer-doctor-consult',
         name: 'superior-answer-doctor-consult',
         component: () =>

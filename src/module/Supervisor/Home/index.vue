@@ -51,15 +51,12 @@
                     />
                     <div>全科医生申请</div>
                 </div>
-                <div
-                    class="card"
-                    @click="toUrl('/supervisor/personal-informatin')"
-                >
+                <div class="card" @click="toUrl('/supervisor/my-patients')">
                     <img
                         src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
                         alt=""
                     />
-                    <div>我的个人信息</div>
+                    <div>我的患者</div>
                 </div>
             </div>
 

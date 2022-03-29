@@ -63,9 +63,13 @@
         </div>
         <div class="register-agreement">
             <!-- TODO: -->
-            注册即代表同意<router-link to="/patient/agreement"
+            注册即代表同意<router-link
+                to="https://cos.zhugaotech.com/firstPage/yonghuxieyi.html"
                 >用户协议</router-link
-            >和<router-link to="/patient/agreement">隐私政策</router-link>
+            >和<router-link
+                to="http://cos.zhugaotech.com/firstPage/yinsizhengce.html"
+                >隐私政策</router-link
+            >
         </div>
         <div class="btn-group">
             <van-button type="info" size="large" @click="register" round
