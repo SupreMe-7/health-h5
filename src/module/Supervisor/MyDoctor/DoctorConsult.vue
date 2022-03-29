@@ -10,6 +10,10 @@
             <div v-for="(item, index) in list" :key="index">
                 <div class="item">
                     <div class="row">
+                        患者姓名:
+                        <span class="item-value">{{ item.patientName }}</span>
+                    </div>
+                    <div class="row">
                         咨询时间:
                         <span class="item-value">{{ item.createTime }}</span>
                     </div>

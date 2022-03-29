@@ -63,9 +63,13 @@ export default {
 
 <style lang="less" scoped>
 .new-doctor-consult {
+    padding: 10px;
+    background: #f8f8f8;
     .item {
+        background: #fff;
         padding: 10px;
-        border-bottom: 1px solid rgb(120, 117, 117);
+        margin-bottom: 30px;
+        border-radius: 4px;
         .item1 {
             margin-bottom: 2px;
         }

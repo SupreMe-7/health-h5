@@ -4,42 +4,46 @@
         <div v-for="(item, index) in list" :key="index" class="item">
             <van-row>
                 <van-col span="12">姓名: {{ item.name }}</van-col>
-                <van-col span="12">全科医生: {{ item.doctor }}</van-col>
+                <van-col span="12">全科医生: {{ item.docName }}</van-col>
             </van-row>
-            <div>地址: {{ item.address }}</div>
+            <div>
+                地址: {{ item.province }}{{ item.city }}{{ item.district }}
+            </div>
             <div class="btn-group">
                 <van-button
                     type="info"
                     size="small"
-                    @click="check(item.id)"
+                    :to="`/supervisor/patients-information?pId=${item.pId}`"
                     round
                     >患者信息</van-button
                 >
                 <van-button
                     type="info"
                     size="small"
-                    @click="check(item.id)"
+                    :to="`/supervisor/patients-calendar?pId=${item.pId}`"
                     round
                     >监测日记</van-button
                 >
                 <van-button
                     type="info"
                     size="small"
-                    @click="check(item.id)"
+                    :to="`/supervisor/patients-cases?pId=${item.pId}`"
                     round
                     >患者病历</van-button
                 >
                 <van-button
                     type="info"
                     size="small"
-                    @click="check(item.id)"
+                    :to="
+                        `/supervisor/diagnosis-advice?pId=${item.pId}&dId=${item.dId}`
+                    "
                     round
                     >诊疗建议</van-button
                 >
                 <van-button
                     type="info"
                     size="small"
-                    @click="check(item.id)"
+                    :to="`/supervisor/consult?pId=${item.pId}`"
                     round
                     >医生咨询</van-button
                 >
@@ -51,24 +55,12 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 
-import { Button, Col, Row } from 'vant';
+import { Button, Col, Row, Toast } from 'vant';
 export default {
     data() {
         return {
-            list: [
-                {
-                    id: 1,
-                    name: 'xxx',
-                    doctor: '医生',
-                    address: '地址',
-                },
-                {
-                    id: 2,
-                    name: 'xxx医生',
-                    doctor: '医生',
-                    address: '地址',
-                },
-            ],
+            sId: null,
+            list: [],
         };
     },
     components: {
@@ -78,11 +70,20 @@ export default {
         [Button.name]: Button,
     },
     async mounted() {
-        await this.getDoctor();
+        this.sId = sessionStorage.getItem('SID');
+        await this.getPatients();
     },
     methods: {
-        getDoctor() {
-            console.log('获取我的医生');
+        getPatients() {
+            this.$api
+                .get(`/qkys/api/sup/getPatientsBySuPId/${this.sId}`)
+                .then(res => {
+                    const { data = [] } = res;
+                    this.list = data;
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
         check(id) {
             console.log(id);

@@ -75,7 +75,6 @@ export default {
                     Toast(e.errMsg);
                 });
         },
-        checkPatientsDetail() {},
     },
 };
 </script>

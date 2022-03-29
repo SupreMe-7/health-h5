@@ -376,6 +376,14 @@ const routes = [
             ),
     },
     {
+        path: '/supervisor/consult',
+        name: 'superior-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "superior-consult" */ '../module/Supervisor/MyDoctor/Consult.vue'
+            ),
+    },
+    {
         path: '/supervisor/answer-doctor-consult',
         name: 'superior-answer-doctor-consult',
         component: () =>

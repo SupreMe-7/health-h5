@@ -72,7 +72,7 @@ export default {
     }
     .item {
         padding: 10px;
-        border-bottom: 1px solid rgb(120, 117, 117);
+        border-bottom: 1px solid #ebedf0;
         .name {
             font-size: 18px;
         }

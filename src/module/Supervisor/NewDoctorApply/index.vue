@@ -115,7 +115,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 10px;
-        border-bottom: 1px solid rgb(120, 117, 117);
+        border-bottom: 1px solid #ebedf0;
         .btn-group {
             padding: 0 10px;
             margin: 10px 0 0 0;
