@@ -189,7 +189,7 @@ export default {
             width: 50%;
         }
         .active {
-            color: #5274f6;
+            color: #1989fa;
         }
         .van-icon {
             font-size: 24px;

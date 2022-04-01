@@ -6,7 +6,7 @@
                 <van-col span="12">姓名: {{ item.name }}</van-col>
                 <van-col span="12">全科医生: {{ item.docName }}</van-col>
             </van-row>
-            <div>
+            <div class="opacity">
                 地址: {{ item.province }}{{ item.city }}{{ item.district }}
             </div>
             <div class="btn-group">
@@ -99,9 +99,12 @@ export default {
         text-align: center;
         font-size: 24px;
     }
+    .opacity {
+        opacity: 0.7;
+    }
     .item {
         padding: 10px;
-        border-bottom: 1px solid rgb(120, 117, 117);
+        border-bottom: 1px solid #ebedf0;
         .btn-group {
             padding: 0 10px 0 0;
             margin: 10px 0 0 0;

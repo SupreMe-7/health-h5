@@ -4,8 +4,8 @@
         <div v-for="(item, index) in list" :key="index" class="item">
             <div>
                 <div>{{ item.name }}医生</div>
-                <div>{{ item.hospital }}</div>
-                <div>{{ item.selectTime }}</div>
+                <div class="opacity">{{ item.hospital }}</div>
+                <div class="opacity">{{ item.selectTime }}</div>
             </div>
             <div class="btn-group">
                 <div v-if="item.expired === 1">已拒绝</div>
@@ -141,6 +141,9 @@ export default {
     }
     .dialog-address {
         margin-bottom: 15px;
+    }
+    .opacity {
+        opacity: 0.7;
     }
 }
 </style>

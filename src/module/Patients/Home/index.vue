@@ -246,7 +246,7 @@ export default {
 
 <style lang="less" scoped>
 .home-page {
-    height: 100%;
+    min-height: 100%;
     background: #f8f8f8;
     .home-page-header {
         position: absolute;

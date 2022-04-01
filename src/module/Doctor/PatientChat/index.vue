@@ -24,7 +24,7 @@
                                 >
                                     {{ itemc.text }}
                                 </div>
-                                <div v-else class="info-content">
+                                <div v-else>
                                     <img
                                         class="chat-content-img"
                                         v-lazy="itemc.pic"
@@ -46,7 +46,7 @@
                                 >
                                     {{ itemc.text }}
                                 </div>
-                                <div v-else class="info-content">
+                                <div v-else>
                                     <img
                                         class="chat-content-img"
                                         v-lazy="itemc.pic"
@@ -344,7 +344,7 @@ export default {
                     display: inline-block;
                     padding: 10px;
                     font-size: 14px;
-                    background: #a3c3f6;
+                    background: #fff;
                     position: relative;
                     margin-top: 8px;
                 }
@@ -354,13 +354,13 @@ export default {
                     left: -8px;
                     top: 8px;
                     content: '';
-                    border-right: 10px solid #a3c3f6;
+                    border-right: 10px solid #fff;
                     border-top: 8px solid transparent;
                     border-bottom: 8px solid transparent;
                 }
             }
             .chat-content-img {
-                width: 100%;
+                width: 240px;
                 height: 200px;
                 object-fit: contain;
             }
@@ -393,10 +393,10 @@ export default {
                     padding: 10px;
                     font-size: 14px;
                     float: right;
-                    background: #fff;
                     margin-right: 10px;
                     position: relative;
                     margin-top: 8px;
+                    background: #a9e97a;
                     text-align: left;
                 }
                 //小三角形
@@ -405,14 +405,14 @@ export default {
                     right: -8px;
                     top: 8px;
                     content: '';
-                    border-left: 10px solid #fff;
+                    border-left: 10px solid #a9e97a;
                     border-top: 8px solid transparent;
                     border-bottom: 8px solid transparent;
                 }
             }
             .chat-content-img {
                 object-fit: contain;
-                width: 100%;
+                width: 240px;
                 height: 200px;
             }
         }

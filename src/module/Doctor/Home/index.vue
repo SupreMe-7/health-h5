@@ -186,7 +186,7 @@ export default {
         },
         getRecommand() {
             this.$api
-                .get(`/qkys/api/getRecommandRead/Pa`)
+                .get(`/qkys/api/getRecommandRead/Doc`)
                 .then(res => {
                     const { data = [] } = res;
                     this.recommend = data;
@@ -218,7 +218,7 @@ export default {
 
 <style lang="less" scoped>
 .home-page {
-    height: 100%;
+    min-height: 100%;
     background: #f8f8f8;
     .home-page-header {
         position: absolute;
