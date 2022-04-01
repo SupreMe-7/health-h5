@@ -9,7 +9,7 @@
             <div class="login-item-label">
                 <img
                     width="40px"
-                    src="https://i.52112.com/icon/256/20160609/2171/118512.png"
+                    src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
                     alt=""
                 />
                 <span class="login-item-name">患者登录</span>
@@ -20,7 +20,7 @@
             <div class="login-item-label">
                 <img
                     width="40px"
-                    src="https://tse2-mm.cn.bing.net/th/id/OIP.ihhgzDlrGRKHugGZYrDlWQHaHa?pid=ImgDet&rs=1"
+                    src="http://cos.zhugaotech.com/firstPage/doctor_.pic.jpg"
                     alt=""
                 />
                 <span class="login-item-name">全科医生登录</span>
@@ -31,7 +31,7 @@
             <div class="login-item-label">
                 <img
                     width="40px"
-                    src="https://tse2-mm.cn.bing.net/th/id/OIP.ihhgzDlrGRKHugGZYrDlWQHaHa?pid=ImgDet&rs=1"
+                    src="http://cos.zhugaotech.com/firstPage/superiorDoctor_.pic.jpg"
                     alt=""
                 />
                 <span class="login-item-name">上级医生登录</span>
@@ -86,7 +86,9 @@ export default {
 
 <style lang="less" scoped>
 .login-page {
+    background: #f8f8f8;
     padding: 10vh 0 0 0;
+    height: 100%;
     .login-title {
         margin: 0 0 19px;
         display: flex;
@@ -125,7 +127,7 @@ export default {
         padding: 20px;
         margin: 40px 40px;
         text-align: center;
-        background: #d3eaf5;
+        background: #fff;
         border-radius: 4px;
         .login-item-label {
             display: flex;

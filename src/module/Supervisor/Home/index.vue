@@ -18,6 +18,7 @@
                 :autoplay="2000"
                 class="my-swipe"
                 indicator-color="white"
+                height="270"
             >
                 <van-swipe-item
                     v-for="(item, index) in carouselList"
@@ -36,7 +37,7 @@
                     @click="toUrl('/supervisor/new-doctor-consult')"
                 >
                     <img
-                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
+                        src="http://cos.zhugaotech.com/firstPage/doctor_.pic.jpg"
                         alt=""
                     />
                     <div>全科医生咨询</div>
@@ -53,7 +54,7 @@
                 </div>
                 <div class="card" @click="toUrl('/supervisor/my-patients')">
                     <img
-                        src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
+                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
                         alt=""
                     />
                     <div>我的患者</div>
@@ -260,8 +261,7 @@ export default {
         }
     }
     .home-page-swiper {
-        height: 270px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;

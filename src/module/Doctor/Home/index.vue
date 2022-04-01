@@ -18,6 +18,7 @@
                 :autoplay="10000"
                 class="my-swipe"
                 indicator-color="white"
+                height="270"
             >
                 <van-swipe-item
                     v-for="(item, index) in carouselList"
@@ -32,14 +33,14 @@
             <div class="home-page-card">
                 <div class="card" @click="toUrl('/doctor/my-superior')">
                     <img
-                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
+                        src="http://cos.zhugaotech.com/firstPage/superiorDoctor_.pic.jpg"
                         alt=""
                     />
                     <div>上级医生</div>
                 </div>
                 <div class="card" @click="toUrl('/doctor/new-sufferer')">
                     <img
-                        src="https://cos.zhugaotech.com/logo/WechatIMG388.jpeg"
+                        src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
                         alt=""
                     />
                     <div>新患者申请</div>
@@ -241,8 +242,7 @@ export default {
         }
     }
     .home-page-swiper {
-        height: 270px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;

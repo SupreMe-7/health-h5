@@ -20,6 +20,7 @@
                 :autoplay="10000"
                 class="my-swipe"
                 indicator-color="white"
+                height="270"
             >
                 <van-swipe-item
                     v-for="(item, index) in carouselList"
@@ -269,8 +270,7 @@ export default {
         }
     }
     .home-page-swiper {
-        height: 270px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         .my-swipe .van-swipe-item {
             color: #fff;
             text-align: center;

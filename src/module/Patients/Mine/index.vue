@@ -54,6 +54,13 @@
                     </template>
                 </van-cell>
                 <van-cell
+                    title="删除账号"
+                    size="large"
+                    is-link
+                    @click="deleteAccount"
+                    icon="delete-o"
+                />
+                <van-cell
                     title="退出登录"
                     size="large"
                     is-link
@@ -68,18 +75,21 @@
 </template>
 
 <script>
+import { getPId } from '@/common/util.js';
 import TabBar from '@/components/TabBar.vue';
 import { Cell, CellGroup, Toast, Badge, Dialog } from 'vant';
 import { jsBridge } from '@/common/util.js';
 export default {
     data() {
         return {
+            pId: null,
             version: {
                 hasNewVersion: false,
             },
         };
     },
     mounted() {
+        this.pId = getPId();
         this.getUpdate();
     },
     methods: {
@@ -124,6 +134,29 @@ export default {
             } else {
                 Dialog({ title: '检查更新', message: '已是最新版本' });
             }
+        },
+        deleteAccount() {
+            Dialog.confirm({
+                title: '删除账号',
+                message: '您的账号所有信息将被删除，删除的信息无法找回',
+            })
+                .then(() => {
+                    this.$api
+                        .get(`/qkys/api/clearPatientInfoByPId/${this.pId}`)
+                        .then(() => {
+                            Toast('删除成功');
+                            jsBridge.logOut && jsBridge.logOut();
+                            localStorage.clear();
+                            sessionStorage.clear();
+                            this.$router.push('/login');
+                        })
+                        .catch(e => {
+                            Toast(e.errMsg);
+                        });
+                })
+                .catch(() => {
+                    // on cancel
+                });
         },
     },
     components: {
