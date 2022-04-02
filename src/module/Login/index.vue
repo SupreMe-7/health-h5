@@ -20,7 +20,7 @@
             <div class="login-item-label">
                 <img
                     width="40px"
-                    src="http://cos.zhugaotech.com/firstPage/doctor_.pic.jpg"
+                    src="http://cos.zhugaotech.com/firstPage/doctor_pic.jpg"
                     alt=""
                 />
                 <span class="login-item-name">全科医生登录</span>
@@ -31,7 +31,7 @@
             <div class="login-item-label">
                 <img
                     width="40px"
-                    src="http://cos.zhugaotech.com/firstPage/superiorDoctor_.pic.jpg"
+                    src="http://cos.zhugaotech.com/firstPage/superiorDoctor_pic.jpg"
                     alt=""
                 />
                 <span class="login-item-name">上级医生登录</span>

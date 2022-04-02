@@ -37,7 +37,7 @@
                     @click="toUrl('/supervisor/new-doctor-consult')"
                 >
                     <img
-                        src="http://cos.zhugaotech.com/firstPage/doctor_.pic.jpg"
+                        src="http://cos.zhugaotech.com/firstPage/doctor_pic.jpg"
                         alt=""
                     />
                     <div>全科医生咨询</div>
@@ -268,7 +268,7 @@ export default {
         }
     }
     .home-page-content {
-        padding: 10px;
+        padding: 0 10px 10px 10px;
     }
     .home-page-card {
         border-radius: 4px;

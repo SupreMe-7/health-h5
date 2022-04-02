@@ -57,7 +57,7 @@
                     title="删除账号"
                     size="large"
                     is-link
-                    @click="deleteAccount"
+                    @click="show = true"
                     icon="delete-o"
                 />
                 <van-cell
@@ -69,7 +69,22 @@
                 />
             </van-cell-group>
         </div>
-
+        <van-dialog
+            v-model="show"
+            title="删除账号"
+            show-cancel-button
+            className="deleteDialog"
+            @confirm="deleteAccount"
+        >
+            <div class="box">
+                <p>您的账号所有信息将被删除，删除的信息无法找回</p>
+                <van-field
+                    v-model="cardNum"
+                    label="身份证号"
+                    placeholder="请输入身份证号确认删除"
+                />
+            </div>
+        </van-dialog>
         <TabBar type="patients" :nowKey="3"></TabBar>
     </div>
 </template>
@@ -77,7 +92,7 @@
 <script>
 import { getPId } from '@/common/util.js';
 import TabBar from '@/components/TabBar.vue';
-import { Cell, CellGroup, Toast, Badge, Dialog } from 'vant';
+import { Cell, CellGroup, Toast, Badge, Dialog, Field } from 'vant';
 import { jsBridge } from '@/common/util.js';
 export default {
     data() {
@@ -86,6 +101,8 @@ export default {
             version: {
                 hasNewVersion: false,
             },
+            cardNum: null,
+            show: false,
         };
     },
     mounted() {
@@ -136,26 +153,24 @@ export default {
             }
         },
         deleteAccount() {
-            Dialog.confirm({
-                title: '删除账号',
-                message: '您的账号所有信息将被删除，删除的信息无法找回',
-            })
-                .then(() => {
-                    this.$api
-                        .get(`/qkys/api/clearPatientInfoByPId/${this.pId}`)
-                        .then(() => {
-                            Toast('删除成功');
-                            jsBridge.logOut && jsBridge.logOut();
-                            localStorage.clear();
-                            sessionStorage.clear();
-                            this.$router.push('/login');
-                        })
-                        .catch(e => {
-                            Toast(e.errMsg);
-                        });
+            if (!this.cardNum) {
+                Toast('身份证号不可为空');
+                return;
+            }
+            this.$api
+                .post(`/qkys/api/clearPatientInfoByPId`, {
+                    pId: this.pId,
+                    cardNum: this.cardNum,
                 })
-                .catch(() => {
-                    // on cancel
+                .then(() => {
+                    Toast('删除成功');
+                    jsBridge.logOut && jsBridge.logOut();
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    this.$router.push('/login');
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
                 });
         },
     },
@@ -164,6 +179,8 @@ export default {
         [Cell.name]: Cell,
         [CellGroup.name]: CellGroup,
         [Badge.name]: Badge,
+        [Field.name]: Field,
+        [Dialog.Component.name]: Dialog.Component,
     },
 };
 </script>
@@ -181,6 +198,11 @@ export default {
             border-bottom: 1px solid #9e9e9e;
             padding: 10px 5px;
             font-size: 22px;
+        }
+    }
+    .deleteDialog {
+        .box {
+            margin: 10px;
         }
     }
 }

@@ -277,7 +277,7 @@ export default {
         }
     }
     .home-page-content {
-        padding: 10px;
+        padding: 0 10px 10px 10px;
     }
     .home-page-card {
         border-radius: 4px;

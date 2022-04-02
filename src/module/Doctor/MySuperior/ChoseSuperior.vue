@@ -48,7 +48,6 @@
 </template>
 
 <script>
-// 注册
 import { Button, Field, CellGroup, Popup, Toast, Picker } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 

@@ -33,7 +33,7 @@
             <div class="home-page-card">
                 <div class="card" @click="toUrl('/doctor/my-superior')">
                     <img
-                        src="http://cos.zhugaotech.com/firstPage/superiorDoctor_.pic.jpg"
+                        src="http://cos.zhugaotech.com/firstPage/superiorDoctor_pic.jpg"
                         alt=""
                     />
                     <div>上级医生</div>
@@ -249,7 +249,7 @@ export default {
         }
     }
     .home-page-content {
-        padding: 10px;
+        padding: 0 10px 10px 10px;
     }
     .home-page-card {
         border-radius: 4px;

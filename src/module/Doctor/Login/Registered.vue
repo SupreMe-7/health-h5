@@ -62,13 +62,14 @@
             </van-cell-group>
         </div>
         <div class="register-agreement">
-            <!-- TODO: -->
-            注册即代表同意<router-link
-                to="https://cos.zhugaotech.com/firstPage/yonghuxieyi.html"
-                >用户协议</router-link
-            >和<router-link
-                to="http://cos.zhugaotech.com/firstPage/yinsizhengce.html"
-                >隐私政策</router-link
+            注册即代表同意<a
+                target="_blank"
+                href="https://cos.zhugaotech.com/firstPage/yonghuxieyi.html"
+                >用户协议</a
+            >和<a
+                href="http://cos.zhugaotech.com/firstPage/yinsizhengce.html"
+                target="_blank"
+                >隐私政策</a
             >
         </div>
         <div class="btn-group">
