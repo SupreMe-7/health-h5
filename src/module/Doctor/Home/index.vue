@@ -33,7 +33,7 @@
             <div class="home-page-card">
                 <div class="card" @click="toUrl('/doctor/my-superior')">
                     <img
-                        src="http://cos.zhugaotech.com/firstPage/superiorDoctor_pic.jpg"
+                        src="https://cos.zhugaotech.com/firstPage/superiorDoctor_pic.jpg"
                         alt=""
                     />
                     <div>上级医生</div>
@@ -199,16 +199,18 @@ export default {
             if (navigator.userAgent.includes('xkysAndroidApp')) {
                 let registrationId =
                     jsBridge.getRegisteId && jsBridge.getRegisteId();
-                this.$api
-                    .post(`/qkys/api/user/updateJiGuangId`, {
-                        userId: this.pId,
-                        role: 'Doc',
-                        registrationId,
-                    })
-                    .then(() => {})
-                    .catch(e => {
-                        Toast(e.errMsg);
-                    });
+                if (+registrationId) {
+                    this.$api
+                        .post(`/qkys/api/user/updateJiGuangId`, {
+                            userId: this.dId,
+                            role: 'Doc',
+                            registrationId,
+                        })
+                        .then(() => {})
+                        .catch(e => {
+                            Toast(e.errMsg);
+                        });
+                }
             }
         },
         jumpOutUrl,

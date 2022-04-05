@@ -106,7 +106,7 @@
                 href="https://cos.zhugaotech.com/firstPage/yonghuxieyi.html"
                 >用户协议</a
             >和<a
-                href="http://cos.zhugaotech.com/firstPage/yinsizhengce.html"
+                href="https://cos.zhugaotech.com/firstPage/yinsizhengce.html"
                 target="_blank"
                 >隐私政策</a
             >

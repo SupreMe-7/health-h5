@@ -226,7 +226,7 @@ export default {
         uploadRegistrationId() {
             let registrationId =
                 jsBridge.getRegisteId && jsBridge.getRegisteId();
-            if (registrationId) {
+            if (+registrationId) {
                 this.$api
                     .post(`/qkys/api/user/updateJiGuangId`, {
                         userId: this.pId,

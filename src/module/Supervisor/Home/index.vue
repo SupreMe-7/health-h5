@@ -37,7 +37,7 @@
                     @click="toUrl('/supervisor/new-doctor-consult')"
                 >
                     <img
-                        src="http://cos.zhugaotech.com/firstPage/doctor_pic.jpg"
+                        src="https://cos.zhugaotech.com/firstPage/doctor_pic.jpg"
                         alt=""
                     />
                     <div>全科医生咨询</div>
@@ -218,16 +218,18 @@ export default {
             if (navigator.userAgent.includes('xkysAndroidApp')) {
                 let registrationId =
                     jsBridge.getRegisteId && jsBridge.getRegisteId();
-                this.$api
-                    .post(`/qkys/api/user/updateJiGuangId`, {
-                        userId: this.pId,
-                        role: 'Sup',
-                        registrationId,
-                    })
-                    .then(() => {})
-                    .catch(e => {
-                        Toast(e.errMsg);
-                    });
+                if (+registrationId) {
+                    this.$api
+                        .post(`/qkys/api/user/updateJiGuangId`, {
+                            userId: this.sId,
+                            role: 'Sup',
+                            registrationId,
+                        })
+                        .then(() => {})
+                        .catch(e => {
+                            Toast(e.errMsg);
+                        });
+                }
             }
         },
         jumpOutUrl,

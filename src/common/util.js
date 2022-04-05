@@ -28,7 +28,7 @@ export const getPId = () => {
     if (pid) {
         return pid;
     } else {
-        location.href = '/#/patients/home';
+        location.href = '/#/login';
         return;
     }
 };
