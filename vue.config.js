@@ -4,7 +4,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/qkys/api': {
-                target: 'http://172.81.253.56:8070',
+                target: 'http://43.142.128.151:8070',
                 changeOrigin: true,
             },
         },

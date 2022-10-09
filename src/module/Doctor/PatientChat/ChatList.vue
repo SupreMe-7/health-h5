@@ -26,7 +26,7 @@
                         {{ item.patientName }}
                     </div>
                     <div class="chat-time">
-                        {{ item.updateTime.slice(0, 10) }}
+                        {{ (item.updateTime || '').slice(0, 10) }}
                     </div>
                 </div>
                 <div class="item-two">{{ item.lastText }}</div>
@@ -61,6 +61,7 @@ export default {
                 .get(`/qkys/api/doc/getDocotorLastChat/${this.dId}`)
                 .then(res => {
                     this.list = res.data;
+                    console.log(this.list);
                 })
                 .catch(e => {
                     Toast(e.errMsg);
