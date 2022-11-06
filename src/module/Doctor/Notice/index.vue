@@ -6,6 +6,7 @@
                 class="notice-type-item"
                 :class="activeType === MSG_TYPE_ENUM.Notification && 'active'"
                 @click="() => (activeType = MSG_TYPE_ENUM.Notification)"
+                @dblclick="clearAll()"
             >
                 <van-icon name="chat-o" />
                 <van-badge :content="notReadUserMsgNum" max="9"
@@ -169,6 +170,20 @@ export default {
                         Toast(e.errMsg);
                     });
             }
+        },
+        clearAll() {
+            this.$api
+                .post(`/qkys/api/doc/updateAllReadMsg`, {
+                    role: 'Doc',
+                    id: this.dId,
+                    msgType: 'userMsg',
+                })
+                .then(() => {
+                    location.reload();
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
         },
     },
 };

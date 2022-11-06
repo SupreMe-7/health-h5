@@ -22,26 +22,103 @@
                                 {{ item.createTime }}
                             </div>
                             <div class="show-item-main">
-                                <div class="show-item-info">
-                                    早餐前: {{ item.beforeBreakfastSugar }}
+                                <div class="show-item-sugar">
+                                    早餐前
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.beforeBreakfastSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.beforeBreakfastDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    早餐后: {{ item.afterBreakfastSugar }}
+                                <div class="show-item-sugar">
+                                    早餐后
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.afterBreakfastSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.afterBreakfastDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    午餐前: {{ item.beforeLunchSugar }}
+                                <div class="show-item-sugar">
+                                    午餐前
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.beforeLunchSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.beforeLunchDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    午餐后: {{ item.afterLunchSugar }}
+                                <div class="show-item-sugar">
+                                    午餐后
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.afterLunchSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.afterLunchDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    晚餐前: {{ item.beforeDinnerSugar }}
+                                <div class="show-item-sugar">
+                                    晚餐前
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.beforeDinnerSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.beforeDinnerDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    晚餐后: {{ item.afterDinnerSugar }}
+                                <div class="show-item-sugar">
+                                    晚餐后
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.afterDinnerSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.afterDinnerDiet }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="show-item-info">
-                                    睡前: {{ item.beforeSleepSugar }}
+                                <div class="show-item-sugar">
+                                    睡前
+                                    <div class="show-item-sugar-val">
+                                        <div>
+                                            血糖:
+                                            {{ item.beforeSleepSugar }}
+                                        </div>
+                                        <div>
+                                            饮食及运动:
+                                            {{ item.beforeSleepDiet }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="show-item-sugar">
+                                    随机血糖
+                                    <div class="show-item-sugar-val">
+                                        血糖:
+                                        {{ item.randomSugar }}
+                                    </div>
                                 </div>
                             </div>
                             <div
@@ -88,109 +165,27 @@
                             <div class="show-item-main">
                                 <div class="show-item-info">
                                     <div class="show-item-info-pressure">
-                                        早晨
+                                        测量时间:
+                                        {{ item.measureTime || '-' }}
                                     </div>
-                                    <div class="show-item-info-pressure">
+                                    <div
+                                        :class="{
+                                            'show-item-info-pressure': true,
+                                            'red-text': item.lowPressure > 120,
+                                        }"
+                                    >
                                         低压:
-                                        {{ item.morningLowPressure || '-' }}
+                                        {{ item.lowPressure || '-' }}
                                     </div>
-                                    <div class="show-item-info-pressure">
+                                    <div
+                                        :class="{
+                                            'show-item-info-pressure': true,
+                                            'red-text': item.highPressure > 160,
+                                        }"
+                                    >
                                         高压:
-                                        {{ item.morningHighPressure || '-' }}
+                                        {{ item.highPressure || '-' }}
                                     </div>
-                                </div>
-                                <div class="show-item-info">
-                                    <div class="show-item-info-pressure">
-                                        中午
-                                    </div>
-                                    <div class="show-item-info-pressure">
-                                        低压:
-                                        {{ item.afternoonLowPressure || '-' }}
-                                    </div>
-                                    <div class="show-item-info-pressure">
-                                        高压:
-                                        {{ item.afternoonHighPressure || '-' }}
-                                    </div>
-                                </div>
-                                <div class="show-item-info">
-                                    <div class="show-item-info-pressure">
-                                        晚间
-                                    </div>
-                                    <div class="show-item-info-pressure">
-                                        低压:
-                                        {{ item.eveningLowPressure || '-' }}
-                                    </div>
-                                    <div class="show-item-info-pressure">
-                                        高压:
-                                        {{ item.eveningHighPressure || '-' }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                v-if="item.pics && item.pics.length"
-                                class="show-item-img"
-                            >
-                                <van-image
-                                    v-for="(ele, index) in item.pics"
-                                    :key="index"
-                                    width="30%"
-                                    :src="ele"
-                                    @click="
-                                        ImagePreview({
-                                            images: item.pics,
-                                            startPosition: index,
-                                        })
-                                    "
-                                />
-                            </div>
-                        </div>
-                    </van-list> </van-pull-refresh
-            ></van-tab>
-            <van-tab title="运动/饮食" name="sport_diet">
-                <van-pull-refresh
-                    v-if="diaryMethod === 'sport_diet'"
-                    v-model="refreshing"
-                    @refresh="onRefresh"
-                >
-                    <van-list
-                        v-model="loading"
-                        :finished="finished"
-                        finished-text="没有更多了~"
-                        @load="onLoad"
-                    >
-                        <div
-                            class="show-item"
-                            v-for="(item, index) in list"
-                            :key="index"
-                        >
-                            <div class="show-item-time">
-                                {{ item.createTime }}
-                            </div>
-                            <div class="item-item-title">运动</div>
-                            <div class="show-item-main">
-                                <div class="show-item-info">
-                                    早晨: {{ item.morningSport }}
-                                </div>
-                                <div class="show-item-info">
-                                    中午: {{ item.afternoonSport }}
-                                </div>
-                                <div class="show-item-info">
-                                    晚间: {{ item.eveningSport }}
-                                </div>
-                            </div>
-                            <div class="item-item-title">饮食</div>
-                            <div class="show-item-main">
-                                <div class="show-item-info">
-                                    早餐: {{ item.breakfast }}
-                                </div>
-                                <div class="show-item-info">
-                                    午餐: {{ item.lunch }}
-                                </div>
-                                <div class="show-item-info">
-                                    晚餐: {{ item.dinner }}
-                                </div>
-                                <div class="show-item-info">
-                                    间食: {{ item.betweenMeals }}
                                 </div>
                             </div>
                             <div
@@ -236,6 +231,9 @@
                             <div class="show-item-main">
                                 <div class="show-item-info">
                                     辅助检查类型: {{ item.examType }}
+                                </div>
+                                <div class="show-item-info">
+                                    辅助检查内容: {{ item.examValue }}
                                 </div>
                             </div>
                             <div
@@ -376,6 +374,12 @@ export default {
             font-weight: bold;
         }
         .show-item-main {
+            .show-item-sugar {
+                margin-bottom: 12px;
+                .show-item-sugar-val {
+                    margin-top: 6px;
+                }
+            }
             .show-item-info {
                 display: flex;
                 white-space: nowrap;
@@ -394,6 +398,9 @@ export default {
                 margin-right: 8px;
             }
         }
+    }
+    .red-text {
+        color: red;
     }
 }
 </style>

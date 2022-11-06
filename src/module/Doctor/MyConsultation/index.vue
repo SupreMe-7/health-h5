@@ -60,7 +60,7 @@ export default {
     watch: {},
     computed: {},
     mounted() {
-        this.dId = sessionStorage.getItem('DID');
+        this.pId = this.$route.query.pId;
     },
     components: {
         [Divider.name]: Divider,
@@ -72,8 +72,8 @@ export default {
             this.loading = true;
             this.currPage = this.currPage + 1;
             this.$api
-                .post(`/qkys/api/doc/getDoctorConsultByDId`, {
-                    dId: this.dId,
+                .post(`/qkys/api/doc/getDoctorConsultByPId`, {
+                    pId: this.pId,
                     currPage: this.currPage,
                     pageSize: this.pageSize,
                 })

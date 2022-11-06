@@ -3,26 +3,14 @@
         <NavBar title="添加就诊记录" />
         <van-cell-group>
             <van-field
-                label="就诊时间"
-                v-model="diagnoseTime"
+                label="门诊诊断"
+                v-model="zhenDuan"
                 size="large"
                 placeholder="请输入内容"
             />
             <van-field
-                label="主诉"
-                v-model="zhuSu"
-                size="large"
-                placeholder="请输入内容"
-            />
-            <van-field
-                label="现病史"
-                v-model="xianbingshi"
-                size="large"
-                placeholder="请输入内容"
-            />
-            <van-field
-                label="查体及辅助检查"
-                v-model="chaTi"
+                label="病情分析"
+                v-model="bingQingFenXi"
                 size="large"
                 placeholder="请输入内容"
             />
@@ -33,8 +21,8 @@
                 placeholder="请输入内容"
             />
             <van-field
-                label="门诊诊断"
-                v-model="zhenDuan"
+                label="就诊时间"
+                v-model="diagnoseTime"
                 size="large"
                 placeholder="请输入内容"
             />
@@ -55,9 +43,7 @@ export default {
             pId: null,
             dId: null,
             diagnoseTime: '',
-            zhuSu: '',
-            xianbingshi: '',
-            chaTi: '',
+            bingQingFenXi: '',
             chuZhi: '',
             zhenDuan: '',
         };
@@ -79,9 +65,7 @@ export default {
                 .post(`/qkys/api/doc/addPatientDiagnosisRecord`, {
                     pId: this.pId,
                     dId: this.dId,
-                    zhuSu: this.zhuSu,
-                    xianbingshi: this.xianbingshi,
-                    chaTi: this.chaTi,
+                    bingQingFenXi: this.bingQingFenXi,
                     chuZhi: this.chuZhi,
                     zhenDuan: this.zhenDuan,
                     diagnoseTime: this.diagnoseTime,

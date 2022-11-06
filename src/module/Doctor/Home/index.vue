@@ -45,12 +45,12 @@
                     />
                     <div>新患者申请</div>
                 </div>
-                <div class="card" @click="toUrl('/doctor/my-consultation')">
+                <div class="card" @click="toUrl('/doctor/chat-list')">
                     <img
                         src="https://cos.zhugaotech.com/logo/WechatIMG387.jpeg"
                         alt=""
                     />
-                    <div>我的咨询</div>
+                    <div>新患者咨询</div>
                 </div>
             </div>
 

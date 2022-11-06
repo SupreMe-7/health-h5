@@ -30,12 +30,12 @@ export default {
                     url: '/patients/home',
                 },
                 {
-                    label: '监测日历',
+                    label: '监测回顾',
                     icon: 'notes-o',
                     url: '/patients/monitor-calendar',
                 },
                 {
-                    label: '医生留言',
+                    label: '咨询',
                     icon: 'chat-o',
                     url: '/patients/mediciner-chat',
                     badge: null,
@@ -56,11 +56,6 @@ export default {
                     label: '我的患者',
                     icon: 'user-circle-o',
                     url: '/doctor/my-sufferer',
-                },
-                {
-                    label: '留言',
-                    icon: 'chat-o',
-                    url: '/doctor/chat-list',
                 },
                 {
                     label: '我的',

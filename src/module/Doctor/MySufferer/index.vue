@@ -1,6 +1,6 @@
 <template>
     <div class="my-sufferer">
-        <div class="title">我的患者</div>
+        <div class="title">患者列表</div>
         <van-list
             v-model="loading"
             :finished="finished"
@@ -8,39 +8,13 @@
             @load="onLoad"
         >
             <div v-for="(item, index) in list" :key="index">
-                <div class="item">
+                <div class="item" @click="onClick(item)">
                     <div class="left">
                         <div class="name">{{ item.name }}</div>
                         <div class="address">
                             {{ item.province }}{{ item.city
                             }}{{ item.district }}
                         </div>
-                    </div>
-                    <div>
-                        <van-button
-                            round
-                            size="small"
-                            :to="`/doctor/sufferer-information?pId=${item.pId}`"
-                            >患者信息</van-button
-                        >
-                        <van-button
-                            round
-                            size="small"
-                            :to="`/doctor/sufferer-calendar?pId=${item.pId}`"
-                            >监测日记</van-button
-                        >
-                        <van-button
-                            round
-                            size="small"
-                            :to="`/doctor/sufferer-cases?pId=${item.pId}`"
-                            >患者病历</van-button
-                        >
-                        <van-button
-                            round
-                            size="small"
-                            :to="`/doctor/diagnosis-advice?pId=${item.pId}`"
-                            >诊疗建议</van-button
-                        >
                     </div>
                 </div>
                 <van-divider />
@@ -97,6 +71,9 @@ export default {
 
             this.currPage = this.currPage + 1;
             this.finished = true;
+        },
+        onClick(item) {
+            this.$router.push(`/doctor/cur-sufferer?pId=${item.pId}`);
         },
     },
 };

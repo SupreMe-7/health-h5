@@ -38,7 +38,7 @@
                         src="https://cos.zhugaotech.com/logo/WechatIMG389.jpeg"
                         alt=""
                     />
-                    <div>全科医生</div>
+                    <div>我的医生</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/add-calendar')">
                     <img
@@ -52,7 +52,7 @@
                         src="https://cos.zhugaotech.com/logo/WechatIMG387.jpeg"
                         alt=""
                     />
-                    <div>诊疗建议</div>
+                    <div>医生建议</div>
                 </div>
                 <div class="card" @click="toUrl('/patients/personal-cases')">
                     <img

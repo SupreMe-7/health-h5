@@ -1,45 +1,52 @@
 <template>
     <div class="chat-list">
-        <div class="chat-list-header">留言</div>
-        <div
-            class="chat-item"
-            v-for="(item, index) in list"
-            :key="index"
-            @click="
-                $router.push(
-                    `/doctor/patient-chat?pId=${item.pId}&name=${item.patientName}`
-                )
-            "
-        >
-            <van-badge
-                v-if="+item.unReadNum !== 0"
-                :content="item.unReadNum"
-                max="99"
+        <NavBar title="新患者咨询" />
+        <div v-if="list.length">
+            <div
+                class="chat-item"
+                v-for="(item, index) in list"
+                :key="index"
+                @click="
+                    $router.push(
+                        `/doctor/patient-chat?pId=${item.pId}&name=${item.patientName}`
+                    )
+                "
             >
-                <img class="chat-avator" :src="item.profileIcon" alt="" />
-            </van-badge>
-            <img v-else class="chat-avator" :src="item.profileIcon" alt="" />
+                <van-badge
+                    v-if="+item.unReadNum !== 0"
+                    :content="item.unReadNum"
+                    max="99"
+                >
+                    <img class="chat-avator" :src="item.profileIcon" alt="" />
+                </van-badge>
+                <img
+                    v-else
+                    class="chat-avator"
+                    :src="item.profileIcon"
+                    alt=""
+                />
 
-            <div class="item-content">
-                <div class="item-one">
-                    <div class="chat-name">
-                        {{ item.patientName }}
+                <div class="item-content">
+                    <div class="item-one">
+                        <div class="chat-name">
+                            {{ item.patientName }}
+                        </div>
+                        <div class="chat-time">
+                            {{ (item.updateTime || '').slice(0, 10) }}
+                        </div>
                     </div>
-                    <div class="chat-time">
-                        {{ (item.updateTime || '').slice(0, 10) }}
-                    </div>
+                    <div class="item-two">{{ item.lastText }}</div>
                 </div>
-                <div class="item-two">{{ item.lastText }}</div>
             </div>
         </div>
-        <TabBar type="doctor" :nowKey="2"></TabBar>
+        <van-empty v-else description="暂无新的咨询" />
     </div>
 </template>
 
 <script>
-import TabBar from '@/components/TabBar.vue';
+import NavBar from '@/components/NavBar.vue';
 
-import { Toast, Badge } from 'vant';
+import { Toast, Badge, Empty } from 'vant';
 export default {
     data() {
         return {
@@ -52,16 +59,16 @@ export default {
         this.getChatList();
     },
     components: {
-        TabBar,
         [Badge.name]: Badge,
+        [Empty.name]: Empty,
+        NavBar,
     },
     methods: {
         getChatList() {
             this.$api
-                .get(`/qkys/api/doc/getDocotorLastChat/${this.dId}`)
+                .get(`/qkys/api/doc/getNewDocotorLastChat/${this.dId}`)
                 .then(res => {
-                    this.list = res.data;
-                    console.log(this.list);
+                    this.list = res.data || [];
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -76,11 +83,6 @@ export default {
     box-sizing: border-box;
     width: 100%;
     padding: 10px;
-    .chat-list-header {
-        text-align: center;
-        font-size: 22px;
-        margin-bottom: 14px;
-    }
     .chat-item {
         width: 100%;
         display: flex;

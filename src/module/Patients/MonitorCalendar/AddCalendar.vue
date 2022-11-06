@@ -20,47 +20,88 @@
             </van-popup>
         </div>
         <div v-if="diaryMethod.value === 'blood_sugar'" class="calendar-type">
+            早餐前：
             <van-field
                 v-model="blood_sugar.beforeBreakfastSugar"
                 type="number"
-                label="早餐前"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.beforeBreakfastDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            早餐后：
             <van-field
                 v-model="blood_sugar.afterBreakfastSugar"
                 type="number"
-                label="早餐后"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.afterBreakfastDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            午餐前：
             <van-field
                 v-model="blood_sugar.beforeLunchSugar"
                 type="number"
-                label="午餐前"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.beforeLunchDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            午餐后：
             <van-field
                 v-model="blood_sugar.afterLunchSugar"
                 type="number"
-                label="午餐后"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.afterLunchDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            晚餐前：
             <van-field
                 v-model="blood_sugar.beforeDinnerSugar"
                 type="number"
-                label="晚餐前"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.beforeDinnerDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            晚餐后：
             <van-field
                 v-model="blood_sugar.afterDinnerSugar"
                 type="number"
-                label="晚餐后"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
             />
+            <van-field
+                v-model="blood_sugar.afterDinnerDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            睡前：
             <van-field
                 v-model="blood_sugar.beforeSleepSugar"
                 type="number"
-                label="睡前"
-                placeholder="请输入内容"
+                placeholder="请输入血糖情况"
+            />
+            <van-field
+                v-model="blood_sugar.beforeSleepDiet"
+                type="string"
+                placeholder="请输入饮食及运动情况"
+            />
+            随机血糖：
+            <van-field
+                v-model="blood_sugar.randomSugar"
+                type="number"
+                placeholder="请输入血糖情况"
             />
         </div>
         <div
@@ -68,100 +109,60 @@
             class="calendar-type"
         >
             <van-field
-                v-model="blood_pressure.morningHighPressure"
+                v-model="blood_pressure.measureTime"
+                type="string"
+                label="测量时间"
+                placeholder="请选择测量时间"
+                @click="choseBloodTimePicker = true"
+            />
+            <van-popup v-model="choseBloodTimePicker" round position="bottom">
+                <van-datetime-picker
+                    type="time"
+                    title="选择时间"
+                    :min-hour="0"
+                    :max-hour="23"
+                    @cancel="choseBloodTimePicker = false"
+                    @confirm="bloodTimeConfirm"
+                />
+            </van-popup>
+
+            <van-field
+                v-model="blood_pressure.highPressure"
                 type="number"
-                label="早晨高压"
-                placeholder="请输入内容"
+                label="高压"
+                placeholder="请输入高压"
             />
             <van-field
-                v-model="blood_pressure.morningLowPressure"
+                v-model="blood_pressure.lowPressure"
                 type="number"
-                label="早晨低压"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="blood_pressure.afternoonHighPressure"
-                type="number"
-                label="中午高压"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="blood_pressure.afternoonLowPressure"
-                type="number"
-                label="中午低压"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="blood_pressure.eveningHighPressure"
-                type="number"
-                label="晚间高压"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="blood_pressure.eveningLowPressure"
-                type="number"
-                label="晚间低压"
-                placeholder="请输入内容"
-            />
-        </div>
-        <div
-            v-else-if="diaryMethod.value === 'sport_diet'"
-            class="calendar-type"
-        >
-            <div>运动</div>
-            <van-field
-                v-model="sport_diet.morningSport"
-                label="早晨"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="sport_diet.afternoonSport"
-                label="中午"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="sport_diet.eveningSport"
-                label="晚间"
-                placeholder="请输入内容"
-            />
-            <div>饮食</div>
-            <van-field
-                v-model="sport_diet.breakfast"
-                label="早餐"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="sport_diet.lunch"
-                label="午餐"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="sport_diet.dinner"
-                label="晚餐"
-                placeholder="请输入内容"
-            />
-            <van-field
-                v-model="sport_diet.betweenMeals"
-                label="间食"
-                placeholder="请输入内容"
+                label="低压"
+                placeholder="请输入低压"
             />
         </div>
         <div
             v-else-if="diaryMethod.value === 'examination'"
             class="calendar-type"
         >
-            <van-radio-group v-model="examinationRadio">
-                <van-radio name="血液生化类">血液生化类</van-radio>
-                <van-radio name="肝肾检验类">肝肾检验类</van-radio>
-                <van-radio name="影像类">影像类</van-radio>
-                <van-radio name="彩超">彩超</van-radio>
-                <van-radio name="其他">其他</van-radio>
-            </van-radio-group>
             <van-field
-                v-if="examinationRadio === '其他'"
-                v-model="examination.examType"
-                label="辅助操作"
-                placeholder="请输入操作类型"
+                readonly
+                clickable
+                label="检验类型"
+                :value="examination.examType"
+                placeholder="请选择检验类型"
+                @click="choseExaminationPicker = true"
+            />
+            <van-popup v-model="choseExaminationPicker" round position="bottom">
+                <van-picker
+                    show-toolbar
+                    :columns="examinationList"
+                    @cancel="choseExaminationPicker = false"
+                    @confirm="confirmExaminationType"
+                />
+            </van-popup>
+            <van-field
+                v-model="examination.examValue"
+                type="string"
+                placeholder="请输入内容"
             />
         </div>
         <div v-if="diaryMethod.value">
@@ -193,6 +194,7 @@ import {
     RadioGroup,
     Radio,
     Toast,
+    DatetimePicker,
 } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 import { getPId } from '@/common/util.js';
@@ -206,16 +208,31 @@ export default {
             value: '',
             loading: false,
             choseTypePicker: false,
+            choseBloodTimePicker: false,
+            choseExaminationPicker: false,
             diaryMethod: {},
             config: {
                 Bucket: 'qkys-1255565436' /* 必须 */,
                 Region: 'ap-shanghai' /* 存储桶所在地域，必须字段 */,
             },
+            examinationList: [
+                {
+                    text: '血液化验类',
+                    value: '血液化验类',
+                },
+                {
+                    text: '影像类',
+                    value: '影像类',
+                },
+                {
+                    text: '其他',
+                    value: '其他',
+                },
+            ],
             diaryMethodList: [
                 { text: '血糖', value: 'blood_sugar' },
                 { text: '血压', value: 'blood_pressure' },
-                { text: '运动/饮食', value: 'sport_diet' },
-                { text: '辅助检查', value: 'examination' },
+                { text: '其他', value: 'examination' },
             ],
             fileList: [],
             pics: [],
@@ -228,31 +245,27 @@ export default {
                 beforeDinnerSugar: '',
                 beforeLunchSugar: '',
                 beforeSleepSugar: '',
+                afterBreakfastDiet: '',
+                afterDinnerDiet: '',
+                afterLunchDiet: '',
+                beforeBreakfastDiet: '',
+                beforeDinnerDiet: '',
+                beforeLunchDiet: '',
+                beforeSleepDiet: '',
+                randomSugar: '',
+                randomDiet: '',
             },
             // 血压
             blood_pressure: {
-                morningHighPressure: '',
-                morningLowPressure: '',
-                afternoonHighPressure: '',
-                afternoonLowPressure: '',
-                eveningHighPressure: '',
-                eveningLowPressure: '',
-            },
-            // 运动/饮食
-            sport_diet: {
-                betweenMeals: '',
-                morningSport: '',
-                afternoonSport: '',
-                eveningSport: '',
-                lunch: '',
-                breakfast: '',
-                dinner: '',
+                measureTime: '',
+                highPressure: '',
+                lowPressure: '',
             },
             // 辅助操作
             examination: {
                 examType: '',
+                examValue: '',
             },
-            examinationRadio: '',
         };
     },
     watch: {
@@ -266,38 +279,27 @@ export default {
                 beforeDinnerSugar: '',
                 beforeLunchSugar: '',
                 beforeSleepSugar: '',
+                afterBreakfastDiet: '',
+                afterDinnerDiet: '',
+                afterLunchDiet: '',
+                beforeBreakfastDiet: '',
+                beforeDinnerDiet: '',
+                beforeLunchDiet: '',
+                beforeSleepDiet: '',
+                randomSugar: '',
+                randomDiet: '',
             };
             // 血压
             this.blood_pressure = {
-                morningHighPressure: '',
-                morningLowPressure: '',
-                afternoonHighPressure: '',
-                afternoonLowPressure: '',
-                eveningHighPressure: '',
-                eveningLowPressure: '',
-            };
-            // 运动/饮食
-            this.sport_diet = {
-                betweenMeals: '',
-                morningSport: '',
-                afternoonSport: '',
-                eveningSport: '',
-                lunch: '',
-                breakfast: '',
-                dinner: '',
+                measureTime: '',
+                highPressure: '',
+                lowPressure: '',
             };
             // 辅助操作
             this.examination = {
                 examType: '',
+                examValue: '',
             };
-            this.examinationRadio = '';
-        },
-        examinationRadio(newVal) {
-            if (newVal !== '其他') {
-                this.examination.examType = newVal;
-                return;
-            }
-            this.examination.examType = '';
         },
     },
     computed: {},
@@ -306,7 +308,7 @@ export default {
         this.pId = getPId();
         this.cos = new COS({
             getAuthorization: function(options, callback) {
-                _this.$api.get('/qkys/api/getPatientChatCosSts').then(res => {
+                _this.$api.get('/qkys/api/getPatientDiaryCosSts').then(res => {
                     var credentials = res.data.response.credentials;
                     callback({
                         TmpSecretId: credentials.tmpSecretId,
@@ -330,12 +332,21 @@ export default {
         [Uploader.name]: Uploader,
         [RadioGroup.name]: RadioGroup,
         [Radio.name]: Radio,
+        [DatetimePicker.name]: DatetimePicker,
         NavBar,
     },
     methods: {
+        bloodTimeConfirm(value) {
+            this.blood_pressure.measureTime = value;
+            this.choseBloodTimePicker = false;
+        },
         confirmType(value) {
             this.diaryMethod = value;
             this.choseTypePicker = false;
+        },
+        confirmExaminationType(value) {
+            this.examination.examType = value.value;
+            this.choseExaminationPicker = false;
         },
         async uploadCalendar() {
             let pics = [];
@@ -351,13 +362,6 @@ export default {
             }
             if (isNull) {
                 Toast('不能上传空日历');
-                return;
-            }
-            if (
-                this.diaryMethod.value === 'examination' &&
-                !this.fileList.length
-            ) {
-                Toast('请上传图片');
                 return;
             }
             this.loading = true;

@@ -208,6 +208,30 @@ const routes = [
             ),
     },
     {
+        path: '/doctor/cur-sufferer',
+        name: 'doctor-cur-sufferer-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-my-sufferer-page" */ '../module/Doctor/MySufferer/CurSufferer.vue'
+            ),
+    },
+    {
+        path: '/doctor/sup-doctor',
+        name: 'doctor-sup-doctor-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-sup-doctor-page" */ '../module/Doctor/MySufferer/SupDoctor.vue'
+            ),
+    },
+    {
+        path: '/doctor/add-diagnostics',
+        name: 'doctor-add-diagnostics',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-add-diagnostics-page" */ '../module/Doctor/MySufferer/AddDiagnostics.vue'
+            ),
+    },
+    {
         path: '/doctor/notice',
         name: 'doctor-notice-page',
         component: () =>

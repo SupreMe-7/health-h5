@@ -4,7 +4,11 @@
         <div v-if="hasDoc || hasNewSelect" class="have-doctor">
             <van-cell
                 title="您的全科医生"
-                :label="`${doctor.hospital} ${doctor.docName}医生`"
+                :label="
+                    doctor.docName
+                        ? `${doctor.hospital} ${doctor.docName}医生`
+                        : '暂无医生'
+                "
                 size="large"
                 :to="
                     `/patients/mediciner-chat?dId=${doctor.dId}&doctorName=${doctor.docName}`
@@ -18,7 +22,7 @@
             <van-cell
                 v-for="(item, index) in superior"
                 :key="index"
-                title="您的专科主管医生"
+                title="您的上级医生"
                 :label="
                     `${item.hospital}${item.specialty} ${item.level}${item.supName}医生`
                 "

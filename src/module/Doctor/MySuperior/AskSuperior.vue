@@ -5,20 +5,10 @@
             <van-field
                 readonly
                 clickable
-                label="选择患者"
+                label="患者姓名"
                 :value="patient"
                 placeholder="请选择要咨询的患者"
-                @click="chosePatientPicker = true"
             />
-            <van-popup v-model="chosePatientPicker" round position="bottom">
-                <van-picker
-                    show-toolbar
-                    :columns="patients"
-                    @cancel="chosePatientPicker = false"
-                    @confirm="confirmPatient"
-                    value-key="name"
-                />
-            </van-popup>
             <van-field
                 v-model="patientInform"
                 rows="6"
@@ -45,7 +35,7 @@
 </template>
 
 <script>
-import { Button, Divider, Toast, Picker, Field, Popup, CellGroup } from 'vant';
+import { Button, Divider, Toast, Field, CellGroup } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 
 export default {
@@ -55,50 +45,26 @@ export default {
             supId: null,
             pId: null,
             patient: '',
-            chosePatientPicker: false,
-            patients: [],
             consult: '',
             patientInform: '',
         };
     },
     computed: {},
     mounted() {
+        this.pId = this.$route.query.pId;
+        this.patient = this.$route.query.name;
         this.dId = sessionStorage.getItem('DID');
         this.supId = this.$route.query.supId;
-        this.getPatients();
     },
     components: {
         [Button.name]: Button,
         [Divider.name]: Divider,
-        [Picker.name]: Picker,
         [Field.name]: Field,
-        [Popup.name]: Popup,
         [CellGroup.name]: CellGroup,
         NavBar,
     },
     methods: {
-        getPatients() {
-            this.$api
-                .get(`/qkys/api/doc/getPatientsByDId/${this.dId}`)
-                .then(res => {
-                    this.patients = res.data;
-                })
-                .catch(e => {
-                    Toast(e.errMsg);
-                });
-        },
-        confirmPatient(item) {
-            this.patient = item.name;
-            this.pId = item.pId;
-            this.consult = '';
-            this.patientInform = '';
-            this.chosePatientPicker = false;
-        },
         submit() {
-            if (!this.patient) {
-                Toast('请选择患者');
-                return;
-            }
             if (!this.consult || !this.patientInform) {
                 Toast('请填写完整信息');
                 return;
@@ -111,7 +77,7 @@ export default {
                     patientInform: this.patientInform,
                     consult: this.consult,
                 })
-                .then(res => {
+                .then(() => {
                     Toast('提交成功');
                 })
                 .catch(e => {
