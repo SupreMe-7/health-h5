@@ -22,8 +22,8 @@
                 </div>
                 <van-empty v-else description="暂无记录" />
             </van-tab>
-            <van-tab title="健康情况">
-                <van-cell-group title="健康情况">
+            <van-tab title="健康档案">
+                <van-cell-group title="健康档案">
                     <van-cell
                         title="既往疾病史"
                         :label="healthCondition.jiWangJiBingShi"

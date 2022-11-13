@@ -13,12 +13,12 @@
                             {{ item.hospital }}
                         </div>
                     </div>
-                    <!-- <van-button
+                    <van-button
                         round
                         type="info"
-                        :to="`/doctor/ask-superior?supId=${item.supId}`"
-                        >咨询上级医生</van-button
-                    > -->
+                        :to="`/doctor/super-consultation?supId=${item.supId}`"
+                        >查询我的咨询</van-button
+                    >
                 </div>
                 <van-divider />
             </div>

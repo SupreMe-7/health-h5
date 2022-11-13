@@ -45,12 +45,12 @@
                     />
                     <div>新患者申请</div>
                 </div>
-                <div class="card" @click="toUrl('/doctor/chat-list')">
+                <div class="card" @click="toUrl('/doctor/all-consultation')">
                     <img
                         src="https://cos.zhugaotech.com/logo/WechatIMG387.jpeg"
                         alt=""
                     />
-                    <div>新患者咨询</div>
+                    <div>我的咨询</div>
                 </div>
             </div>
 
@@ -90,8 +90,11 @@
                 </div>
             </div>
         </div>
-
-        <TabBar type="doctor" :nowKey="0"></TabBar>
+        <TabBar
+            type="doctor"
+            :nowKey="0"
+            :unReadChatNum="unReadChatNum"
+        ></TabBar>
     </div>
 </template>
 
@@ -116,6 +119,7 @@ export default {
             notReadMsgNum: null,
             carouselList: [],
             recommend: [],
+            unReadChatNum: '',
         };
     },
     async mounted() {
@@ -127,6 +131,7 @@ export default {
         this.getSysMsg();
         this.uploadRegistrationId();
         this.getUrlPics();
+        this.getUnReadChatNum();
         this.getRecommand();
     },
     components: {
@@ -214,6 +219,16 @@ export default {
             }
         },
         jumpOutUrl,
+        getUnReadChatNum() {
+            return this.$api
+                .get(`/qkys/api/doc/hasNewDocotorLastChat/${this.dId}`)
+                .then(res => {
+                    this.unReadChatNum = res.data + '';
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
     },
 };
 </script>

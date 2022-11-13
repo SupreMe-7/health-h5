@@ -81,7 +81,7 @@
 
 <script>
 // 诊疗建议
-import { Tab, Tabs, List, Toast, Image as VanImage } from 'vant';
+import { Tab, Tabs, List, Toast, Image as VanImage, ImagePreview } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 import { getPId } from '@/common/util.js';
 export default {
@@ -120,6 +120,7 @@ export default {
         NavBar,
     },
     methods: {
+        ImagePreview,
         onLoad() {
             this.currPage = this.currPage + 1;
             if (this.active === 0) {

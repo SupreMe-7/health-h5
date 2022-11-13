@@ -320,6 +320,22 @@ const routes = [
             ),
     },
     {
+        path: '/doctor/all-consultation',
+        name: 'doctor-all-consultation',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-all-consultation-page" */ '../module/Doctor/MyConsultation/allConsultation.vue'
+            ),
+    },
+    {
+        path: '/doctor/super-consultation',
+        name: 'doctor-super-consultation',
+        component: () =>
+            import(
+                /* webpackChunkName: "doctor-super-consultation-page" */ '../module/Doctor/MyConsultation/superConsultation.vue'
+            ),
+    },
+    {
         path: '/doctor/my-consultation',
         name: 'doctor-my-consultation',
         component: () =>

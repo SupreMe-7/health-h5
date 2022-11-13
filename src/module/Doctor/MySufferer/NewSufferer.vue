@@ -117,10 +117,21 @@ export default {
                 .then(res => {
                     if (confirmed === this.CONFIRMED_ENUM.ADOPT) {
                         Toast('已通过');
+                        Dialog.confirm({
+                            title: '指定上级医生',
+                            message: '是否指定上级医生',
+                        })
+                            .then(() => {
+                                this.$router.push(
+                                    `/doctor/sup-doctor?pId=${this.currentItem.pId}`
+                                );
+                            })
+                            .catch(() => {
+                                location.reload();
+                            });
                     } else {
                         Toast('已拒绝');
                     }
-                    location.reload();
                 })
                 .catch(e => {
                     Toast(e.errMsg);

@@ -2,9 +2,9 @@
     <div class="personal-cases">
         <NavBar title="患者病历" />
         <van-tabs v-model="active">
-            <van-tab title="健康情况">
+            <van-tab title="健康档案">
                 <div v-if="!isEdit">
-                    <van-cell-group title="健康情况">
+                    <van-cell-group title="健康档案">
                         <van-cell
                             title="既往疾病史"
                             :label="healthCondition.jiWangJiBingShi"
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <van-cell-group title="健康情况">
+                    <van-cell-group title="健康档案">
                         <van-field
                             label="既往疾病史"
                             v-model="healthCondition.jiWangJiBingShi"

@@ -1,6 +1,5 @@
 <template>
     <div class="chat-list">
-        <NavBar title="新患者咨询" />
         <div v-if="list.length">
             <div
                 class="chat-item"
@@ -39,12 +38,13 @@
                 </div>
             </div>
         </div>
-        <van-empty v-else description="暂无新的咨询" />
+        <van-empty v-else description="暂无咨询" />
+        <TabBar type="doctor" :nowKey="2"></TabBar>
     </div>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue';
+import TabBar from '@/components/TabBar.vue';
 
 import { Toast, Badge, Empty } from 'vant';
 export default {
@@ -61,12 +61,12 @@ export default {
     components: {
         [Badge.name]: Badge,
         [Empty.name]: Empty,
-        NavBar,
+        TabBar,
     },
     methods: {
         getChatList() {
             this.$api
-                .get(`/qkys/api/doc/getNewDocotorLastChat/${this.dId}`)
+                .get(`/qkys/api/doc/getDocotorLastChat/${this.dId}`)
                 .then(res => {
                     this.list = res.data || [];
                 })

@@ -58,6 +58,12 @@ export default {
                     url: '/doctor/my-sufferer',
                 },
                 {
+                    label: '患者咨询',
+                    icon: 'chat-o',
+                    url: '/doctor/chat-list',
+                    badge: null,
+                },
+                {
                     label: '我的',
                     icon: 'user-o',
                     url: '/doctor/mine',
@@ -92,7 +98,12 @@ export default {
     },
     watch: {
         unReadChatNum(newVal) {
-            this.patientsNavBar[2].badge = +newVal;
+            if (this.type === 'patients') {
+                this.patientsNavBar[2].badge = +newVal;
+            }
+            if (this.type === 'doctor') {
+                this.doctorNavBar[2].badge = +newVal;
+            }
         },
     },
     mounted() {

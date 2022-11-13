@@ -89,7 +89,15 @@
 
 <script>
 // 诊疗建议
-import { Tab, Tabs, List, Toast, Image as VanImage, NavBar } from 'vant';
+import {
+    Tab,
+    Tabs,
+    List,
+    Toast,
+    Image as VanImage,
+    NavBar,
+    ImagePreview,
+} from 'vant';
 export default {
     data() {
         return {
@@ -128,6 +136,7 @@ export default {
         [NavBar.name]: NavBar,
     },
     methods: {
+        ImagePreview,
         onClickLeft() {
             this.$router.back();
         },
