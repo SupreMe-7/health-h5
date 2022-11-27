@@ -88,7 +88,7 @@
 </template>
 
 <script>
-// 诊疗建议
+// 医生建议
 import {
     Tab,
     Tabs,

@@ -424,6 +424,14 @@ const routes = [
             ),
     },
     {
+        path: '/supervisor/add-diagnostics',
+        name: 'supervisor-add-diagnostics',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-add-diagnostics-page" */ '../module/Supervisor/MyDoctor/AddDiagnostics.vue'
+            ),
+    },
+    {
         path: '/supervisor/answer-doctor-consult',
         name: 'superior-answer-doctor-consult',
         component: () =>
@@ -541,6 +549,30 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "supervisor-edit-informatin" */ '../module/Supervisor/PersonalInformation/EditInformation.vue'
+            ),
+    },
+    {
+        path: '/supervisor/add-record',
+        name: 'supervisor-add-record-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-add-record-page" */ '../module/Supervisor/MyDoctor/AddRecord.vue'
+            ),
+    },
+    {
+        path: '/supervisor/cur-patients',
+        name: 'supervisor-cur-patients-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-cur-patients-page" */ '../module/Supervisor/MyPatients/CurPatient.vue'
+            ),
+    },
+    {
+        path: '/supervisor/doctor-info',
+        name: 'supervisor-doctor-info-page',
+        component: () =>
+            import(
+                /* webpackChunkName: "supervisor-doctor-info-page" */ '../module/Supervisor/MyPatients/DoctorInfo.vue'
             ),
     },
     {

@@ -80,7 +80,7 @@
 </template>
 
 <script>
-// 诊疗建议
+// 医生建议
 import { Tab, Tabs, List, Toast, Image as VanImage, ImagePreview } from 'vant';
 import NavBar from '@/components/NavBar.vue';
 import { getPId } from '@/common/util.js';

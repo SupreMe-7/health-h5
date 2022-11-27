@@ -1,6 +1,15 @@
 <template>
     <div class="diagnosis-advice">
-        <NavBar title="诊疗建议" />
+        <van-nav-bar
+            left-text="返回"
+            placeholder
+            title="医生建议"
+            left-arrow
+            fixed
+            @click-left="onClickLeft"
+            @click-right="onClickRight"
+            right-text="添加医生建议"
+        />
         <van-tabs v-model="active">
             <van-tab title="全科医生建议">
                 <van-list
@@ -18,6 +27,23 @@
                             <span>时间: {{ item.createTime }}</span>
                         </div>
                         <div class="item-content">建议:{{ item.advice }}</div>
+                        <div
+                            v-if="item.pics && item.pics.length"
+                            class="show-item-img"
+                        >
+                            <van-image
+                                v-for="(ele, index) in item.pics"
+                                :key="index"
+                                width="30%"
+                                :src="ele"
+                                @click="
+                                    ImagePreview({
+                                        images: item.pics,
+                                        startPosition: index,
+                                    })
+                                "
+                            />
+                        </div>
                     </div>
                 </van-list>
             </van-tab>
@@ -38,17 +64,40 @@
                             <span>时间: {{ item.createTime }}</span>
                         </div>
                         <div class="item-content">建议:{{ item.advice }}</div>
-                    </div>
-                </van-list></van-tab
-            >
+                        <div
+                            v-if="item.pics && item.pics.length"
+                            class="show-item-img"
+                        >
+                            <van-image
+                                v-for="(ele, index) in item.pics"
+                                :key="index"
+                                width="30%"
+                                :src="ele"
+                                @click="
+                                    ImagePreview({
+                                        images: item.pics,
+                                        startPosition: index,
+                                    })
+                                "
+                            />
+                        </div>
+                    </div> </van-list
+            ></van-tab>
         </van-tabs>
     </div>
 </template>
 
 <script>
-// 诊疗建议
-import { Tab, Tabs, List, Toast } from 'vant';
-import NavBar from '@/components/NavBar.vue';
+// 医生建议
+import {
+    Tab,
+    Tabs,
+    List,
+    Toast,
+    NavBar,
+    ImagePreview,
+    Image as VanImage,
+} from 'vant';
 export default {
     data() {
         return {
@@ -82,9 +131,17 @@ export default {
         [Tab.name]: Tab,
         [Tabs.name]: Tabs,
         [List.name]: List,
-        NavBar,
+        [NavBar.name]: NavBar,
+        [VanImage.name]: VanImage,
     },
     methods: {
+        ImagePreview,
+        onClickLeft() {
+            this.$router.back();
+        },
+        onClickRight() {
+            this.$router.push(`/supervisor/add-advice?pId=${this.pId}`);
+        },
         onLoad() {
             this.currPage = this.currPage + 1;
             if (this.active === 0) {
@@ -97,6 +154,16 @@ export default {
                     })
                     .then(res => {
                         const { data } = res;
+                        this.path = data.path;
+                        data.list.forEach(item => {
+                            item.pics = [];
+                            item.picPath1 &&
+                                item.pics.push(this.path + item.picPath1);
+                            item.picPath2 &&
+                                item.pics.push(this.path + item.picPath2);
+                            item.picPath3 &&
+                                item.pics.push(this.path + item.picPath3);
+                        });
                         this.list = this.list.concat(data.list);
                         this.loading = false;
                         this.currPage = data.currPage;
@@ -119,6 +186,16 @@ export default {
                     })
                     .then(res => {
                         const { data } = res;
+                        this.path = data.path;
+                        data.list.forEach(item => {
+                            item.pics = [];
+                            item.picPath1 &&
+                                item.pics.push(this.path + item.picPath1);
+                            item.picPath2 &&
+                                item.pics.push(this.path + item.picPath2);
+                            item.picPath3 &&
+                                item.pics.push(this.path + item.picPath3);
+                        });
                         this.list = this.list.concat(data.list);
                         this.loading = false;
                         this.currPage = data.currPage;
@@ -147,6 +224,14 @@ export default {
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
+        }
+    }
+    .show-item-img {
+        margin: 10px 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        .van-image {
+            margin-right: 8px;
         }
     }
 }

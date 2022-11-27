@@ -1,53 +1,17 @@
 <template>
     <div class="my-patients">
-        <NavBar title="我的患者" />
-        <div v-for="(item, index) in list" :key="index" class="item">
-            <van-row>
-                <van-col span="12">姓名: {{ item.name }}</van-col>
-                <van-col span="12">全科医生: {{ item.docName }}</van-col>
-            </van-row>
-            <div class="opacity">
-                地址: {{ item.province }}{{ item.city }}{{ item.district }}
+        <NavBar title="患者列表" />
+        <div v-for="(item, index) in list" :key="index">
+            <div class="item" @click="onClick(item)">
+                <div class="left">
+                    <div class="name">{{ item.name }}</div>
+                    <div class="doctor">全科医生：{{ item.docName }}</div>
+                    <div class="address">
+                        {{ item.province }}{{ item.city }}{{ item.district }}
+                    </div>
+                </div>
             </div>
-            <div class="btn-group">
-                <van-button
-                    type="info"
-                    size="small"
-                    :to="`/supervisor/patients-information?pId=${item.pId}`"
-                    round
-                    >患者信息</van-button
-                >
-                <van-button
-                    type="info"
-                    size="small"
-                    :to="`/supervisor/patients-calendar?pId=${item.pId}`"
-                    round
-                    >监测日记</van-button
-                >
-                <van-button
-                    type="info"
-                    size="small"
-                    :to="`/supervisor/patients-cases?pId=${item.pId}`"
-                    round
-                    >患者病历</van-button
-                >
-                <van-button
-                    type="info"
-                    size="small"
-                    :to="
-                        `/supervisor/diagnosis-advice?pId=${item.pId}&dId=${item.dId}`
-                    "
-                    round
-                    >诊疗建议</van-button
-                >
-                <van-button
-                    type="info"
-                    size="small"
-                    :to="`/supervisor/consult?pId=${item.pId}`"
-                    round
-                    >医生咨询</van-button
-                >
-            </div>
+            <van-divider />
         </div>
     </div>
 </template>
@@ -55,7 +19,7 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 
-import { Button, Col, Row, Toast } from 'vant';
+import { Button, Col, Row, Toast, Divider } from 'vant';
 export default {
     data() {
         return {
@@ -68,6 +32,7 @@ export default {
         [Col.name]: Col,
         [Row.name]: Row,
         [Button.name]: Button,
+        [Divider.name]: Divider,
     },
     async mounted() {
         this.sId = sessionStorage.getItem('SID');
@@ -76,7 +41,8 @@ export default {
     methods: {
         getPatients() {
             this.$api
-                .get(`/qkys/api/sup/getPatientsBySuPId/${this.sId}`)
+                // .get(`/qkys/api/sup/getPatientsBySupId/${this.sId}`)
+                .get(`/qkys/api/sup/getPatientsBySupId/7`)
                 .then(res => {
                     const { data = [] } = res;
                     this.list = data;
@@ -85,8 +51,10 @@ export default {
                     Toast(e.errMsg);
                 });
         },
-        check(id) {
-            console.log(id);
+        onClick(item) {
+            this.$router.push(
+                `/supervisor/cur-patients?pId=${item.pId}&dId=${item.dId}&pName=${item.name}&dName=${item.docName}`
+            );
         },
     },
 };
@@ -94,24 +62,32 @@ export default {
 
 <style lang="less" scoped>
 .my-patients {
+    padding: 10px;
     .title {
-        margin: 15px 0 0 0;
+        margin-bottom: 12px;
         text-align: center;
-        font-size: 24px;
-    }
-    .opacity {
-        opacity: 0.7;
+        font-size: 22px;
     }
     .item {
-        padding: 10px;
-        border-bottom: 1px solid #ebedf0;
-        .btn-group {
-            padding: 0 10px 0 0;
-            margin: 10px 0 0 0;
-            .van-button {
-                margin: 0 10px 5px 0;
-            }
+        .van-button {
+            margin-right: 4px;
         }
+    }
+    .left {
+        flex-grow: 1;
+    }
+    .name {
+        font-size: 18px;
+        opacity: 0.8;
+    }
+    .doctor {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+    .address {
+        margin: 3px 0;
+        font-size: 14px;
+        color: #5f5b5b;
     }
 }
 </style>

@@ -31,7 +31,13 @@
                                 />
                             </div>
                             <div class="diagnosis-time">
-                                <span>医生：{{ item.doctorName }}</span>
+                                <span
+                                    >{{
+                                        item.doctorType === 'Doc'
+                                            ? '全科医生'
+                                            : '上级医生'
+                                    }}：{{ item.doctorName }}</span
+                                >
                                 <span>{{ item.createTime.slice(0, 10) }}</span>
                             </div>
                             <van-divider />

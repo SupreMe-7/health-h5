@@ -34,7 +34,7 @@
                         :to="
                             `/supervisor/diagnosis-advice?pId=${item.pId}&dId=${dId}`
                         "
-                        >诊疗建议</van-button
+                        >医生建议</van-button
                     >
                 </div>
             </div>

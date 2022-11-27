@@ -20,7 +20,7 @@
                         size="small"
                         round
                         :to="`/supervisor/patients-calendar?pId=${item.pId}`"
-                        >监测日记</van-button
+                        >监测回顾</van-button
                     >
                     <van-button
                         size="small"
@@ -34,7 +34,7 @@
                         :to="
                             `/supervisor/diagnosis-advice?pId=${item.pId}&dId=${dId}`
                         "
-                        >诊疗建议</van-button
+                        >医生建议</van-button
                     >
                 </div>
             </div>

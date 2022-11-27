@@ -38,22 +38,20 @@
                     "
                     >患者咨询</van-button
                 >
-                <div>
-                    <van-button
-                        :disabled="!data.supId"
-                        round
-                        :to="
-                            `/doctor/ask-superior?pId=${data.pId}&name=${data.name}&supId=${data.supId}`
-                        "
-                        >咨询上级医生</van-button
-                    >
-                    <van-button
-                        :disabled="!data.supId"
-                        round
-                        :to="`/doctor/my-consultation?pId=${data.pId}`"
-                        >查询上级医生咨询</van-button
-                    >
-                </div>
+                <van-button
+                    :disabled="!data.supId"
+                    round
+                    :to="
+                        `/doctor/ask-superior?pId=${data.pId}&name=${data.name}&supId=${data.supId}`
+                    "
+                    >咨询上级医生</van-button
+                >
+                <van-button
+                    :disabled="!data.supId"
+                    round
+                    :to="`/doctor/my-consultation?pId=${data.pId}`"
+                    >查询上级医生咨询</van-button
+                >
             </div>
             <van-divider />
         </div>
@@ -68,6 +66,7 @@ export default {
     data() {
         return {
             dId: null,
+            pId: null,
             data: {},
         };
     },
