@@ -86,6 +86,19 @@ export default {
                     url: '/supervisor/mine',
                 },
             ],
+            adminNavBar: [
+                {
+                    label: '首页',
+                    icon: 'wap-home-o',
+                    url: '/admin/home',
+                    badge: null,
+                },
+                {
+                    label: '我的',
+                    icon: 'user-o',
+                    url: '/admin/mine',
+                },
+            ],
         };
     },
     computed: {
@@ -115,6 +128,9 @@ export default {
         }
         if (this.type === 'supervisor') {
             this.nowTabbarList = this.supervisorNavBar;
+        }
+        if (this.type === 'admin') {
+            this.nowTabbarList = this.adminNavBar;
         }
     },
     components: {

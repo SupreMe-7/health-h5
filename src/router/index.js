@@ -599,6 +599,94 @@ const routes = [
                 /* webpackChunkName: "admin-home" */ '../module/Admin/Home/index.vue'
             ),
     },
+    {
+        path: '/admin/audit',
+        name: 'admin-audit',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-audit" */ '../module/Admin/Audit/index.vue'
+            ),
+    },
+    {
+        path: '/admin/recommend-manage',
+        name: 'admin-recommend-manage',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-recommend-manage" */ '../module/Admin/RecommendManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/recommend-manage-detail',
+        name: 'admin-recommend-manage-detail',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-recommend-manage-detail" */ '../module/Admin/RecommendManage/Detail.vue'
+            ),
+    },
+    {
+        path: '/admin/recommend-manage-add',
+        name: 'admin-recommend-manage-add',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-recommend-manage-add" */ '../module/Admin/RecommendManage/Add.vue'
+            ),
+    },
+    {
+        path: '/admin/msg-manage',
+        name: 'admin-msg-manage',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-msg-manage" */ '../module/Admin/MsgManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/msg-manage-detail',
+        name: 'admin-msg-manage',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-msg-manage-detail" */ '../module/Admin/MsgManage/Detail.vue'
+            ),
+    },
+    {
+        path: '/admin/msg-manage-add',
+        name: 'admin-msg-manage-add',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-msg-manage-add" */ '../module/Admin/MsgManage/Add.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage',
+        name: 'admin-user-manage',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage" */ '../module/Admin/UserManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa',
+        name: 'admin-user-manage-pa',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa" */ '../module/Admin/UserManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/doc',
+        name: 'admin-user-manage-doc',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-doc" */ '../module/Admin/UserManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/sup',
+        name: 'admin-user-manage-sup',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-sup" */ '../module/Admin/UserManage/index.vue'
+            ),
+    },
 ];
 
 const router = new VueRouter({
