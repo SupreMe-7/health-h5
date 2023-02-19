@@ -668,7 +668,47 @@ const routes = [
         name: 'admin-user-manage-pa',
         component: () =>
             import(
-                /* webpackChunkName: "admin-user-manage-pa" */ '../module/Admin/UserManage/index.vue'
+                /* webpackChunkName: "admin-user-manage-pa" */ '../module/Admin/UserManage/Pa/Pa.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa/cur-pa',
+        name: 'admin-user-manage-pa-cur-pa',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa" */ '../module/Admin/UserManage/Pa/CurPa.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa/pa-information',
+        name: 'admin-user-manage-pa-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa-information" */ '../module/Admin/UserManage/Pa/PaInformation.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa/pa-calendar',
+        name: 'admin-user-manage-pa-calendar',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa-calendar" */ '../module/Admin/UserManage/Pa/PaCalendar.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa/pa-cases',
+        name: 'admin-user-manage-pa-cases',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa-cases" */ '../module/Admin/UserManage/Pa/PaCases.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/pa/pa-docadvice',
+        name: 'admin-user-manage-pa-docadvice',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-pa-docadvice" */ '../module/Admin/UserManage/Pa/PaDocAdvice.vue'
             ),
     },
     {
@@ -685,6 +725,14 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "admin-user-manage-sup" */ '../module/Admin/UserManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/data-statistics',
+        name: 'admin-data-statistics',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-data-statistics" */ '../module/Admin/DataStatistics/index.vue'
             ),
     },
 ];

@@ -10,6 +10,12 @@
                 placeholder="请选择诊断"
                 @click="show = true"
             />
+            <van-field
+                v-if="isOther"
+                v-model="otherName"
+                label="诊断名称"
+                placeholder="请输入诊断名称"
+            />
             <van-popup v-model="show" round position="bottom">
                 <van-cascader
                     v-model="curValue"
@@ -44,6 +50,8 @@ export default {
                 value: 'id',
             },
             selectedOptions: {},
+            isOther: false,
+            otherName: '',
         };
     },
     components: {
@@ -77,6 +85,14 @@ export default {
                 .map(option => option.name)
                 .join('/');
             this.selectedOptions = selectedOptions;
+            if (
+                this.selectedOptions[this.selectedOptions.length - 1].name ===
+                '其它'
+            ) {
+                this.isOther = true;
+            } else {
+                this.isOther = false;
+            }
         },
         submit() {
             let data =
@@ -84,7 +100,9 @@ export default {
             this.$api
                 .post(`/qkys/api/doc/addPatientDiagnostica`, {
                     pId: this.pId,
-                    diagnostica: data.name,
+                    diagnostica: !this.isOther
+                        ? data.name
+                        : `其它：${this.otherName}`,
                     diagnosticaId: data.id,
                     doctorId: this.dId,
                     doctorType: 'Doc',

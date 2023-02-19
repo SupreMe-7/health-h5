@@ -1,17 +1,23 @@
 <template>
     <div class="my-patients">
         <NavBar title="患者列表" />
-        <div v-for="(item, index) in list" :key="index">
-            <div class="item" @click="onClick(item)">
-                <div class="left">
-                    <div class="name">{{ item.name }}</div>
-                    <div class="doctor">全科医生：{{ item.docName }}</div>
-                    <div class="address">
-                        {{ item.province }}{{ item.city }}{{ item.district }}
+        <div v-if="list.length">
+            <div v-for="(item, index) in list" :key="index">
+                <div class="item" @click="onClick(item)">
+                    <div class="left">
+                        <div class="name">{{ item.name }}</div>
+                        <div class="doctor">全科医生：{{ item.docName }}</div>
+                        <div class="address">
+                            {{ item.province }}{{ item.city
+                            }}{{ item.district }}
+                        </div>
                     </div>
                 </div>
+                <van-divider />
             </div>
-            <van-divider />
+        </div>
+        <div>
+            <van-empty description="暂无患者" />
         </div>
     </div>
 </template>
@@ -19,7 +25,7 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 
-import { Button, Col, Row, Toast, Divider } from 'vant';
+import { Button, Col, Row, Toast, Divider, Empty } from 'vant';
 export default {
     data() {
         return {
@@ -33,6 +39,7 @@ export default {
         [Row.name]: Row,
         [Button.name]: Button,
         [Divider.name]: Divider,
+        [Empty.name]: Empty,
     },
     async mounted() {
         this.sId = sessionStorage.getItem('SID');
@@ -41,8 +48,7 @@ export default {
     methods: {
         getPatients() {
             this.$api
-                // .get(`/qkys/api/sup/getPatientsBySupId/${this.sId}`)
-                .get(`/qkys/api/sup/getPatientsBySupId/7`)
+                .get(`/qkys/api/sup/getPatientsBySupId/${this.sId}`)
                 .then(res => {
                     const { data = [] } = res;
                     this.list = data;

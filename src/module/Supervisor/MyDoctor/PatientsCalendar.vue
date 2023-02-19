@@ -393,9 +393,6 @@ export default {
             }
             .show-item-info {
                 display: flex;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
                 .show-item-info-pressure {
                     flex-grow: 1;
                 }

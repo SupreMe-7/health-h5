@@ -47,7 +47,7 @@ export default {
                 },
                 {
                     label: '数据统计',
-                    url: '',
+                    url: '/admin/data-statistics',
                 },
             ],
         };
