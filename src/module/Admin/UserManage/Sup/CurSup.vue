@@ -1,6 +1,6 @@
 <template>
     <div class="my-sufferer">
-        <NavBar title="患者菜单" />
+        <NavBar title="上级医生菜单" />
         <div class="item">
             <div class="left">
                 <div class="name">
@@ -12,49 +12,30 @@
                     </div>
                 </div>
                 <div class="time">
-                    上次登录时间：{{ lastLoginTime || '暂无' }}
-                </div>
-                <div
-                    class="doctor"
-                    @click="
-                        $router.push(
-                            `/admin/user-manage/doc/cur-doc?dId=${data.dId}`
-                        )
-                    "
-                >
-                    全科医生：{{ data.docName || '暂无全科医生' }}
-                </div>
-                <div
-                    class="doctor"
-                    @click="
-                        $router.push(
-                            `/admin/user-manage/sup/cur-sup?sId=${data.supId}`
-                        )
-                    "
-                >
-                    上级医生：{{ data.supName || '暂无上级医生' }}
+                    上次登录时间：{{ data.lastLoginTime || '暂无' }}
                 </div>
             </div>
             <div>
                 <van-button
                     round
-                    :to="`/admin/user-manage/pa/pa-information?pId=${data.pId}`"
+                    :to="
+                        `/admin/user-manage/sup/sup-information?sId=${this.sId}`
+                    "
                     >一般信息</van-button
                 >
                 <van-button
                     round
-                    :to="`/admin/user-manage/pa/pa-calendar?pId=${data.pId}`"
-                    >监测回顾</van-button
+                    :to="
+                        `/admin/user-manage/sup/sup-manage-doc?sId=${this.sId}`
+                    "
+                    >管理的全科医生</van-button
                 >
                 <van-button
                     round
-                    :to="`/admin/user-manage/pa/pa-cases?pId=${data.pId}`"
-                    >患者病历</van-button
-                >
-                <van-button
-                    round
-                    :to="`/admin/user-manage/pa/pa-docadvice?pId=${data.pId}`"
-                    >医生建议</van-button
+                    :to="
+                        `/admin/user-manage/sup/sup-doc-consult?sId=${this.sId}`
+                    "
+                    >全科医生咨询</van-button
                 >
             </div>
             <van-divider />
@@ -70,17 +51,15 @@ export default {
     data() {
         return {
             adminId: null,
-            pId: null,
+            sId: null,
             data: {},
-            lastLoginTime: '',
         };
     },
     computed: {},
     mounted() {
         this.adminId = sessionStorage.getItem('adminId');
-        this.pId = this.$route.query.pId;
+        this.sId = this.$route.query.sId;
         this.getData();
-        this.getLoginTime();
     },
     components: {
         [Button.name]: Button,
@@ -90,24 +69,10 @@ export default {
     methods: {
         getData() {
             this.$api
-                .get(`/qkys/api/admin/getPatientSupByPId/${this.pId}`)
+                .get(`/qkys/api/admin/getSuperiorBySupId/${this.sId}`)
                 .then(res => {
                     const { data } = res;
                     this.data = data;
-                })
-                .catch(e => {
-                    Toast(e.errMsg);
-                });
-        },
-        getLoginTime() {
-            this.$api
-                .post(`/qkys/api/admin/getUserLastLogin`, {
-                    id: this.pId,
-                    role: 'Pa',
-                })
-                .then(res => {
-                    const { data } = res;
-                    this.lastLoginTime = data && data.lastLoginTime;
                 })
                 .catch(e => {
                     Toast(e.errMsg);
@@ -121,7 +86,7 @@ export default {
                 .then(() => {
                     this.$api
                         .get(
-                            `/qkys/api/admin/clearPatientInfoByPId/${this.pId}/${this.adminId}`
+                            `/qkys/api/admin/clearSuperiorInfoBySupId/${this.sId}/${this.adminId}`
                         )
                         .then(() => {
                             this.$router.back();

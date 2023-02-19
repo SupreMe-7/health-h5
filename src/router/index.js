@@ -641,7 +641,7 @@ const routes = [
     },
     {
         path: '/admin/msg-manage-detail',
-        name: 'admin-msg-manage',
+        name: 'admin-msg-manage-detail',
         component: () =>
             import(
                 /* webpackChunkName: "admin-msg-manage-detail" */ '../module/Admin/MsgManage/Detail.vue'
@@ -716,7 +716,39 @@ const routes = [
         name: 'admin-user-manage-doc',
         component: () =>
             import(
-                /* webpackChunkName: "admin-user-manage-doc" */ '../module/Admin/UserManage/index.vue'
+                /* webpackChunkName: "admin-user-manage-doc" */ '../module/Admin/UserManage/Doc/Doc.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/doc/cur-doc',
+        name: 'admin-user-manage-doc-cur-doc',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-doc-cur-doc" */ '../module/Admin/UserManage/Doc/CurDoc.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/doc/doc-information',
+        name: 'admin-user-manage-doc-doc-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-doc-doc-information" */ '../module/Admin/UserManage/Doc/DocInformation.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/doc/doc-manage-pa',
+        name: 'admin-user-manage-doc-doc-manage-pa',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-doc-doc-manage-pa" */ '../module/Admin/UserManage/Doc/ManagePa.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/doc/doc-sup-consult',
+        name: 'admin-user-manage-doc-doc-sup-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-doc-doc-sup-consult" */ '../module/Admin/UserManage/Doc/SupConsult.vue'
             ),
     },
     {
@@ -724,7 +756,39 @@ const routes = [
         name: 'admin-user-manage-sup',
         component: () =>
             import(
-                /* webpackChunkName: "admin-user-manage-sup" */ '../module/Admin/UserManage/index.vue'
+                /* webpackChunkName: "admin-user-manage-sup" */ '../module/Admin/UserManage/Sup/Sup.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/sup/cur-sup',
+        name: 'admin-user-manage-sup-cur-sup',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-sup-cur-sup" */ '../module/Admin/UserManage/Sup/CurSup.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/sup/sup-information',
+        name: 'admin-user-manage-sup-sup-information',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-sup-sup-information" */ '../module/Admin/UserManage/Sup/SupInformation.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/sup/sup-manage-doc',
+        name: 'admin-user-manage-sup-sup-manage-doc',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-sup-sup-manage-doc" */ '../module/Admin/UserManage/Sup/ManageDoc.vue'
+            ),
+    },
+    {
+        path: '/admin/user-manage/sup/sup-doc-consult',
+        name: 'admin-user-manage-sup-sup-doc-consult',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-user-manage-sup-sup-doc-consult" */ '../module/Admin/UserManage/Sup/DocConsult.vue'
             ),
     },
     {

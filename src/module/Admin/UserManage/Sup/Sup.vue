@@ -1,6 +1,6 @@
 <template>
     <div class="user-manage-pa">
-        <NavBar title="患者用户" />
+        <NavBar title="上级医生用户" />
         <div class="search">
             <van-popover
                 v-model="showPopover"
@@ -37,8 +37,7 @@
                     <div class="left">
                         <div class="name">{{ item.name }}</div>
                         <div class="address">
-                            {{ item.province }}{{ item.city
-                            }}{{ item.district }}
+                            {{ item.hospital }}
                         </div>
                     </div>
                 </div>
@@ -93,7 +92,7 @@ export default {
             this.loading = true;
             this.currPage = this.currPage + 1;
             this.$api
-                .post(`/qkys/api/admin/getPatientBySearch`, {
+                .post(`/qkys/api/admin/getSuperiorBySearch`, {
                     searchType: this.searchType,
                     param: this.param,
                     currPage: this.currPage,
@@ -116,7 +115,7 @@ export default {
         },
         getActions() {
             this.$api
-                .get(`/qkys/api/admin/getPatientSearchType`)
+                .get(`/qkys/api/admin/getSuperiorSearchType`)
                 .then(res => {
                     const { data } = res;
                     this.actions = data.map(item => {
@@ -129,7 +128,7 @@ export default {
                 });
         },
         onClick(item) {
-            this.$router.push(`/admin/user-manage/pa/cur-pa?pId=${item.pId}`);
+            this.$router.push(`/admin/user-manage/sup/cur-sup?sId=${item.id}`);
         },
         onSearch() {
             this.currPage = 0;
