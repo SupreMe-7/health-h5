@@ -239,7 +239,7 @@ export default {
         font-size: 18px;
         .notice-wrapper {
             padding: 12px 0;
-            margin-right: 8px;
+            margin: 0 8px;
         }
         .notice-item-topic {
             display: flex;
