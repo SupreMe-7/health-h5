@@ -33,21 +33,48 @@
                 class="notice-list-item"
                 @click="viewNotice(item)"
             >
-                <div class="notice-item-topic">
-                    <div class="topic-text">
-                        <van-badge v-if="!item.isRead" dot />{{ item.topic }}
+                <van-swipe-cell>
+                    <div class="notice-wrapper">
+                        <div class="notice-item-topic">
+                            <div class="topic-text">
+                                <van-badge v-if="!item.isRead" dot />{{
+                                    item.topic
+                                }}
+                            </div>
+                            <div class="time">{{ item.createTime }}</div>
+                        </div>
+                        <div class="notice-item-content">
+                            {{ item.message }}
+                        </div>
                     </div>
-                    <div class="time">{{ item.createTime }}</div>
-                </div>
-                <div class="notice-item-content">{{ item.message }}</div>
-                <van-divider />
+                    <div class="line"></div>
+                    <template #right>
+                        <van-button
+                            square
+                            text="删除"
+                            type="danger"
+                            class="delete-button"
+                            @click="deleteMsg(item)"
+                        />
+                    </template>
+                </van-swipe-cell>
             </div>
         </van-list>
     </div>
 </template>
 
 <script>
-import { Tab, Tabs, List, Icon, Badge, Divider, Dialog, Toast } from 'vant';
+import {
+    Tab,
+    Tabs,
+    List,
+    Icon,
+    Badge,
+    Dialog,
+    Toast,
+    SwipeCell,
+    Button,
+} from 'vant';
 import NavBar from '@/components/NavBar.vue';
 const MSG_TYPE_ENUM = {
     Notification: 'Notification',
@@ -88,7 +115,8 @@ export default {
         [List.name]: List,
         [Icon.name]: Icon,
         [Badge.name]: Badge,
-        [Divider.name]: Divider,
+        [SwipeCell.name]: SwipeCell,
+        [Button.name]: Button,
         NavBar,
     },
     methods: {
@@ -185,6 +213,20 @@ export default {
                     Toast(e.errMsg);
                 });
         },
+        deleteMsg(item) {
+            this.$api
+                .post(`/qkys/api/deleteUserMsg`, {
+                    role: 'Doc',
+                    id: this.dId,
+                    msgs: [item.id],
+                })
+                .then(() => {
+                    location.reload();
+                })
+                .catch(e => {
+                    Toast(e.errMsg);
+                });
+        },
     },
 };
 </script>
@@ -211,14 +253,16 @@ export default {
         }
     }
     .notice-list-item {
-        margin: 10px 0;
-        padding: 0 10px;
         font-size: 18px;
+        .notice-wrapper {
+            padding: 12px 0;
+            margin-right: 8px;
+        }
         .notice-item-topic {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 5px 0;
+            margin: 0 0 5px 0;
             .topic-text {
                 margin-right: 5px;
                 flex-grow: 1;
@@ -232,6 +276,9 @@ export default {
                 color: #969799;
             }
         }
+        .delete-button {
+            height: 100%;
+        }
         .notice-item-content {
             font-size: 14px;
             color: #969799;
@@ -239,6 +286,9 @@ export default {
             white-space: nowrap;
             text-overflow: ellipsis;
         }
+    }
+    .line {
+        border-bottom: 1px solid rgb(242, 230, 230);
     }
 }
 </style>
