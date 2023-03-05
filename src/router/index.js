@@ -792,6 +792,38 @@ const routes = [
             ),
     },
     {
+        path: '/admin/hospital-manage',
+        name: 'admin-hospital-manage',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-hospital-manage" */ '../module/Admin/HospitalManage/index.vue'
+            ),
+    },
+    {
+        path: '/admin/hospital-manage-detail',
+        name: 'admin-hospital-manage-detail',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-hospital-manage-detail" */ '../module/Admin/HospitalManage/Detail.vue'
+            ),
+    },
+    {
+        path: '/admin/hospital-manage-add',
+        name: 'admin-hospital-manage-add',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-hospital-manage-add" */ '../module/Admin/HospitalManage/Add.vue'
+            ),
+    },
+    {
+        path: '/admin/mine',
+        name: 'admin-mine',
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-mine" */ '../module/Admin/Mine/index.vue'
+            ),
+    },
+    {
         path: '/admin/data-statistics',
         name: 'admin-data-statistics',
         component: () =>

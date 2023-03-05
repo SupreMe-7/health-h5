@@ -35,7 +35,7 @@ export default {
                 },
                 {
                     label: '机构管理',
-                    url: '',
+                    url: '/admin/hospital-manage',
                 },
                 {
                     label: '推荐阅读管理',
