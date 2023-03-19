@@ -63,7 +63,7 @@ export default {
         submit() {
             this.$api
                 .post(`/qkys/api/sup/addSuperiorReply`, {
-                    consultId: this.item.id,
+                    consultId: this.item.consultId,
                     pId: this.item.pId,
                     dId: this.item.dId,
                     reply: this.reply,
